@@ -1,55 +1,55 @@
 import numpy as np
-from PyQt6.QtWidgets import QGraphicsView, QGraphicsScene, QGraphicsLineItem, QGraphicsEllipseItem, QGraphicsTextItem
-from PyQt6.QtCore import QPointF, Qt
-from PyQt6.QtGui import QPen, QColor
+import pyqtgraph as pg
+from PyQt6.QtWidgets import QVBoxLayout
 
-# 繪製圖表的類
 class LineChartDrawer:
-    def __init__(self, graphics_view: QGraphicsView):
-        self.view = graphics_view
-        self.scene = QGraphicsScene()
-        self.view.setScene(self.scene)
-        self.data_points = np.zeros((20, 2))  # 儲存 20 個點 (x, y)
-        self.x_offset = 0  # 用來控制折線圖向左移動的偏移量
+    def __init__(self, container_widget, num_lines=1, window_width=100,y_range = (-180,180)):
+        self.window_width = window_width
+        self.y_range = y_range
+        self.max_len = 100000
+        self.num_lines = num_lines  # 支持多條線
 
-        # 繪製坐標軸
-        self.draw_axes()
+        if container_widget.layout() is None:
+            container_widget.setLayout(QVBoxLayout())
 
-    def update_chart(self, data_value: float):
-        # 每次新增新點時，將現有的點往左移動
-        self.x_offset += 5  # 每個點的寬度設置為 10px
+        self.plot_widget = pg.PlotWidget()
+        self.plot_widget.setBackground('w')
+        self.plot_widget.showGrid(x=True, y=True)
+        self.plot_widget.setYRange(*self.y_range)
 
-        # 使用 np.roll 來將數據點往左移動
-        self.data_points = np.roll(self.data_points, shift=-1, axis=0)
-        self.data_points[-1] = [self.x_offset, data_value]  # 更新最後一個點
+        # 初始化數據 (num_lines 條線，每條 max_len 點)
+        self.data_points = np.zeros((num_lines, self.max_len))
+        self.time_axis = np.zeros(self.max_len)
+        self.current_x = 0 
 
-        # 刪除最舊的數據點
-        if len(self.scene.items()) > 20:  # 當顯示的點超過 20 個時，移除最舊的點
-            self.scene.removeItem(self.scene.items()[0])
+        # 創建多條曲線
+        colors = ['g', 'r', 'b', 'm', 'c', 'y']  # 預設顏色
+        self.curves = [
+            self.plot_widget.plot(self.time_axis, self.data_points[i], pen=pg.mkPen(color=colors[i % len(colors)], width=2))
+            for i in range(num_lines)
+        ]
 
-        # 繪製新的折線
-        for i in range(1, len(self.data_points)):
-            prev_point = self.data_points[i - 1]
-            curr_point = self.data_points[i]
-            line = QGraphicsLineItem(prev_point[0], prev_point[1], curr_point[0], curr_point[1])
-            line.setPen(QPen(QColor(0, 255, 0)))  # 設置顏色為綠色
-            self.scene.addItem(line)
+        container_widget.layout().addWidget(self.plot_widget)
 
-        # 添加新的點
-        new_point = QPointF(self.data_points[-1][0], self.data_points[-1][1])
-        self.scene.addEllipse(new_point.x() - 2, new_point.y() - 2, 4, 4, pen=QPen(QColor(255, 0, 0)), brush=QColor(255, 0, 0))  # 小紅點
+    def update_chart(self, data_values, auto=False):
+        """data_values 應該是一個 list 或 np.array，包含每條線的數據"""
+        self.current_x += 1 
 
-        # 使視圖滾動到右側以顯示新的點
-        self.view.ensureVisible(new_point.x() - 50, new_point.y() - 50, 100, 100)
+        if len(self.time_axis) < self.max_len:
+            self.time_axis = np.append(self.time_axis, self.current_x)
+        else:
+            self.time_axis = np.roll(self.time_axis, -1)
+            self.time_axis[-1] = self.current_x
 
-    def draw_axes(self):
-        # 畫 Y 軸
-        y_axis = QGraphicsLineItem(0, 0, 0, 300)
-        y_axis.setPen(QPen(QColor(0, 0, 0)))  # 黑色
-        self.scene.addItem(y_axis)
+        for i in range(self.num_lines):
+            value = data_values[i] if i < len(data_values) else 0  # 確保數據不會超出範圍
+            if len(self.data_points[i]) < self.max_len:
+                self.data_points[i] = np.append(self.data_points[i], value)
+            else:
+                self.data_points[i] = np.roll(self.data_points[i], -1)
+                self.data_points[i][-1] = value
 
-        # 畫 Y 軸數字
-        for i in range(-180, 181, 10):
-            text = QGraphicsTextItem(str(i))
-            text.setPos(-20, i)
-            self.scene.addItem(text)
+            self.curves[i].setData(self.time_axis, self.data_points[i])
+
+        if auto:
+            self.plot_widget.setXRange(self.current_x - self.window_width, self.current_x)

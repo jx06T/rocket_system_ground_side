@@ -20,16 +20,38 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
         self.init_gui()
 
-        self.chart_1 = LineChartDrawer(self.ui.graphicsView)
-        self.chart_2 = LineChartDrawer(self.ui.graphicsView_3)
+        self.chart_1 = LineChartDrawer(self.ui.chart_widget_1,2,100)
+        self.chart_2 = LineChartDrawer(self.ui.chart_widget_2,1,100,(0,360))
 
     def init_gui(self):
-        self.ui.label_4.setText("v1.0.0")
-        self.ui.label_5.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Connecting')
+        self.ui.version_label.setText("v1.0.0")
+        self.ui.serial_label.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Connecting')
+        self.ui.chart_label_1.setText("rotationPitch&Roll")
+        self.ui.chart_label_2.setText("direction")
+        self.ui.chart_checkBox_1.setChecked(True)
+        self.ui.chart_checkBox_2.setChecked(True)
+        self.ui.chart_checkBox_3.setChecked(True)
+           
+        self.ui.listWidget.clear()
+        stages = [
+            "Pre-launch Preparation",
+            "Ignition & Liftoff",
+            "Ascent - 25% Altitude",
+            "Ascent - 50% Altitude",
+            "Ascent - 75% Altitude",
+            "Apogee ",
+            "Parachute Deployment",
+            "Descent Altitude",
+            "Landing"
+        ]
+
+        # 用 new_items 填充 listWidget
+        self.ui.listWidget.addItems(stages)
+        
 
     def update_ui(self, data: SensorData):
-        self.chart_1.update_chart(data.rotationPitch)
-        self.chart_2.update_chart(data.rotationRoll) 
+        self.chart_1.update_chart([data.rotationRoll,data.rotationPitch],self.ui.chart_checkBox_1.isChecked())
+        self.chart_2.update_chart([data.direction],self.ui.chart_checkBox_2.isChecked()) 
         # print(data)
         
     def handle_error(self, error: Exception):
