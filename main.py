@@ -6,7 +6,6 @@ from src.gui.main_window import MainWindow
 from src.storage.storage_observer import StorageObserver
 # from src.gui.qt_observer import QtGuiObserver
 
-
 def setup_logging():
     # 創建基礎配置
     logging.basicConfig(

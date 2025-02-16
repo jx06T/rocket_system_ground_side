@@ -2,3 +2,5 @@ PyQt6
 pyserial
 numpy
 pyqtgraph
+folium
+PyQt6-WebEngine

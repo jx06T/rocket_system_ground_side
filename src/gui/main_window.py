@@ -1,12 +1,15 @@
 import numpy as np
 import logging
 from PyQt6.QtWidgets import QApplication, QMainWindow ,QVBoxLayout
+from PyQt6.QtQuick import QQuickWindow, QSGRendererInterface
+
 from src.gui.ui_main import Ui_MainWindow  
 from src.gui.qt_observer import QtGuiObserver
 from src.gui.visualizers.line_chart import LineChartDrawer
 from src.gui.visualizers.stage_display import StageDisplayer
 from src.gui.visualizers.log_displayer import LogDisplayer
-from src.gui.visualizers.visualization_tools import euler_to_quaternion
+from src.gui.visualizers.location_displayer import LocationDisplayer
+from src.gui.visualizers.visualization_tools import euler_to_quaternion,quaternion_multiply
 from src.gui.visualizers.attitude_displayer import AttitudeDisplayer, CubeGLWidget  
 from src.core.communicator import SerialCommunicator
 from src.core.models import SensorData
@@ -14,6 +17,8 @@ from src.core.models import SensorData
 class MainWindow(QMainWindow):
     def __init__(self, serial_communicator: SerialCommunicator):
         super().__init__()
+        # QQuickWindow.setGraphicsApi(QSGRendererInterface.GraphicsApi.OpenGL)
+
         self.angle_deviation = 0
         self.serial_communicator = serial_communicator
         self.latest_data = None
@@ -42,6 +47,8 @@ class MainWindow(QMainWindow):
         self.ui.lineEdit.setPlaceholderText("Command-Line...")
         self.ui.lineEdit.returnPressed.connect(self.on_enter_pressed)
         
+        self.location_displayer = LocationDisplayer(self.ui.map_widget)
+
         self.log_display = LogDisplayer(self.ui.log_textEdit) 
 
         self.logger = logging.getLogger(__name__)
@@ -57,6 +64,7 @@ class MainWindow(QMainWindow):
             case _:
                 self.logger.error('Unknown command')
 
+
     def init_gui(self):
         self.ui.version_label.setText("v1.0.0")
         self.ui.serial_label.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Connecting')
@@ -69,24 +77,34 @@ class MainWindow(QMainWindow):
            
         self.ui.listWidget.clear()
         
-    def handle_angle_change(self,):
+    def handle_angle_change(self,pitch: float, roll: float, yaw: float):
+        yaw_quaternion = euler_to_quaternion(yaw, 0, 0)
+        pitch_roll_quaternion = euler_to_quaternion(0, pitch, roll)
+        quaternion = quaternion_multiply(yaw_quaternion,pitch_roll_quaternion)
+        quaternion = quaternion / np.linalg.norm(quaternion)
+
+        return quaternion
+
 
     def update_ui(self, data: SensorData):
         self.ui.serial_label.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Connecting')
+        self.ui.map_label.setText(f'Latitude:{round(data.location[0],4)}|Longitude:{round(data.location[1],4)}')
         self.chart_1.update([data.rotationRoll,data.rotationPitch],self.ui.chart_checkBox_1.isChecked())
         self.chart_2.update([data.direction],self.ui.chart_checkBox_2.isChecked()) 
 
-        # 處理角度，之後要用累積的方式
-        self.quaternion = euler_to_quaternion(-data.rotationPitch, data.rotationRoll,180-((data.direction - self.angle_deviation+360)%360)) 
+        self.quaternion = self.handle_angle_change(-data.rotationPitch,data.rotationRoll,180-((data.direction-self.angle_deviation+360)%360))
         self.attitude_displayer.update(self.quaternion)
 
         self.stage_display.update(data.stage,data.failedTasks) 
+
+        if self.latest_data and self.ui.map_checkBox.isChecked() and self.latest_data.location != data.location:
+            self.location_displayer.update(self.latest_data.location)
+
         self.latest_data = data
-        
+
     
         
     def handle_error(self, error):
-        # self.logger.error(error)
         if error == "disconnect":
             self.ui.serial_label.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Disconnect')
 

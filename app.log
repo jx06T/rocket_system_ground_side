@@ -1577,3 +1577,559 @@
 2025-02-16 18:21:08 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
 2025-02-16 18:21:08 [src.core.communicator] [INFO] Serial communication started
 2025-02-16 18:21:08 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 18:32:24 [root] [INFO] Logging system initialized
+2025-02-16 18:32:24 [root] [INFO] Initializing serial communication...
+2025-02-16 18:32:24 [root] [INFO] Setting up storage observer...
+2025-02-16 18:32:24 [root] [INFO] Creating main window...
+2025-02-16 18:32:24 [root] [INFO] Starting serial communication...
+2025-02-16 18:32:24 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 18:32:24 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 18:32:24 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 18:33:00 [src.gui.main_window] [INFO] Reset angle deviation successfully
+2025-02-16 18:33:17 [src.gui.main_window] [INFO] Reset angle deviation successfully
+2025-02-16 18:37:50 [src.core.communicator] [ERROR] Data processing queue error: 'utf-8' codec can't decode byte 0xa3 in position 33: invalid start byte
+2025-02-16 20:24:52 [root] [INFO] Logging system initialized
+2025-02-16 20:24:52 [root] [INFO] Initializing serial communication...
+2025-02-16 20:24:52 [root] [INFO] Setting up storage observer...
+2025-02-16 20:24:52 [root] [INFO] Creating main window...
+2025-02-16 20:24:53 [root] [INFO] Starting serial communication...
+2025-02-16 20:24:53 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 20:24:53 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 20:24:53 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 20:25:36 [root] [INFO] Logging system initialized
+2025-02-16 20:25:36 [root] [INFO] Initializing serial communication...
+2025-02-16 20:25:36 [root] [INFO] Setting up storage observer...
+2025-02-16 20:25:36 [root] [INFO] Creating main window...
+2025-02-16 20:25:36 [root] [INFO] Starting serial communication...
+2025-02-16 20:25:36 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 20:25:36 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 20:25:36 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 20:27:04 [root] [INFO] Logging system initialized
+2025-02-16 20:27:04 [root] [INFO] Initializing serial communication...
+2025-02-16 20:27:04 [root] [INFO] Setting up storage observer...
+2025-02-16 20:27:04 [root] [INFO] Creating main window...
+2025-02-16 20:27:04 [root] [INFO] Starting serial communication...
+2025-02-16 20:27:04 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 20:27:04 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 20:27:04 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 20:27:20 [src.gui.main_window] [INFO] Reset angle deviation successfully
+2025-02-16 20:30:43 [root] [INFO] Logging system initialized
+2025-02-16 20:30:43 [root] [INFO] Initializing serial communication...
+2025-02-16 20:30:43 [root] [INFO] Setting up storage observer...
+2025-02-16 20:30:43 [root] [INFO] Creating main window...
+2025-02-16 20:30:43 [root] [INFO] Starting serial communication...
+2025-02-16 20:30:43 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 20:30:43 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 20:30:44 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 20:30:54 [src.gui.main_window] [INFO] Reset angle deviation successfully
+2025-02-16 20:31:36 [root] [INFO] Logging system initialized
+2025-02-16 20:31:36 [root] [INFO] Initializing serial communication...
+2025-02-16 20:31:36 [root] [INFO] Setting up storage observer...
+2025-02-16 20:31:36 [root] [INFO] Creating main window...
+2025-02-16 20:31:36 [root] [INFO] Starting serial communication...
+2025-02-16 20:31:36 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 20:31:36 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 20:31:36 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 20:32:58 [src.gui.main_window] [INFO] Reset angle deviation successfully
+2025-02-16 20:34:13 [src.gui.main_window] [INFO] Reset angle deviation successfully
+2025-02-16 20:42:59 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:42:59 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:42:59 [src.core.communicator] [ERROR] Invalid JSON format: "failedTask":[],"stage":0,"rotatinRoll":-2,"rotationPitch":7,"direction":253}
+2025-02-16 20:42:59 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[]"stage"0,"rotaionRoll":-1,"rotationPitc":7,"directio":255}
+2025-02-16 20:42:59 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:00 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:00 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:00 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0"rotationRoll":-,"rotationPitch":7,"dirction":253}
+2025-02-16 20:43:11 [root] [INFO] Logging system initialized
+2025-02-16 20:43:11 [root] [INFO] Initializing serial communication...
+2025-02-16 20:43:11 [root] [INFO] Setting up storage observer...
+2025-02-16 20:43:11 [root] [INFO] Creating main window...
+2025-02-16 20:43:12 [root] [INFO] Starting serial communication...
+2025-02-16 20:43:12 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 20:43:12 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 20:43:12 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 20:43:13 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:13 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,"rotatonRoll":-,"rotationitch":7,"direction":252}
+2025-02-16 20:43:13 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":],"stage":0,"rottionRoll":-2,"rotatonPitch":7,"diection":253}
+2025-02-16 20:43:13 [src.core.communicator] [ERROR] Invalid JSON format: {failedTass":[],"tag":0,"rotationRoll":1,"rotationPitch":7,"diection":254}
+2025-02-16 20:43:13 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],stage":0,"otationRoll":-1,"rotationitch":7,"direction":254}
+2025-02-16 20:43:13 [src.core.communicator] [ERROR] Invalid JSON format: {failedTask":[],"stage":0,"rottionRoll":-,"rotationPitch":7,"direction":254}
+2025-02-16 20:43:14 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:14 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],"stage":0"rotationRoll":-,"rotaionPitch:7,"direction":254}
+2025-02-16 20:43:14 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:14 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"stage"0,"rotationRoll":1,"rotaionPitch":7,"direction":255}
+2025-02-16 20:43:14 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:14 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:14 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage":0,"otationRoll":-1,"rotationPitch":7,"direction":254}
+2025-02-16 20:43:15 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'direction'
+2025-02-16 20:43:15 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:15 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"stage":0,"rotaionRoll"-1,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:15 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:15 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks"[],"sage":0,"rtationRoll":-1,"rotatinPitch"7,"directon":255}
+2025-02-16 20:43:15 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:16 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:16 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:16 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:16 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:16 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:16 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":,"rotatonRoll"-2,"rotationPitc":7,"dirction":253}
+2025-02-16 20:43:17 [src.core.communicator] [ERROR] Invalid JSON format: "failedTass":[],"stage":,"rotationRoll":-2,rotationPitch":7,"irection":255}
+2025-02-16 20:43:17 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks:[],"stage":0"rotatinRoll":-1,"rotationPich":7,"direction:254}
+2025-02-16 20:43:17 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks:[],"sage":0,"roationRoll":-1,"rotationPith":7,"drection":254}
+2025-02-16 20:43:17 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,rotationRoll":-2,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:17 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0,"rotaionRoll":-1,"rotationPitch":7,"direction":25}
+2025-02-16 20:43:17 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:17 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage":0,"rotationRoll":-2,"rotationPitch":7,"direction":254}
+2025-02-16 20:43:18 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stae":0,"roationRol":-1,rotationPitch":8,"direction":256}
+2025-02-16 20:43:18 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage":0,"rotatonRoll":1,"rotationPitch":7,"direction":254}
+2025-02-16 20:43:18 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":],"stage:0,"rotationRoll":-1,"rotaionPitch":7,"direction":253}
+2025-02-16 20:43:18 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks":[],"sage":0,"rotationRll":-,"rotatonPitch":7,"direction":256}
+2025-02-16 20:43:18 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:19 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks":[],"stage":0,rotationoll":2,"rotationPitch":7,"direction":254}
+2025-02-16 20:43:19 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0"rotationRoll":-2,"rotatioPitch":7,"direction":255}              {failedTaks":[],"tage":0,"rtationRoll":-1"rotationPitch":7,"directin":254}
+2025-02-16 20:43:19 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:19 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[,"stage":0,"rotationRoll":-1,"rotationPitch":7,"direction":53}
+2025-02-16 20:43:19 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotatonRoll":-1,"rotationPitch":7,"direction":254}
+2025-02-16 20:43:20 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0"rotationRoll":-1,"rotationPitch":7,directio":256}
+2025-02-16 20:43:20 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:20 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[],"stage":0,"rotaionRoll":-1,"rotatioPitch":7,"diection":254
+2025-02-16 20:43:20 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"stage":0,rotationRll":-1,"rotationPitch":7,"direction":254
+2025-02-16 20:43:20 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":-1,"rotationPitch":7,"irection":254}              {"failedTasks":[],"stage":0,"rotationRoll":-1,"rotationPitch":7,"direction":252}
+2025-02-16 20:43:21 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0,"rotationoll":-2,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:21 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotationRoll":-1,"rotationPitch":7,"direction":254}
+2025-02-16 20:43:22 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0,"rotationRol":-1,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:22 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[],"stage":0,"rotationRoll":-1"rotationPitch":7,"diection":254}
+2025-02-16 20:43:22 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stag":0,"rottionRoll":-1,"rotationPitch":7,"irection:254}
+2025-02-16 20:43:23 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],"tage":0,rotationRoll":-1,"rtationPich":7"direction":252}
+2025-02-16 20:43:23 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks":[],"stage":0,"roationRoll":-1,"rotationPitch:7,"diretion":254}
+2025-02-16 20:43:23 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotatonRoll":2,"rotationPitch"7,"direction":253}
+2025-02-16 20:43:23 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:23 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":-2,"rotatonPitch":7,"direction":256}             {"failedTasks":[],"stage":0,"rotatioRoll":-1,"rotationPitch":7,"drection":253}
+2025-02-16 20:43:24 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":0,"rotationRoll":-2,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:24 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:24 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:24 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,"rotationRoll":-1,rotationPich":7,"direction":55}
+2025-02-16 20:43:24 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"stage":0,"rotationRoll":-1,"rotationPitch":7,"direction:254}
+2025-02-16 20:43:24 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,"rotationRoll:-2,"rotationPitch":7,direction":252}
+2025-02-16 20:43:25 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":],"stage:0,"rotaionRoll":-1,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:25 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:25 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"stage":0,"rotationRoll":-1"rotationitch":7,"irection":254}
+2025-02-16 20:43:25 [src.core.communicator] [ERROR] Invalid JSON format: {failedTaks":[],"stage":0,"otationRoll":-2,"rotationPitch":7,"direction":255}
+2025-02-16 20:43:25 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":0,"rotationRoll":-1,"rotationPitch":7,"irection"254}
+2025-02-16 20:43:26 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage":,"rotationRoll":-1,"rotationPitc":7,"diretion":253
+2025-02-16 20:43:26 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:26 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTask":[],"stage:0,"rotationRoll":-1"rotationPith":7,"direction":253
+2025-02-16 20:43:26 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":-1,"rotationPitch:7,"direction":253}
+2025-02-16 20:43:26 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:27 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:27 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"tage":0,"rotatonRoll":-,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:27 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:27 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"stage":0,rotationRoll":-2,"rtationPtch":7,"direction":253}
+2025-02-16 20:43:27 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":0,"rotationRoll"-1,"rotationitch":7,"drection":252}
+2025-02-16 20:43:27 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stge":0,"rotationRoll":-2,rotationPitch":7,"diretion":252
+2025-02-16 20:43:28 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTask":[],"stage":0,"rotationRoll":1,"rotationPitch":7,direction":254}
+2025-02-16 20:43:28 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":-1,"rotationPitch":7,"diretion":253
+2025-02-16 20:43:28 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"stage:0,"rotationRoll":-1,"rotationPitch":7,direction":254}
+2025-02-16 20:43:28 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[],"stage"0,"rotatioRoll":-1,"rotationitch":7,direction":53}
+2025-02-16 20:43:28 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"sage":0,"rotationRll":-1,"rotationPtch":7,"irection"252}
+2025-02-16 20:43:28 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"tage":,"rotationRoll":-1,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:28 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks":[],"stage":0"rotationRoll":-2,"roationPitch":7,"directon":252}
+2025-02-16 20:43:29 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage:0,"rotationRol":-2,"rotationPitch":7,"direction":252}
+2025-02-16 20:43:29 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:29 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTask":[],"stag":0,"rotationRoll":2,"rotationPitch":7,"direction:252}
+2025-02-16 20:43:29 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"stage":0,rotationRol":-1,"otationPitch":7,"drection":253}
+2025-02-16 20:43:29 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:30 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotatinRoll":-,"rotationPitch":7,"direction":254}
+2025-02-16 20:43:30 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage"0,"rotationRoll":-1,"rotationPitch":7,direction":253}
+2025-02-16 20:43:30 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stae":0,"rotationRoll":-1,"rotationPitch":,"direction":254}
+2025-02-16 20:43:30 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:30 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"tage":0,"rotationRoll":-,"rotationPitch":7"directin":252}
+2025-02-16 20:43:31 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:31 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],stage":0,"rotationRoll":-1,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:31 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stae":0,"rtationRol":-1,"rotationPitc":8,"diection":53}
+2025-02-16 20:43:31 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0,"otationRoll":-1"rotationPitch":7,"direction":252}
+2025-02-16 20:43:31 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'direction'
+2025-02-16 20:43:32 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks"[],"stage":0,"rotationRoll":-1,"rotationitch":7,"direction":25}
+2025-02-16 20:43:32 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"stge":0,"rotationRoll":-2,"rtationPitch":7,"direction":253
+2025-02-16 20:43:32 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[]"stage:0,"rotatinRoll":-1,"rotationPitch":7,"direction"253}
+2025-02-16 20:43:32 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":],"stage":0,"rottionRoll":-2,"rotationPitch":7,"drection":53}
+2025-02-16 20:43:32 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":],"stage":0,"rotationRoll":-1,"rotationPitch":7,"direction":252}
+2025-02-16 20:43:33 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,rotationRoll":-1,"rotationPitch":8,"direction":253}
+2025-02-16 20:43:33 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":0,"rotaionRoll":1,"rotationPitch":7,"irection":254}
+2025-02-16 20:43:33 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:33 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[],"stage":0,"rotationRoll":-2,"rotatonPitch:7,"direction":25}
+2025-02-16 20:43:33 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:34 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:34 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[],"stag":0,"rotatonRoll":-1,"rotationPitch":,"direction":253}
+2025-02-16 20:43:34 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:34 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[,"stage":0,"rottionRol":-2,"rotationPitc":7,"diretion":25}
+2025-02-16 20:43:34 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":0,"rotationRoll":-1,"rotationPitch":7,"direction":252}
+2025-02-16 20:43:34 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],stage":0,rotationRll":-2,"rotationPith":7,"drection":52}
+2025-02-16 20:43:35 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0,"otationRoll":-1,"roationPitch":7,"diretion":253}             {"failedTasks":[],"stae":0,"rotationRoll":-1,"rottionPitch":7,"direction":252}
+2025-02-16 20:43:35 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"tage:0,"rotationRoll":-1,"otationPitch":7,"direction"254}
+2025-02-16 20:43:35 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:35 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:36 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,rotationRoll":-1,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:36 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[],stage":0,"rotationRoll":-1,"rotationPitch:7,"directon":252}
+2025-02-16 20:43:36 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":-1,"otationPitch":,"direction"254}
+2025-02-16 20:43:36 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":-1,"rotationPitch":7,"direction":253
+2025-02-16 20:43:36 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[],"stage":0,"otationRoll":1,"rotationPitch":7,"direction:253}
+2025-02-16 20:43:37 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"sage":0,"rotationRoll"-1,"rotationPitch":7,"direction":252}
+2025-02-16 20:43:37 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],stage":0,"rotationRoll":-1,"rotationPitch":7,"direcion":253}              "failedTaks":[],"stage":0,"rotationRoll":-2,"rotationPitch":7,direction":253}
+2025-02-16 20:43:37 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:37 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:38 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:38 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:38 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:38 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0"rotationRll":-1,"rotaionPitch:7,"diretion":54}
+2025-02-16 20:43:38 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:39 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:39 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotationRoll:-1,"rotationPitch:7,"direction":254}             {failedTasks":[],"stage":,"rotationRll":-1,"otationPith":7,"direction":252}
+2025-02-16 20:43:39 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks":[]"stage":0,"rotationRoll":-,"rotationPitch":7,"diection":253
+2025-02-16 20:43:39 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:39 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:40 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotatinRoll":-1,"rotationPitch:7,"direction":253}
+2025-02-16 20:43:40 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks"[],"stage":0,"rtationoll":-2,"rotationPitch":7,"irection":253}
+2025-02-16 20:43:40 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":,"rotationRoll":-2,"rotationPitch":7,"direction":254}
+2025-02-16 20:43:40 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":-2,rotationPitch"7,"direction":253}
+2025-02-16 20:43:40 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],"stae":0,"rottionRoll":-1,"rotationPitch":,"direction":252}
+2025-02-16 20:43:40 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:41 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[]"stage":,"rotationRoll":-1,"rotationPitch":7,"direction":252}
+2025-02-16 20:43:41 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll:-2,"rotatioPitch":7,"drection":252}
+2025-02-16 20:43:41 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks":[],"stage":0,"rotationRoll":-2,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:41 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":-2,rotationPitch":7,"direction":252}
+2025-02-16 20:43:41 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":-,"rotationPitch":7,"direction":254}
+2025-02-16 20:43:41 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,rotationRoll":-1,"rotaionPitch:7,"direcion":253}
+2025-02-16 20:43:41 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'direction'
+2025-02-16 20:43:42 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:42 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[]"stage":0,"rotationoll":-1,"otationPitch":7,"drection":52}
+2025-02-16 20:43:42 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],stage":0,"rotationRoll":2,"rotationPitch":7,"direction":252}
+2025-02-16 20:43:42 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks":],"stage:0,"rotationRoll":-2,rotationPitc":7,"dirction":253}
+2025-02-16 20:43:42 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks":[]"stage":0,"rotationRoll":-2,"rotationPitch":7,direction":54}
+2025-02-16 20:43:42 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"stae":0,"rotationRoll"-1,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:43 [src.core.communicator] [ERROR] Invalid JSON format: "failedTask":[],"sage":0,"rotatonRoll":-2,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:43 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks":[,"stage"0,"rotationRoll":-2,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:43 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage":0,"rotatinRoll":-,"rotationPitch":7,"direction"251}
+2025-02-16 20:43:43 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,"rotationRoll":-2,"rotationPitch":7,"diretion":252
+2025-02-16 20:43:43 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:43 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:43 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'direction'
+2025-02-16 20:43:44 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:44 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRol":-1,"rotationPitch":7"direction":254}
+2025-02-16 20:43:44 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stae":0,"rotatinRoll":1,"rotationPitch":7,"directin":254}
+2025-02-16 20:43:44 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks"[],"stae":0,"rotationRoll":-1,rotationPitch":7,"dirction":25}
+2025-02-16 20:43:44 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],"stage":0,"rotationRoll":-1,"rotationPitch":7,"direction"254}              {"faileTasks":[]"stage":0,"rotationRol":-2,"rotationPitch":,"direction":254}
+2025-02-16 20:43:45 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks":[,"stage":0,"rotationRoll":-1,"rotationPith":7,"direction":23}
+2025-02-16 20:43:45 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0"rotationRll":-1,"rtationPitch":7,"direction":253}
+2025-02-16 20:43:45 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":],"stage":0,"rotatonRoll":-1,"rotatioPitch":,"directio":252}
+2025-02-16 20:43:45 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"stage":0,rotationRol":-1,"otationPitch":7,"direction":252}
+2025-02-16 20:43:45 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"stage":0,"rtationRoll":-1,"rotatinPitch":7,"direction":25}
+2025-02-16 20:43:47 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:47 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":-1,"rotationPitch":7,"direction"251}
+2025-02-16 20:43:47 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:47 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,rotationRoll":-1,"rotationPitch":7,"direction":254}
+2025-02-16 20:43:47 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:47 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":-1,"rotationPich":7"directin":254}
+2025-02-16 20:43:47 [src.core.communicator] [ERROR] Invalid JSON format: "failedTass":[],"stage":,"rotationRoll":-2,"otationPitch":7,"diection":252}
+2025-02-16 20:43:48 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],stage":,"rotatinRoll":-2,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:48 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":,"rotationRoll":-2,"rottionPitch":7,"direction":253}
+2025-02-16 20:43:48 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stge":0,"rtationRll":-1,"rotationPitch":7,direction:252}
+2025-02-16 20:43:48 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],"stage":0,"rtationRoll":-2,"rotationPitch":,"direction":253}
+2025-02-16 20:43:48 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:49 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll:-1,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:49 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:49 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:49 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"stage":0,"rotationRoll":-1,"rotationPitch":7,"direction":254}
+2025-02-16 20:43:49 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":-1,"rotationPich":7,"irection:254}
+2025-02-16 20:43:50 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:50 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:50 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rtationRoll":-1,"rtationPitch:7,"direction":252}
+2025-02-16 20:43:50 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:50 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[]"stage":0,"rotationoll":-1,"otationPitch":7"direction"254}
+2025-02-16 20:43:50 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'direction'
+2025-02-16 20:43:51 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[],"stage":0,"rotationRol":-1"rotatioPitch":7,"direction":252}
+2025-02-16 20:43:51 [src.core.communicator] [ERROR] Invalid JSON format: "failedTass":[],"stage":0,"rotationRoll":-1,"rotationPitch":7,"direction":53}
+2025-02-16 20:43:51 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTass":[],"stage":0,rotationoll:-2,"rotaionPitch":7,"directon":255}
+2025-02-16 20:43:51 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"roationRol":-1,"rotatinPitch":7,"direction:253}
+2025-02-16 20:43:51 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"stage":0,"rotationRoll":-1,"rotaionPitch:7,"direction":252}
+2025-02-16 20:43:51 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:52 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":,"rotationRoll":2,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:52 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks":[],"sage":0,"rtationRoll":-1,"rotationPitc":7,"direction":253}              {"faildTasks:[],"stage":,"rotationRoll:-2,"rtationPith":7,"direction"253}
+2025-02-16 20:43:52 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:52 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:52 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"sage":0,"rotationRoll:-1,"rotationPitch:7,"direction":253}
+2025-02-16 20:43:53 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks"[],"stage":0,"rottionRoll":-1,"rotationPitch"7,"direcion":252}
+2025-02-16 20:43:53 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,"rotationRoll":-1,"roationPitch":7,"direction":254}
+2025-02-16 20:43:53 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":-2,"rotationPitch":7,"direction"253}
+2025-02-16 20:43:53 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[],"stage":0,"rotationRoll":-1,"roationPitch":7,"direction:252}
+2025-02-16 20:43:53 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks":[],"stage":0,"rtationRoll":-1,"rotationPitch":7,"direction":252
+2025-02-16 20:43:54 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'direction'
+2025-02-16 20:43:54 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRol":-1,"rotationPitch":,"directio":254}
+2025-02-16 20:43:54 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage:0,"rotationRoll":-1,"rotationPitch":7,"direction":253}
+2025-02-16 20:43:54 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotationRll":-2,"otationPtch":7"direction":253}
+2025-02-16 20:43:54 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[],"stage":0,"rotationRll":-1,"rotationitch":7"direction":252}
+2025-02-16 20:43:55 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:55 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage":0,"rotationRoll":-1,"rotationPitch":7,"direction":252}
+2025-02-16 20:43:55 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTask":[],"stage":0,"rotatioRoll":-,"rotationPitch":7,"direction"252}             {"failedTaks":[],"stage":0,"otationRll":-1,"rotationitch":7,"direction":253}
+2025-02-16 20:43:55 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks":[],"stage":0,"rtationRoll:-2,"rottionPitch":7,"dirction":25}
+2025-02-16 20:43:56 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:56 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:56 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0"rotationoll":-2,"rotationPitch":7,"direction":21}
+2025-02-16 20:43:56 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:43:56 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stge":0,"otationRll":-1,"rotatinPitch"7,"direction":253}             {"failedTass":[],"stage":0,"roationRoll":2,"rotatonPitch":7,"direction":251}
+2025-02-16 20:43:57 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[],"stage"0,"rotationRol":-1,"rottionPitch":7,"drection":254}
+2025-02-16 20:43:57 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:57 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:57 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:57 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0,"rotationRoll":-1,rotatioPitch":7,"direction"255}
+2025-02-16 20:43:57 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'direction'
+2025-02-16 20:43:58 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:58 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],"stage":0,"rotationRoll":-,"rotatioPitch":7,"direction":253}
+2025-02-16 20:43:58 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],stage":0,"roationRoll":-2,"rotationPitch":7,"direction":252}
+2025-02-16 20:43:58 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks":[],"stage":0,"rotationRoll"-1,"rotationPitch":7,"dirction":253}              {"failedTaks":[],"stage":0,"rotatonRoll":-1,"rotationPitch":7,"diection":253}
+2025-02-16 20:43:58 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0,"rotationRoll":-2"rotationPitch":7,"direction"253}
+2025-02-16 20:43:59 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTask":[],"stage":0,"rotatioRoll":2,"rotationPitch":,"direcion":255
+2025-02-16 20:43:59 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'direction'
+2025-02-16 20:43:59 [src.core.communicator] [ERROR] Invalid JSON format: "failedTass":[],"sage":0,"rtationRoll":-2,"roationPitc":7,"direction":25}
+2025-02-16 20:43:59 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:59 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":],"stage":0,"rtationRoll":-1,"rtationPitch":7,"direction":252}
+2025-02-16 20:43:59 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:43:59 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks":[,"stage:0,"rotationRoll":-,"rotationPitch":7"direction":252}
+2025-02-16 20:44:00 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:44:00 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0"rotationRoll"-1,"rotationPitch":7,"direction":251}
+2025-02-16 20:44:00 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:44:00 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"tage":0,"rotatinRoll":-1,"rotationitch":7,"direction":252}              {"faildTasks":[],"stage":0,"rotationRoll":-2,rotationPith":7,"directon":254}
+2025-02-16 20:44:00 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0"rotationRoll":-1,"rotaionPitch":7,"direction"253}
+2025-02-16 20:44:01 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":-1,"rotationPitch":8,"direction:254}
+2025-02-16 20:44:01 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:44:01 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'direction'
+2025-02-16 20:44:01 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:44:01 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:44:02 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll"-1,"rottionPitch":7,"direction":253}
+2025-02-16 20:44:02 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":,"rotationRoll":-2,"rotationPith":7,"direction":253}
+2025-02-16 20:44:02 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'direction'
+2025-02-16 20:44:02 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0"rotatinRoll":-1,"rtationPitch":7,directin":253}
+2025-02-16 20:44:02 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:44:02 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:44:03 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"sage":0,"rotationRoll":-2"rotationPitch":7,"direction":25}
+2025-02-16 20:44:03 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotationRoll":-2,"rotationPitch":7,"direction"254}
+2025-02-16 20:44:03 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":,"rotationRoll":-2,"rotationPitch":7,"direcion":253}
+2025-02-16 20:44:03 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage":0,rotationRoll":-1,"rotationitch":7,"direction":253}
+2025-02-16 20:44:03 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:44:03 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotationRoll"-1,"rotationPitch":7,"direction":253}
+2025-02-16 20:44:04 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[]"stage":0,"rotatioRoll":-1,"rotationPitch":7,"direction":254}
+2025-02-16 20:44:04 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:44:04 [src.core.communicator] [ERROR] Invalid JSON format: "failedTask":[],"stge":0,"roationRoll":-2"rotationPitch":7,"irection":254}
+2025-02-16 20:44:04 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:44:04 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:44:05 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotatonRoll":-1,"rotaionPitch:7,"dirction":253              {"failedTasks":[],"stage":0,"roationRoll":-1,"rotationPitch":8,"direction":254}
+2025-02-16 20:44:05 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:44:05 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stag":0,"rotaionRoll":-1,"roationPtch":7"direction":251}
+2025-02-16 20:44:05 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'direction'
+2025-02-16 20:44:05 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks:[],"stage":0,"rotationoll":-1,"rotationPitch":7,"direction":254}
+2025-02-16 20:44:06 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[]"stage":0,"rotationRoll":-2,"rotatinPitch":7,"diretion":254}
+2025-02-16 20:44:06 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[],"stage":0,"rotatioRoll":-1,rotationPitch":7,"direction":24}
+2025-02-16 20:44:06 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage:0,"rotationRoll":1,"rotationPitch":,"direction":253}
+2025-02-16 20:44:06 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 20:44:06 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotationRoll":-1,"rotationPitch":7,"direction":252}
+2025-02-16 20:44:07 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,"rotationRoll":-1,"rotationPitch":7,"direction:253}
+2025-02-16 20:44:07 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage:0,"rotaionRoll"-1,"rotationPitc":7,"direction":253}
+2025-02-16 20:44:07 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,"rotationRoll":-2,"rotationPitch":7,"direction":252}
+2025-02-16 20:44:07 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRll":-2,"rotationPitch":7,"direction:253}
+2025-02-16 20:44:07 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'direction'
+2025-02-16 20:44:07 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"tage:0,"rotationRoll":-1,"rotationPitc":7,"direction":251}
+2025-02-16 20:44:08 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":,"rotatinRoll":-1,"rotatonPitch":7,"direction":253}
+2025-02-16 20:44:08 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":],"stage":0,"rtationRoll":-1,"rotationPich":7,"direction":254}
+2025-02-16 20:44:08 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:44:08 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":,"rotationRoll":-2"rotationPitch":7,"direction":256}
+2025-02-16 20:44:08 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks":[],"stag":0,"rtationRoll":-1,rotationitch":7,"directon":252}
+2025-02-16 20:44:27 [src.gui.main_window] [INFO] Reset angle deviation successfully
+2025-02-16 20:58:44 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 20:58:44 [src.core.communicator] [ERROR] Invalid JSON format: "location":[121.498,25.00],"faildTasks"[],"stae":0,"rotationRoll":-2,"rotationPitch":9,"direction":248}
+2025-02-16 20:58:44 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 21:01:35 [root] [INFO] Logging system initialized
+2025-02-16 21:01:35 [root] [INFO] Initializing serial communication...
+2025-02-16 21:01:35 [root] [INFO] Setting up storage observer...
+2025-02-16 21:01:35 [root] [INFO] Creating main window...
+2025-02-16 21:01:39 [root] [INFO] Starting serial communication...
+2025-02-16 21:01:39 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:01:39 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:01:39 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:04:34 [root] [INFO] Logging system initialized
+2025-02-16 21:04:34 [root] [INFO] Initializing serial communication...
+2025-02-16 21:04:34 [root] [INFO] Setting up storage observer...
+2025-02-16 21:04:34 [root] [INFO] Creating main window...
+2025-02-16 21:04:36 [root] [INFO] Starting serial communication...
+2025-02-16 21:04:36 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:04:36 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:04:36 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:07:08 [root] [INFO] Logging system initialized
+2025-02-16 21:07:08 [root] [INFO] Initializing serial communication...
+2025-02-16 21:07:08 [root] [INFO] Setting up storage observer...
+2025-02-16 21:07:08 [root] [INFO] Creating main window...
+2025-02-16 21:07:09 [root] [INFO] Starting serial communication...
+2025-02-16 21:07:09 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:07:09 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:07:09 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:08:11 [root] [INFO] Logging system initialized
+2025-02-16 21:08:11 [root] [INFO] Initializing serial communication...
+2025-02-16 21:08:11 [root] [INFO] Setting up storage observer...
+2025-02-16 21:08:11 [root] [INFO] Creating main window...
+2025-02-16 21:08:12 [root] [INFO] Starting serial communication...
+2025-02-16 21:08:12 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:08:12 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:08:12 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:08:48 [src.gui.main_window] [ERROR] Unknown command
+2025-02-16 21:09:34 [src.core.communicator] [ERROR] Invalid JSON format: {"location":[121.5,2],"failedTasks":[],"stage":0,"rtationRoll":-3"rotationPitch":11,"direction":232}
+2025-02-16 21:09:34 [src.core.communicator] [ERROR] Invalid JSON format: {"location":[121.,25],"faileTasks":[,"stag":0,"rottionRoll":-3,"rtationPtch":1,"direcion":234}
+2025-02-16 21:09:34 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'direction'
+2025-02-16 21:09:34 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 21:09:34 [src.core.communicator] [ERROR] Invalid JSON format: {"locaion":[12.5,25],"failedTasks":[],"stage":0,"rotatinRoll":-3,"roationPitch":11"direction":233}
+2025-02-16 21:09:34 [src.core.communicator] [ERROR] Invalid JSON format: {"location":[121.5,25]"failedTasks":[],"stage":0,"rotationRol":-3,"rotationPitch":12,"direction":235}
+2025-02-16 21:09:35 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 21:09:35 [src.core.communicator] [ERROR] Invalid JSON format: {"location":[121.5,25],"failedTsks":[],stage":0,rotationRoll":-2,"rotationPtch":11,"direction":233
+2025-02-16 21:09:35 [src.core.communicator] [ERROR] Invalid JSON format: {"locaton":[121.,25],"failedTasks":[],"stage":,"rotationRoll":-3"rotationitch":11,direction":233}
+2025-02-16 21:09:35 [src.core.communicator] [ERROR] Invalid JSON format: {"location":[121.5,25],"failedTaks":[]"stage":0,"otationRll":-3,"otationPitch":2,"directon":234}
+2025-02-16 21:09:35 [src.core.communicator] [ERROR] Invalid JSON format: {"locatio":[121.5,25],"failedTasks":[],"stage":0,"rotationRoll":-2"rotationPtch":11,"direction":23}
+2025-02-16 21:09:36 [src.core.communicator] [ERROR] Invalid JSON format: {"lcation":[121.5,25],"failedTasks":[],"stage"0,"rotatonRoll"-2,"rotationPtch":11,directio":233}
+2025-02-16 21:09:36 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 21:09:36 [src.core.communicator] [ERROR] Invalid JSON format: {"location":[121.5,25],"failedTsks":[],"stage"0,"rotationRoll":-2,"rotationPitch"12,"dirction"235}
+2025-02-16 21:09:36 [src.core.communicator] [ERROR] Invalid JSON format: {"location":[121.5,25,"faileTasks":[],"stage"0,"rotationRoll:-2,"roationPith":12,"direction":33}
+2025-02-16 21:09:36 [src.core.communicator] [ERROR] Invalid JSON format: {"locaton":[121.5,25],"failedTasks":],"stage":0"rotationRoll"-2,"rotationPitch":11,"diretion":23}
+2025-02-16 21:09:36 [src.core.communicator] [ERROR] Invalid JSON format: {"locatio":[121.5,25],"filedTasks":[]"stage":0,"rotationRoll":-2,"rotationPitch":12"directio":234}
+2025-02-16 21:09:37 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationPitch'
+2025-02-16 21:09:37 [src.core.communicator] [ERROR] Invalid JSON format: {location"[121.5,25],"failedTsks":[],"stage":,"rotationRoll":-2,"rotationPitch":12,"directon":234}
+2025-02-16 21:09:37 [src.core.communicator] [ERROR] Invalid JSON format: {"location":[121.5,25],"filedTasks":[],"stage":0,"rotationRll":-3,"rotationPitch"12,"direction":234}
+2025-02-16 21:09:37 [src.core.communicator] [ERROR] Invalid JSON format: {"location":[121.5,2],"failedTasks":],"stage":0,"rotationRoll":-3,"rotationPitch":11,"direction":234}
+2025-02-16 21:09:37 [src.core.communicator] [ERROR] Invalid JSON format: {"location":[121.5,25],"failedTasks":[],"stage":0,"rotationRll":-2,"rtationPitch":11,direction:233}
+2025-02-16 21:09:37 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'rotationRoll'
+2025-02-16 21:09:38 [src.core.communicator] [ERROR] Invalid JSON format: {"location":[121.5,25]"failedTasks":[],stage":0"rotationoll":2,"rotatinPitch":12,"direction":233}
+2025-02-16 21:10:51 [root] [INFO] Logging system initialized
+2025-02-16 21:10:51 [root] [INFO] Initializing serial communication...
+2025-02-16 21:10:51 [root] [INFO] Setting up storage observer...
+2025-02-16 21:10:51 [root] [INFO] Creating main window...
+2025-02-16 21:10:51 [root] [INFO] Starting serial communication...
+2025-02-16 21:10:51 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:10:51 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:10:51 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:14:51 [root] [INFO] Logging system initialized
+2025-02-16 21:14:51 [root] [INFO] Initializing serial communication...
+2025-02-16 21:14:51 [root] [INFO] Setting up storage observer...
+2025-02-16 21:14:51 [root] [INFO] Creating main window...
+2025-02-16 21:14:51 [root] [INFO] Starting serial communication...
+2025-02-16 21:14:51 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:14:51 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:14:51 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:22:35 [root] [INFO] Logging system initialized
+2025-02-16 21:22:35 [root] [INFO] Initializing serial communication...
+2025-02-16 21:22:35 [root] [INFO] Setting up storage observer...
+2025-02-16 21:22:35 [root] [INFO] Creating main window...
+2025-02-16 21:22:36 [root] [INFO] Starting serial communication...
+2025-02-16 21:22:36 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:22:36 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:22:36 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:23:41 [root] [INFO] Logging system initialized
+2025-02-16 21:23:41 [root] [INFO] Initializing serial communication...
+2025-02-16 21:23:41 [root] [INFO] Setting up storage observer...
+2025-02-16 21:23:41 [root] [INFO] Creating main window...
+2025-02-16 21:23:42 [root] [INFO] Starting serial communication...
+2025-02-16 21:23:42 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:23:42 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:23:42 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:24:17 [root] [INFO] Logging system initialized
+2025-02-16 21:24:17 [root] [INFO] Initializing serial communication...
+2025-02-16 21:24:17 [root] [INFO] Setting up storage observer...
+2025-02-16 21:24:17 [root] [INFO] Creating main window...
+2025-02-16 21:24:18 [root] [INFO] Starting serial communication...
+2025-02-16 21:24:18 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:24:18 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:24:18 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:24:23 [root] [INFO] Logging system initialized
+2025-02-16 21:24:23 [root] [INFO] Initializing serial communication...
+2025-02-16 21:24:23 [root] [INFO] Setting up storage observer...
+2025-02-16 21:24:23 [root] [INFO] Creating main window...
+2025-02-16 21:24:24 [root] [INFO] Starting serial communication...
+2025-02-16 21:24:24 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:24:24 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:24:24 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:25:04 [root] [INFO] Logging system initialized
+2025-02-16 21:25:04 [root] [INFO] Initializing serial communication...
+2025-02-16 21:25:04 [root] [INFO] Setting up storage observer...
+2025-02-16 21:25:04 [root] [INFO] Creating main window...
+2025-02-16 21:25:04 [root] [INFO] Starting serial communication...
+2025-02-16 21:25:04 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:25:04 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:25:04 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:25:51 [root] [INFO] Logging system initialized
+2025-02-16 21:25:51 [root] [INFO] Initializing serial communication...
+2025-02-16 21:25:51 [root] [INFO] Setting up storage observer...
+2025-02-16 21:25:51 [root] [INFO] Creating main window...
+2025-02-16 21:25:52 [root] [INFO] Starting serial communication...
+2025-02-16 21:25:52 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:25:52 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:25:52 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:25:59 [src.gui.visualizers.location_displayer] [ERROR] 0
+2025-02-16 21:27:27 [src.gui.visualizers.location_displayer] [ERROR] 0
+2025-02-16 21:27:34 [src.gui.visualizers.location_displayer] [ERROR] 0
+2025-02-16 21:27:35 [src.core.communicator] [ERROR] Data processing queue error: 'utf-8' codec can't decode byte 0x80 in position 109: invalid start byte
+2025-02-16 21:27:44 [src.gui.visualizers.location_displayer] [ERROR] 0
+2025-02-16 21:27:50 [src.gui.visualizers.location_displayer] [ERROR] 0
+2025-02-16 21:29:14 [root] [INFO] Logging system initialized
+2025-02-16 21:29:14 [root] [INFO] Initializing serial communication...
+2025-02-16 21:29:14 [root] [INFO] Setting up storage observer...
+2025-02-16 21:29:14 [root] [INFO] Creating main window...
+2025-02-16 21:29:15 [root] [INFO] Starting serial communication...
+2025-02-16 21:29:15 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:29:15 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:29:15 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:29:16 [src.core.communicator] [ERROR] Data processing queue error: 'utf-8' codec can't decode byte 0xfe in position 0: invalid start byte
+2025-02-16 21:35:04 [root] [INFO] Logging system initialized
+2025-02-16 21:35:04 [root] [INFO] Initializing serial communication...
+2025-02-16 21:35:04 [root] [INFO] Setting up storage observer...
+2025-02-16 21:35:04 [root] [INFO] Creating main window...
+2025-02-16 21:35:04 [root] [INFO] Starting serial communication...
+2025-02-16 21:35:04 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:35:04 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:35:04 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:38:28 [root] [INFO] Logging system initialized
+2025-02-16 21:38:28 [root] [INFO] Initializing serial communication...
+2025-02-16 21:38:28 [root] [INFO] Setting up storage observer...
+2025-02-16 21:38:28 [root] [INFO] Creating main window...
+2025-02-16 21:38:29 [root] [INFO] Starting serial communication...
+2025-02-16 21:38:29 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:38:29 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:38:29 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:41:24 [src.core.communicator] [ERROR] Invalid JSON format: "location"[25,121.5],"faledTasks":[],"sage":0,"rotationoll":0,"rotationPitch":3,"direction":290}
+2025-02-16 21:41:24 [src.core.communicator] [ERROR] Invalid JSON format: {"location"[24.999,121.499],"failedTasks":[],"stage":0,"rotatonRoll":0,"rotationPitch:3,"dirction":291}
+2025-02-16 21:41:30 [root] [INFO] Logging system initialized
+2025-02-16 21:41:30 [root] [INFO] Initializing serial communication...
+2025-02-16 21:41:30 [root] [INFO] Setting up storage observer...
+2025-02-16 21:41:30 [root] [INFO] Creating main window...
+2025-02-16 21:41:31 [root] [INFO] Starting serial communication...
+2025-02-16 21:41:31 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:41:31 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:41:31 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:43:53 [root] [INFO] Logging system initialized
+2025-02-16 21:43:53 [root] [INFO] Initializing serial communication...
+2025-02-16 21:43:53 [root] [INFO] Setting up storage observer...
+2025-02-16 21:43:53 [root] [INFO] Creating main window...
+2025-02-16 21:43:54 [root] [INFO] Starting serial communication...
+2025-02-16 21:43:54 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:43:54 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:43:54 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:53:01 [root] [INFO] Logging system initialized
+2025-02-16 21:53:01 [root] [INFO] Initializing serial communication...
+2025-02-16 21:53:01 [root] [INFO] Setting up storage observer...
+2025-02-16 21:53:01 [root] [INFO] Creating main window...
+2025-02-16 21:53:03 [root] [INFO] Starting serial communication...
+2025-02-16 21:53:03 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:53:04 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:53:04 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 21:55:57 [root] [INFO] Logging system initialized
+2025-02-16 21:55:57 [root] [INFO] Initializing serial communication...
+2025-02-16 21:55:57 [root] [INFO] Setting up storage observer...
+2025-02-16 21:55:57 [root] [INFO] Creating main window...
+2025-02-16 21:55:58 [root] [INFO] Starting serial communication...
+2025-02-16 21:55:58 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 21:55:58 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 21:55:58 [src.core.communicator] [INFO] Serial port reconnected

@@ -18,7 +18,7 @@
 #### 支持的 Type 列表
 | Type         | 說明                        | data 格式 |
 |-------------|---------------------------|---------------|
-| `telemetry` | 傳輸感測器數據 | `{failedTasks:str[],"stage":int,"rotationRoll":float,"rotationPitch":float,"direction":float}` *TBD|
+| `telemetry` | 傳輸感測器數據 | `{location:[float,float],failedTasks:str[],"stage":int,"rotationRoll":float,"rotationPitch":float,"direction":float}` *TBD|
 | `command`   | 控制指令                  | `{"action":str}` |
 | `error`   | 錯誤訊息               | `{"message":str}` |
 
