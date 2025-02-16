@@ -12,7 +12,7 @@
 ```
 ### 規範
 - `<type>` 指資料的**用途**，其所需要資料參見下表定義。
-- `<data>` 是 JSON 格式的有效數據，Key 請遵循 camelCase 規則命名。
+- `<data>` 是 **JSON 格式**的有效數據，Key 請遵循 camelCase 規則命名。
 - 資料**請勿**換行。
 
 #### 支持的 Type 列表
@@ -22,16 +22,32 @@
 | `command`   | 控制指令                  | `{"action":str}` |
 | `error`   | 錯誤訊息               | `{"message":str}` |
 
-### 範例(不要換行)
+### 範例
 ``` 
 telemetry:{"location":[-21,-145.998],"failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":0,"direction":90}
 ```
 
 > [!CAUTION]
-> 資料格式與內容在初步開發時依照 microbit 所取得格式設計，實際應用仍需整合
+> 資料格式與內容在初步開發時依照 **microbit** 所取得格式設計，實際應用仍待整合後修改
 >
 
-## 溝通與運行邏輯
+## 執行
+1. 安裝 `requirements.txt` 中的依賴
+2. 若有 **microbit** 可透過其執行 `microbit-test.hex` 並透過 USB 連接電腦
+3. 配置 `main.py` 中的 `communicator = SerialCommunicator("COM3", 115200)` 所需之序列埠編號
+4. 運行 `main.py`
+
+> [!NOTE]  
+> 目前並未檢查 `requirements.txt` 之依賴是否完整
+> 若無 **microbit** 開發設備需依照上方所列之需求實現地面端接收晶片，並使其與電腦連接
+
+## 截圖
+![1](/doc/1.png)
+![2](/doc/2.png)
+![3](/doc/3.png)
+
+
+## 運行邏輯
 ### 各端職責
 ``` mermaid
 classDiagram
@@ -59,7 +75,7 @@ classDiagram
         電腦端儲存數據()
     }
 ```
-
+### 流程
 ``` mermaid
 sequenceDiagram
     autonumber
@@ -96,7 +112,7 @@ sequenceDiagram
 
 > [!NOTE]  
 > 錯誤回報功能尚未實作
->
+> 使用者停止功能向未實現
 
 
 ## 更新
@@ -144,4 +160,5 @@ GUI 更新
 - 飛行過程事件時間紀錄
 - 重力資料作圖
 - 地圖功能最佳實現?
-
+- 錯誤回報功能尚未實作
+- 使用者停止功能向未實現
