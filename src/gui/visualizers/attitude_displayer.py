@@ -9,7 +9,8 @@ class CubeGLWidget(QOpenGLWidget):
         self.quaternion = np.array([1.0, 0.0, 0.0, 0.0])  # w, x, y, z
         
     def initializeGL(self):
-        gl.glClearColor(0.0, 0.0, 0.0, 1.0)
+        # gl.glClearColor(0.0, 0.0, 0.0, 1.0)
+        gl.glClearColor(0.3, 0.3, 0.3, 1.0)
         gl.glEnable(gl.GL_DEPTH_TEST)
         
     def resizeGL(self, width, height):

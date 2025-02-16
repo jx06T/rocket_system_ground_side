@@ -17,7 +17,7 @@ from src.core.models import SensorData
 class MainWindow(QMainWindow):
     def __init__(self, serial_communicator: SerialCommunicator):
         super().__init__()
-        # QQuickWindow.setGraphicsApi(QSGRendererInterface.GraphicsApi.OpenGL)
+        
 
         self.angle_deviation = 0
         self.serial_communicator = serial_communicator
@@ -33,10 +33,12 @@ class MainWindow(QMainWindow):
         
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.ui.widget_3.layout().addWidget(QQuickWindow.setGraphicsApi(QSGRendererInterface.GraphicsApi.OpenGL))
         self.init_gui()
 
-        self.chart_1 = LineChartDrawer(self.ui.chart_widget_1,2,100)
-        self.chart_2 = LineChartDrawer(self.ui.chart_widget_2,1,100,(0,360))
+        self.chart_1 = LineChartDrawer(self.ui.chart_widget_1,1,100)
+        self.chart_2 = LineChartDrawer(self.ui.chart_widget_2,1,100)
+        self.chart_3 = LineChartDrawer(self.ui.chart_widget_3,1,100,(0,360))
 
         self.stage_display = StageDisplayer(self.ui.listWidget)
         
@@ -68,13 +70,14 @@ class MainWindow(QMainWindow):
     def init_gui(self):
         self.ui.version_label.setText("v1.0.0")
         self.ui.serial_label.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Connecting')
-        self.ui.chart_label_1.setText("rotationPitch&Roll")
-        self.ui.chart_label_2.setText("direction")
+        self.ui.chart_label_1.setText("rotation pitch")
+        self.ui.chart_label_2.setText("rotation roll")
+        self.ui.chart_label_3.setText("direction")
         self.ui.chart_checkBox_1.setChecked(True)
         self.ui.chart_checkBox_2.setChecked(True)
         self.ui.chart_checkBox_3.setChecked(True)
         self.ui.gl_label.setText(f"angle_deviation:{self.angle_deviation}")
-           
+     
         self.ui.listWidget.clear()
         
     def handle_angle_change(self,pitch: float, roll: float, yaw: float):
@@ -89,8 +92,10 @@ class MainWindow(QMainWindow):
     def update_ui(self, data: SensorData):
         self.ui.serial_label.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Connecting')
         self.ui.map_label.setText(f'Latitude:{round(data.location[0],4)}|Longitude:{round(data.location[1],4)}')
-        self.chart_1.update([data.rotationRoll,data.rotationPitch],self.ui.chart_checkBox_1.isChecked())
-        self.chart_2.update([data.direction],self.ui.chart_checkBox_2.isChecked()) 
+
+        self.chart_1.update([data.rotationPitch],self.ui.chart_checkBox_1.isChecked())
+        self.chart_2.update([data.rotationRoll],self.ui.chart_checkBox_2.isChecked())
+        self.chart_3.update([data.direction],self.ui.chart_checkBox_3.isChecked()) 
 
         self.quaternion = self.handle_angle_change(-data.rotationPitch,data.rotationRoll,180-((data.direction-self.angle_deviation+360)%360))
         self.attitude_displayer.update(self.quaternion)

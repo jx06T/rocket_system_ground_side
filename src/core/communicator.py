@@ -98,16 +98,6 @@ class SerialCommunicator:
                 try:
                     parsed_data = json.loads(decoded_data)
 
-                    # rotationRoll = parsed_data.get('rotationRoll', 0)
-                    # rotationPitch = parsed_data.get('rotationPitch', 0)
-                    # direction = parsed_data.get('direction', 0)
-
-                    # sensor_data = SensorData(
-                    #     timestamp=datetime.now(),
-                    #     rotationRoll=rotationRoll,
-                    #     rotationPitch=rotationPitch,
-                    #     direction=direction
-                    # )
                     sensor_data = SensorData.from_dict(parsed_data,datetime.now())
                                                             
                     self._notify_observers(sensor_data)
