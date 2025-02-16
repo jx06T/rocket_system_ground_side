@@ -48,4 +48,4 @@ class StorageObserver(DataObserver):
 
     def on_error(self, error: Exception):
         """當發生錯誤時，記錄錯誤"""
-        self.logger.error(f"Data logging error: {error}")
+        # self.logger.error(f"Data logging error: {error}")

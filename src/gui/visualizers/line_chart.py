@@ -1,7 +1,7 @@
 import numpy as np
 import pyqtgraph as pg
 from PyQt6.QtWidgets import QVBoxLayout
-
+from typing import List
 class LineChartDrawer:
     def __init__(self, container_widget, num_lines=1, window_width=100,y_range = (-180,180)):
         self.window_width = window_width
@@ -31,8 +31,8 @@ class LineChartDrawer:
 
         container_widget.layout().addWidget(self.plot_widget)
 
-    def update_chart(self, data_values, auto=False):
-        """data_values 應該是一個 list 或 np.array，包含每條線的數據"""
+    def update(self, data_values: List[float], auto=False):
+        """data_values 應該是一個 list 或 np.array，包含每條線的最新數據"""
         self.current_x += 1 
 
         if len(self.time_axis) < self.max_len:

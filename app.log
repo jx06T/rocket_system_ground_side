@@ -1,0 +1,1268 @@
+2025-02-16 12:56:33 [root] [INFO] Logging system initialized
+2025-02-16 12:56:34 [root] [INFO] Initializing serial communication...
+2025-02-16 12:56:34 [root] [INFO] Setting up storage observer...
+2025-02-16 12:56:34 [root] [INFO] Creating main window...
+2025-02-16 12:57:16 [root] [INFO] Logging system initialized
+2025-02-16 12:57:16 [root] [INFO] Initializing serial communication...
+2025-02-16 12:57:16 [root] [INFO] Setting up storage observer...
+2025-02-16 12:57:16 [root] [INFO] Creating main window...
+2025-02-16 13:00:09 [root] [INFO] Logging system initialized
+2025-02-16 13:00:09 [root] [INFO] Initializing serial communication...
+2025-02-16 13:00:09 [root] [INFO] Setting up storage observer...
+2025-02-16 13:00:09 [root] [INFO] Creating main window...
+2025-02-16 13:00:10 [root] [INFO] Starting serial communication...
+2025-02-16 13:00:10 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:01:02 [root] [INFO] Logging system initialized
+2025-02-16 13:01:02 [root] [INFO] Initializing serial communication...
+2025-02-16 13:01:02 [root] [INFO] Setting up storage observer...
+2025-02-16 13:01:02 [root] [INFO] Creating main window...
+2025-02-16 13:01:02 [root] [INFO] Starting serial communication...
+2025-02-16 13:01:02 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (PermissionError(13, '裝置無法辨識命令。', None, 22))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (PermissionError(13, '裝置無法辨識命令。', None, 22))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:01:17 [src.core.communicator] [ERROR] Serial read error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:01:17 [src.storage.storage_observer] [ERROR] Data logging error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:04:51 [root] [INFO] Logging system initialized
+2025-02-16 13:04:51 [root] [INFO] Initializing serial communication...
+2025-02-16 13:04:51 [root] [INFO] Setting up storage observer...
+2025-02-16 13:04:51 [root] [INFO] Creating main window...
+2025-02-16 13:04:51 [root] [INFO] Starting serial communication...
+2025-02-16 13:04:51 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:04:58 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (OSError(22, '因為執行緒結束或應用程式要求，所以已中止 I/O 操作。', None, 995))
+2025-02-16 13:04:59 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:04:59 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:04:59 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:04:59 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:04:59 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:04:59 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:04:59 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:04:59 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:04:59 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:04:59 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:04:59 [src.core.communicator] [ERROR] Reconnection failed: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:04:59 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (OSError(9, '控制代碼無效。', None, 6))
+2025-02-16 13:08:56 [root] [INFO] Logging system initialized
+2025-02-16 13:08:56 [root] [INFO] Initializing serial communication...
+2025-02-16 13:08:56 [root] [INFO] Setting up storage observer...
+2025-02-16 13:08:56 [root] [INFO] Creating main window...
+2025-02-16 13:08:56 [root] [INFO] Starting serial communication...
+2025-02-16 13:08:56 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:09:01 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (PermissionError(13, '裝置無法辨識命令。', None, 22))
+2025-02-16 13:09:01 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:09:01 [src.core.communicator] [INFO] Retrying... (1/5)
+2025-02-16 13:09:06 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:09:06 [src.core.communicator] [INFO] Retrying... (2/5)
+2025-02-16 13:09:18 [root] [INFO] Logging system initialized
+2025-02-16 13:09:18 [root] [INFO] Initializing serial communication...
+2025-02-16 13:09:18 [root] [INFO] Setting up storage observer...
+2025-02-16 13:09:18 [root] [INFO] Creating main window...
+2025-02-16 13:09:18 [root] [INFO] Starting serial communication...
+2025-02-16 13:09:18 [src.core.communicator] [ERROR] Failed to start serial communication: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:11:36 [root] [INFO] Logging system initialized
+2025-02-16 13:11:36 [root] [INFO] Initializing serial communication...
+2025-02-16 13:11:36 [root] [INFO] Setting up storage observer...
+2025-02-16 13:11:36 [root] [INFO] Creating main window...
+2025-02-16 13:11:36 [root] [INFO] Starting serial communication...
+2025-02-16 13:11:36 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:13:53 [root] [INFO] Logging system initialized
+2025-02-16 13:13:53 [root] [INFO] Initializing serial communication...
+2025-02-16 13:13:53 [root] [INFO] Setting up storage observer...
+2025-02-16 13:13:53 [root] [INFO] Creating main window...
+2025-02-16 13:13:53 [root] [INFO] Starting serial communication...
+2025-02-16 13:13:53 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:15:24 [root] [INFO] Logging system initialized
+2025-02-16 13:15:24 [root] [INFO] Initializing serial communication...
+2025-02-16 13:15:24 [root] [INFO] Setting up storage observer...
+2025-02-16 13:15:24 [root] [INFO] Creating main window...
+2025-02-16 13:15:25 [root] [INFO] Starting serial communication...
+2025-02-16 13:15:25 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:15:25 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks":[],"stage":0,"rotationRoll":-2,"rotationPitch":9,"direction":111}
+2025-02-16 13:17:59 [root] [INFO] Logging system initialized
+2025-02-16 13:17:59 [root] [INFO] Initializing serial communication...
+2025-02-16 13:17:59 [root] [INFO] Setting up storage observer...
+2025-02-16 13:17:59 [root] [INFO] Creating main window...
+2025-02-16 13:18:00 [root] [INFO] Starting serial communication...
+2025-02-16 13:18:00 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:18:07 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (PermissionError(13, '裝置無法辨識命令。', None, 22))
+2025-02-16 13:18:07 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:18:07 [src.core.communicator] [INFO] Retrying... (1/5)
+2025-02-16 13:18:12 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:18:12 [src.core.communicator] [INFO] Retrying... (2/5)
+2025-02-16 13:18:35 [root] [INFO] Logging system initialized
+2025-02-16 13:18:35 [root] [INFO] Initializing serial communication...
+2025-02-16 13:18:35 [root] [INFO] Setting up storage observer...
+2025-02-16 13:18:35 [root] [INFO] Creating main window...
+2025-02-16 13:18:36 [root] [INFO] Starting serial communication...
+2025-02-16 13:18:36 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:18:36 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:18:36 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:18:36 [src.core.communicator] [INFO] Retrying... (1/5)
+2025-02-16 13:18:41 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:18:41 [src.core.communicator] [INFO] Retrying... (2/5)
+2025-02-16 13:18:46 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:18:46 [src.core.communicator] [INFO] Retrying... (3/5)
+2025-02-16 13:18:51 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:18:51 [src.core.communicator] [INFO] Retrying... (4/5)
+2025-02-16 13:18:56 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:18:56 [src.core.communicator] [INFO] Retrying... (5/5)
+2025-02-16 13:19:01 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:19:01 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:19:01 [src.core.communicator] [INFO] Retrying... (1/5)
+2025-02-16 13:19:06 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:19:06 [src.core.communicator] [INFO] Retrying... (2/5)
+2025-02-16 13:19:11 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:19:11 [src.core.communicator] [INFO] Retrying... (3/5)
+2025-02-16 13:19:16 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:20:01 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (PermissionError(13, '裝置無法辨識命令。', None, 22))
+2025-02-16 13:20:01 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:20:01 [src.core.communicator] [INFO] Retrying... (1/5)
+2025-02-16 13:20:06 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:20:06 [src.core.communicator] [INFO] Retrying... (2/5)
+2025-02-16 13:20:11 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:20:11 [src.core.communicator] [INFO] Retrying... (3/5)
+2025-02-16 13:20:16 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:20:16 [src.core.communicator] [INFO] Retrying... (4/5)
+2025-02-16 13:20:21 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:20:21 [src.core.communicator] [INFO] Retrying... (5/5)
+2025-02-16 13:20:25 [root] [INFO] Logging system initialized
+2025-02-16 13:20:25 [root] [INFO] Initializing serial communication...
+2025-02-16 13:20:25 [root] [INFO] Setting up storage observer...
+2025-02-16 13:20:25 [root] [INFO] Creating main window...
+2025-02-16 13:20:25 [root] [INFO] Starting serial communication...
+2025-02-16 13:20:25 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:20:25 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:20:25 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:20:29 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (PermissionError(13, '裝置無法辨識命令。', None, 22))
+2025-02-16 13:20:29 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:20:30 [src.core.communicator] [INFO] Retrying... (1/5)
+2025-02-16 13:20:35 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:20:35 [src.core.communicator] [INFO] Retrying... (2/5)
+2025-02-16 13:20:40 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:20:40 [src.core.communicator] [INFO] Retrying... (3/5)
+2025-02-16 13:20:45 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:20:45 [src.core.communicator] [INFO] Retrying... (4/5)
+2025-02-16 13:20:50 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:21:02 [root] [INFO] Logging system initialized
+2025-02-16 13:21:02 [root] [INFO] Initializing serial communication...
+2025-02-16 13:21:02 [root] [INFO] Setting up storage observer...
+2025-02-16 13:21:02 [root] [INFO] Creating main window...
+2025-02-16 13:21:03 [root] [INFO] Starting serial communication...
+2025-02-16 13:21:03 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:21:03 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:21:03 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:21:09 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (PermissionError(13, '裝置無法辨識命令。', None, 22))
+2025-02-16 13:21:09 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:21:09 [src.core.communicator] [INFO] Retrying... (1/5)
+2025-02-16 13:21:15 [root] [INFO] Logging system initialized
+2025-02-16 13:21:15 [root] [INFO] Initializing serial communication...
+2025-02-16 13:21:15 [root] [INFO] Setting up storage observer...
+2025-02-16 13:21:15 [root] [INFO] Creating main window...
+2025-02-16 13:21:15 [root] [INFO] Starting serial communication...
+2025-02-16 13:21:15 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:21:15 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:21:15 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:21:15 [src.core.communicator] [INFO] Retrying... (1/5)
+2025-02-16 13:21:20 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:21:20 [src.core.communicator] [INFO] Retrying... (2/5)
+2025-02-16 13:21:26 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:21:31 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (PermissionError(13, '裝置無法辨識命令。', None, 22))
+2025-02-16 13:21:31 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:21:31 [src.core.communicator] [INFO] Retrying... (1/5)
+2025-02-16 13:21:36 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:21:36 [src.core.communicator] [INFO] Retrying... (2/5)
+2025-02-16 13:21:41 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:21:41 [src.core.communicator] [INFO] Retrying... (3/5)
+2025-02-16 13:21:46 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:21:46 [src.core.communicator] [INFO] Retrying... (4/5)
+2025-02-16 13:21:51 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:21:51 [src.core.communicator] [INFO] Retrying... (5/5)
+2025-02-16 13:21:56 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:21:56 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:21:56 [src.core.communicator] [INFO] Retrying... (1/5)
+2025-02-16 13:22:01 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:22:01 [src.core.communicator] [INFO] Retrying... (2/5)
+2025-02-16 13:22:06 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:22:06 [src.core.communicator] [INFO] Retrying... (3/5)
+2025-02-16 13:23:59 [root] [INFO] Logging system initialized
+2025-02-16 13:24:00 [root] [INFO] Initializing serial communication...
+2025-02-16 13:24:00 [root] [INFO] Setting up storage observer...
+2025-02-16 13:24:00 [root] [INFO] Creating main window...
+2025-02-16 13:24:00 [root] [INFO] Starting serial communication...
+2025-02-16 13:24:00 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:24:00 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:24:00 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:24:00 [src.core.communicator] [INFO] Retrying... (1/5)
+2025-02-16 13:24:05 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:24:05 [src.core.communicator] [INFO] Retrying... (2/5)
+2025-02-16 13:24:10 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:24:10 [src.core.communicator] [INFO] Retrying... (3/5)
+2025-02-16 13:24:15 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:24:15 [src.core.communicator] [INFO] Retrying... (4/5)
+2025-02-16 13:24:20 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:24:20 [src.core.communicator] [INFO] Retrying... (5/5)
+2025-02-16 13:24:25 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:24:25 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:24:25 [src.core.communicator] [INFO] Retrying... (1/5)
+2025-02-16 13:24:30 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:24:30 [src.core.communicator] [INFO] Retrying... (2/5)
+2025-02-16 13:24:35 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:24:35 [src.core.communicator] [INFO] Retrying... (3/5)
+2025-02-16 13:27:04 [root] [INFO] Logging system initialized
+2025-02-16 13:27:04 [root] [INFO] Initializing serial communication...
+2025-02-16 13:27:04 [root] [INFO] Setting up storage observer...
+2025-02-16 13:27:04 [root] [INFO] Creating main window...
+2025-02-16 13:27:04 [root] [INFO] Starting serial communication...
+2025-02-16 13:27:04 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:27:04 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:27:04 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:27:04 [src.core.communicator] [INFO] Retrying... (1/10000)
+2025-02-16 13:27:09 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:27:09 [src.core.communicator] [INFO] Retrying... (2/10000)
+2025-02-16 13:27:14 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:27:14 [src.core.communicator] [INFO] Retrying... (3/10000)
+2025-02-16 13:27:19 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:27:19 [src.core.communicator] [INFO] Retrying... (4/10000)
+2025-02-16 13:27:24 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:27:24 [src.core.communicator] [INFO] Retrying... (5/10000)
+2025-02-16 13:27:29 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:27:29 [src.core.communicator] [INFO] Retrying... (6/10000)
+2025-02-16 13:27:34 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:27:34 [src.core.communicator] [INFO] Retrying... (7/10000)
+2025-02-16 13:27:39 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:27:39 [src.core.communicator] [INFO] Retrying... (8/10000)
+2025-02-16 13:27:44 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:27:44 [src.core.communicator] [INFO] Retrying... (9/10000)
+2025-02-16 13:27:49 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:27:49 [src.core.communicator] [INFO] Retrying... (10/10000)
+2025-02-16 13:27:54 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:27:54 [src.core.communicator] [INFO] Retrying... (11/10000)
+2025-02-16 13:27:59 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:27:59 [src.core.communicator] [INFO] Retrying... (12/10000)
+2025-02-16 13:28:04 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:28:04 [src.core.communicator] [INFO] Retrying... (13/10000)
+2025-02-16 13:28:09 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:28:09 [src.core.communicator] [INFO] Retrying... (14/10000)
+2025-02-16 13:28:14 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:28:14 [src.core.communicator] [INFO] Retrying... (15/10000)
+2025-02-16 13:28:19 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:28:19 [src.core.communicator] [INFO] Retrying... (16/10000)
+2025-02-16 13:28:24 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:28:24 [src.core.communicator] [INFO] Retrying... (17/10000)
+2025-02-16 13:28:29 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:29:35 [root] [INFO] Logging system initialized
+2025-02-16 13:29:35 [root] [INFO] Initializing serial communication...
+2025-02-16 13:29:35 [root] [INFO] Setting up storage observer...
+2025-02-16 13:29:35 [root] [INFO] Creating main window...
+2025-02-16 13:29:35 [root] [INFO] Starting serial communication...
+2025-02-16 13:29:35 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:29:35 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:29:35 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:30:11 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks:[],"stge":0,"rotationRoll":0,"rotationPitch:4,"direction":12}
+2025-02-16 13:30:11 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rottionRoll":0,"rtationPith":5,direction:117}
+2025-02-16 13:30:11 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage"0,"rotatinRoll:0,"rotatonPitch:5,"direction":16}
+2025-02-16 13:30:11 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks":[],"stae":0,"rotationoll":0,rotationitch":4"direction":117}
+2025-02-16 13:30:11 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks":],"stage":0,"rotatonRoll":0,"rotationPitch":5,"direction":115}
+2025-02-16 13:30:11 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotatonRoll":0,"rotationPitch":4,"direction":118}
+2025-02-16 13:30:12 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,rotationitch":4,"direction":118}
+2025-02-16 13:30:12 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":,"rotatioRoll":0,"rotatioPitch":5,"direction":118}
+2025-02-16 13:30:12 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"sage":0,"rotationRol":0,"rtationPitch":4,direction":119}
+2025-02-16 13:30:12 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":,"rotatioRoll":,"rotationPitch":5,"dirction":18}              {"ailedTasks":[],"stage":0,"rotatonRoll":0,"rotationPitch":4,"direction":18}
+2025-02-16 13:30:13 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks:[],"stage":0,"rotationRoll":0,"rotatonPitch":5,"direction":118
+2025-02-16 13:30:13 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotationRoll":0,"roationPitch":5"direction":118}
+2025-02-16 13:30:13 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stae":0,"rotationRoll":0,"rotationPitch":5,"directio":118}
+2025-02-16 13:30:13 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0"rotationRll":0,"otationPtch":5,"direction":118}
+2025-02-16 13:30:13 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":],"stage":0,"rotationRoll"0,"rotatonPitch":5,"direction":116}
+2025-02-16 13:30:14 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":0,"rotationRoll":0,"rotationPitch":5,"direction":117}
+2025-02-16 13:30:14 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"tage":0"rotationRoll"0,"rotationPitch":5,"diretion":118}
+2025-02-16 13:30:14 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks":[],"stage":0,"rotationRoll:0,"rotatinPitch"5,"direction":117}
+2025-02-16 13:30:14 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stae":0,"rtationRoll":0,"rotationPitch":4,"directon":117}
+2025-02-16 13:30:14 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],stag":0,"rotaionRol":0,"rotationPitch:4,"drection":118}
+2025-02-16 13:30:16 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,rotationRoll":0,"rotationPitch":5,"direction":118}
+2025-02-16 13:30:16 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,"rotationRoll":0,"otationPitch":5,"direction"117}               {"faileTasks":[],"stage":0,"rotatioRoll":0,"rotationPtch":5,"direction":117}
+2025-02-16 13:30:16 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":],"stage":0,"rotationRoll":0,"rottionPitch":4,"direction":117}
+2025-02-16 13:30:17 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stge":0,"rotationRoll:0,"rotationPitch":4,"diretion":117}
+2025-02-16 13:30:17 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks":],"stage:0,"rotationRoll":0,"rotationPtch":5,"irection":116
+2025-02-16 13:30:17 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTaks":[],"stage":0,"rotationRoll"0,"rotaionPitch":4,"drection":17}
+2025-02-16 13:30:17 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks":[],"stage"0,"rotationRoll":,"rotationPitch":4,"diection":17}
+2025-02-16 13:30:17 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":,"rotationRoll":0,"rotationPitch":,"direction":118}
+2025-02-16 13:30:18 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTaks":[],"tage":0,"rotationRoll":,"rotatioPitch":4,"direcion":117}
+2025-02-16 13:30:18 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks:[],"stge":0,"rtationRoll":0,"rotatonPitch"5,"direcion":117
+2025-02-16 13:30:18 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stag":0,"rotationRoll":0,"rotationPitch":4,"direction":119}
+2025-02-16 13:30:18 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[],"stage":0,"rotaionRoll:0,"rotationPitch":5,"direction":119}
+2025-02-16 13:30:18 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0,"roationRoll":0,"rotationPith":5,directon":118}
+2025-02-16 13:30:19 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks"[],"stage":0"rotationoll":0"rotationPitch":4,"direction":118}
+2025-02-16 13:30:19 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":,"rotatioPitch":5,"direcion":117}
+2025-02-16 13:30:19 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotatioPitch":,"direcion":119}
+2025-02-16 13:30:19 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0,"rottionRoll":0,"rotationPitch":5,"diretion":117}
+2025-02-16 13:30:20 [src.core.communicator] [ERROR] Invalid JSON format: "failedTass":[],"stage:0,"rotationRoll":0,"rottionPitch":5,"direction":118}
+2025-02-16 13:30:20 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"sage":0,rotationoll":0,"rotationPitch"5,"direcion":117}
+2025-02-16 13:30:20 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,rotationRll":0,"rotationitch":5,"direction":117}
+2025-02-16 13:30:20 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,rotationRoll":0"rotationitch":4,"directon":118}
+2025-02-16 13:30:20 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":4,"dirction":118}             {"faledTasks:[],"stage":0,"rotaionRol":0,"rotationPitch":5,"directio":117}
+2025-02-16 13:32:23 [root] [INFO] Logging system initialized
+2025-02-16 13:32:23 [root] [INFO] Initializing serial communication...
+2025-02-16 13:32:23 [root] [INFO] Setting up storage observer...
+2025-02-16 13:32:23 [root] [INFO] Creating main window...
+2025-02-16 13:32:24 [root] [INFO] Starting serial communication...
+2025-02-16 13:32:24 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:32:24 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:32:24 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:32:25 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll:0,"rotationPitch":,"direction":118}
+2025-02-16 13:32:25 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[]"stage":0"rotationRoll":0,"rotationPitch":4,"direction":11}
+2025-02-16 13:32:26 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotationRoll":0,"rotationPitch":5"direction":118}
+2025-02-16 13:32:26 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":0,"rottionRoll":0"rotationPitch":4,"diretion":118}
+2025-02-16 13:32:26 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotationRoll":0,"rotationPitch:4,"direction":118}              {"failedTasks":[],"tage":0,"rotationRoll":0,"rotationPtch":5,"diection":11}
+2025-02-16 13:32:26 [src.core.communicator] [ERROR] Invalid JSON format: {failedTass":[],"stage":0,"otationRoll"0,"rotationPitch":4,"direction":118}
+2025-02-16 13:32:27 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"stage":,"rotationRoll":0,rotationitch":5"direction":117}
+2025-02-16 13:32:27 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotatinRoll":,"rotationPitch":4,"irection":120}
+2025-02-16 13:32:27 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[],"sage":0,rotationRoll":0,"rotationPitch":4,"direcion":117}
+2025-02-16 13:32:28 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks":[],"stage":0,"otationRoll":0,rotationPitch":4"direction":118}
+2025-02-16 13:32:28 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[],"stage":,"rotatonRoll":0,"rotationPich":4,"direction":118}
+2025-02-16 13:32:29 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":4,"direction:118}
+2025-02-16 13:32:29 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotatinRoll":0"rotationPitch":4"directin":120}
+2025-02-16 13:32:29 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],stage":0,"rotationRoll":0"rotationPich":4,"direction":119}
+2025-02-16 13:32:29 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[]"stag":0,"rottionRoll":0,"rotationPitch":5,"direction":116}
+2025-02-16 13:32:29 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,rotatioRoll"0,"rotatonPitch":5,"directin":117}
+2025-02-16 13:32:30 [src.core.communicator] [ERROR] Invalid JSON format: {failedTaks":[],"stage:0,"rotaionRoll":0,"rotationPitch":5,"direction":117}
+2025-02-16 13:32:30 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,rotationRoll":-1,"rottionPitch":5,"drection":119}
+2025-02-16 13:32:30 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch:4,"dirction":117}
+2025-02-16 13:32:30 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],"stage":,"rotatonRoll":0"rotationPitch":5,"direction":11}
+2025-02-16 13:32:30 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[],"stae":0,"rotationRoll":0,rotationPitch":4,"direction":119}
+2025-02-16 13:32:31 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0"rotationRoll"0,"rotationPitch":4,"dirction":118}
+2025-02-16 13:32:31 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stge":0,"roationRoll":0,"roationPitch:5,"diretion":117}
+2025-02-16 13:32:31 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[,"stage":0,"rotationRoll":0,"rotationPitch:4,"diretion":118}
+2025-02-16 13:32:31 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[],"tage":0,rotationRoll":0,"roationPitch":4,"direction":118}
+2025-02-16 13:32:32 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTass":[]"stae":0,"rotationRoll":0,"rtationPitch":5,"direction":117}
+2025-02-16 13:32:32 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0,"rotationRoll":0,"roationPitch:4,"diretion":118}
+2025-02-16 13:32:32 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":0,"rotatonRoll":0,"rotationPitch":4,"diection":117}
+2025-02-16 13:32:32 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"stage":0,"roationRol":0,"rotationPitch":5,"direcion":118}
+2025-02-16 13:32:33 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],stage":0,"rotatonRoll":0,"rotationPitch:4,"direction":116}
+2025-02-16 13:32:33 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTask":[],"stage":0"rotationRoll":0,rotationPitch":4,direction":118}
+2025-02-16 13:32:33 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTask":[],"stage":0,"rotationRoll":0,"rotationPitch":,"direction":117}
+2025-02-16 13:32:33 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[],"stage":0,"rotaionRoll":,"rotationPitch":4,direction"119}
+2025-02-16 13:32:33 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks":[],"stage":0,"rotationRol":0,"rottionPitch":4,"direction":119}
+2025-02-16 13:32:34 [src.core.communicator] [ERROR] Invalid JSON format: {failedTsks":[]"stage":0,"rotationRol":0,"rotationPitch":4,"direction":119}
+2025-02-16 13:32:34 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotatioPitch":4,"irection:120}
+2025-02-16 13:32:34 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotatinRoll":0,"rotationPtch":5,"direction":11}
+2025-02-16 13:32:34 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":,"rotationRoll":0,"rotationPitch":4,"drection"116}
+2025-02-16 13:32:35 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0,"rtationRoll":0,"rotationPitch":5,"direction":116
+2025-02-16 13:32:35 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks:[],"stage":0,"rotationRoll":0,"otationPitch":4,"direction":118}
+2025-02-16 13:32:35 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],"tage":0,rotationRoll":0,"rtationPitc":4,"direction":11}
+2025-02-16 13:32:35 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTask":[],"stage":0,"otationRoll":0,"rottionPitch:4,"direction":118}
+2025-02-16 13:32:35 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks:[],"stage":0,"rotaionRoll":,"rotationPitch":5,"directio":119}
+2025-02-16 13:32:35 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":5,"direction"118}
+2025-02-16 13:32:36 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,rotationRoll":0,"rotationPitch:5,"direction:117}
+2025-02-16 13:32:36 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[]"stage":0,"rotationRoll":0,"rotaionPitc":4,"directio":118}
+2025-02-16 13:32:36 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks":[],"stage":0,"rotationRoll":0,"rotatonPitch":5,"direction":116}               "failedTasks":[],"stage":0,"rotationRol":0,"rotationPitch":5,direction:119}
+2025-02-16 13:32:36 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotatonPitch":5,"direction":117}             {"failedTasks":[],"stage":0"rotatonRoll":0,"rotationPitch":4,"directin":118}
+2025-02-16 13:32:37 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotatinRoll":0,"rotationPitch":4,"direction":117}
+2025-02-16 13:32:37 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,"rotationRoll":0,"rotationPitch:4,"direction":118}
+2025-02-16 13:32:37 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll"0,"rotatioPitch"4,"direction":118}
+2025-02-16 13:32:37 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":5,direction"117}
+2025-02-16 13:32:37 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":],"stae":0,"rotationRoll":0,"rotationPitch"5,"direcion":118}
+2025-02-16 13:32:38 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"stage":0,"rotationRoll":,"rotationPitch":4,"direcion":118}
+2025-02-16 13:32:38 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"sage":0,"rotationRoll:0,"rotationitch":4,"direction":117}
+2025-02-16 13:32:38 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotatonRoll":0,"rotationPitch":5,"diretion":118}
+2025-02-16 13:32:38 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],stage":0,"rotatinRoll":,"rotationPitch":4,"direction":118}
+2025-02-16 13:32:39 [src.core.communicator] [ERROR] Invalid JSON format: "failedTaks":[],"sage":0,"rotationRoll":0,"rotationPitch":4,"direction":117}
+2025-02-16 13:32:39 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTass":[],"stage":,"rotatonRoll:0,"rotaionPitch":5,"direction":11}
+2025-02-16 13:32:39 [src.core.communicator] [ERROR] Invalid JSON format: {failedTass":[],"sage":0,"rotationRol":0,"rotatonPitch"5,"direction":117}
+2025-02-16 13:32:39 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":4,"direction"117}
+2025-02-16 13:32:39 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTask":[],"stage":0,"rotationRoll":0,"rotationPitch":5,"direction":118
+2025-02-16 13:32:39 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks":[,"stage":0,"rotationRoll":0,"rotationPitch":5,"direction":119}
+2025-02-16 13:32:40 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotationRll":0,rotationPitch":4,"dirction":118
+2025-02-16 13:32:40 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,rotationRoll":0,"rotatonPitch":5,"direction":117}
+2025-02-16 13:32:40 [src.core.communicator] [ERROR] Invalid JSON format: "faileTasks"[],"sage":0,"rotatioRoll":0,"rotationPitch":5,"direction":18}
+2025-02-16 13:32:40 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"tage":0,rotationoll":0,"rotationPich":4,"direction:117}
+2025-02-16 13:32:40 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"roationRoll:0,"rotationPich":4,direction:117}
+2025-02-16 13:32:40 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":,"rottionRoll":0,"rotationPitch":,"direction":119}
+2025-02-16 13:32:41 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"sage":0,"rotationRol":0,"rotationPith":4,"diretion":120
+2025-02-16 13:32:41 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0,"rotationRoll":0,"rotatonPitch":4,"direction":17}
+2025-02-16 13:32:41 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage:0,"rotationRoll":0,"rotationitch":4,direction"118}
+2025-02-16 13:32:41 [src.core.communicator] [ERROR] Invalid JSON format: "failedTass":[],"sage":0,"rtationRol":0,"rotationPith":4,"diection":117}
+2025-02-16 13:32:41 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[],"stage":0,"rtationRoll":0,"rotationPich":4,"direction:119}
+2025-02-16 13:32:42 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":],"stage":0,"rotationRoll":0,"rotationPitch":4,"direction":118}
+2025-02-16 13:32:42 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"tage":0,"rotationRoll":0,rotationPtch":5,"direction":118}
+2025-02-16 13:32:42 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"tage"0,"rotatonRoll":0,"rotatinPitch"4,"directin":117}
+2025-02-16 13:32:43 [src.core.communicator] [ERROR] Invalid JSON format: "failedasks":[],"stage":0"rotationRoll":0,rotationPitch":4,"directon":118}
+2025-02-16 13:32:43 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":0,"rotaionRoll:0,"rotatinPitch"5,"direction":118}
+2025-02-16 13:32:43 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"tage":0"rotationRoll":0,"rtationPtch":4"direction":119}
+2025-02-16 13:32:43 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks":[],"stage":0,rotatioRoll":,"rotationPitch"5,"direction":11}              {"failedTsks":[,"stage":0,rotationRoll":0,"rotationPitch":4,"direction":19}
+2025-02-16 13:32:44 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"stage":,"rotationRoll":0,"rotatonPitch":4,"diretion":11}
+2025-02-16 13:32:44 [src.core.communicator] [ERROR] Invalid JSON format: {failedTass":[],"stage":0,rotationRoll":0,"rottionPitch":4,"diretion":118}
+2025-02-16 13:32:44 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[],"stage":0,rotationRoll":0,"rtationPitch":4,"directio":119}
+2025-02-16 13:32:44 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"stage":0,"rotationRoll":0,"rotationPitch":5"direction":118}
+2025-02-16 13:32:45 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[],"tage":0"rotationRoll"0,"rotationPitch":4,"directon":118}
+2025-02-16 13:32:45 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":5,"direction":118
+2025-02-16 13:32:45 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[],"stag":0,"rotationRoll":0,"rotationPitch:4,"directon":117}
+2025-02-16 13:32:45 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[],"stage":0,"rotationRoll":0"rotationPtch":5,"direction":119}
+2025-02-16 13:32:45 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage:0,"rotationRoll":0,"rotationPith":4,"direction":118}
+2025-02-16 13:32:46 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0"rotationPitch":4,"directon":117}
+2025-02-16 13:32:46 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0"rotationRoll":0,"rotationPich":4,"direcion":118}              {"failedTaks":[],"tage":0,"rotationoll":0,"rotationPitch":5,"direction":117}
+2025-02-16 13:32:46 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stae":0,"rotationRoll":0,"rotatonPitch":5,"direction":118}
+2025-02-16 13:32:46 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],"stage:0,"rotationRoll":0,"rotationPitch":4,"direction":118}
+2025-02-16 13:32:47 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":,"rotationRoll:0,"rotationPitch:5,"diretion":116}
+2025-02-16 13:32:47 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTask":[],"stage":0,"roationRoll":0,"rotationPitch":4,"dirction"120}
+2025-02-16 13:32:47 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTask":[],"stage"0,"rotatinRoll:0,"rottionPitc":4,"dirction":118}
+2025-02-16 13:32:47 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"roationRoll":0,"rotationPitch:4,"diretion":17}
+2025-02-16 13:32:48 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTask":[],"stge":0,"rottionRoll":0,"rotationPitch":5,"direcion":118
+2025-02-16 13:32:49 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks:[],"stage:0,"rotatonRoll"0,"rotaionPitch":4,"dirction":119}
+2025-02-16 13:32:49 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTass":[],"sage":0,"rotationRoll":0,"rotaionPitch":5,"directio":116}             "failedasks":[],stage":0,"rotationRoll":0,"rotationPitch":5,"directio":118}
+2025-02-16 13:32:50 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"stage":0,"rotaionRoll":0,"rotationPitch":5,"direction":117}
+2025-02-16 13:32:50 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,rotationRoll":0,"rotatinPitch"4,"directon":118}
+2025-02-16 13:32:50 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks":[],stae":0,"rotationRoll":0,"rotationPitc":5,"direcion":116}
+2025-02-16 13:32:50 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0,"rtationRoll":0,"rotationPitch:4,"direcion":120}
+2025-02-16 13:32:51 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks"[],"stag":0,"rotationRoll":0,"rotationPitch":4,"direction":118}
+2025-02-16 13:32:51 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage":0,"rotationRoll":0,"rotationPitch:4,"direction":119
+2025-02-16 13:32:51 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTask":[],"stage":0"rotationoll":0"rotationPitch":4,"directon":118}
+2025-02-16 13:32:51 [src.core.communicator] [ERROR] Invalid JSON format: {failedTass":[],"stage":0"rotationRoll":,"rotationPitch":5,"direcion":16}              {"faileTasks":[],stage":0,rotatioRoll":0,rotationPitch":4,"direction":18}
+2025-02-16 13:32:52 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"tage":0"rotationRoll":0"rotatioPitch":5,"diection:118}
+2025-02-16 13:32:52 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0,"rotationRoll":0,"rottionPitc":4,"direction":11}
+2025-02-16 13:32:52 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rtationRoll":0,"rotationPitch":4,"drection:118}
+2025-02-16 13:32:52 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[],"stage":0,"rtationRoll":0,"rotationPitch":5,"direcion":117
+2025-02-16 13:32:52 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTask":[],"stge":0,"otationRll":0"rotationPitch":4,"direction":119}
+2025-02-16 13:32:52 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],"stage":0,"rotatonRoll":0"rotatioPitch":4,"direction":117}
+2025-02-16 13:32:53 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],stage":0,"rotationRoll":0,"rotationPitch"4,"direction":118}
+2025-02-16 13:32:53 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[],"stage"0,"rotationRoll"0,"rotationPitch":4,"dirction":119}
+2025-02-16 13:32:53 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[],"stage"0,"rotationRoll":0,"rotationPtch":4,"direction":118}
+2025-02-16 13:32:53 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,rotationRoll":0,"rtationPitc":4,"dirction":11}
+2025-02-16 13:32:53 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch:4,"directon":118}
+2025-02-16 13:32:54 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0,"rotationRoll":0,"rotationPitch":5,"direction":118}             {"failedTasks":[],"stage":0,"rtationRol":0,"rotaionPitch":4,"direcion":119}
+2025-02-16 13:32:54 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks":[],"stage":0,"rotationRll":0,"rotationPitch":4,"direction":118}
+2025-02-16 13:32:54 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks:[],"stage":0,"rtationRoll":0,"rotationPitch":4,"direction":117}
+2025-02-16 13:32:54 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"otationPitch":,"direction":120}
+2025-02-16 13:32:55 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":,"rotationPitch":4,"direction":118}
+2025-02-16 13:32:55 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotationRoll":0,"rotationPitch":4,"direction"118}
+2025-02-16 13:32:55 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":],"stage":0,"rotationoll":0,"rotatioPitch":4,"directio":118}
+2025-02-16 13:32:55 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0,"rotationRol":0,"rottionPitch":5,"diection":118}
+2025-02-16 13:32:56 [src.core.communicator] [ERROR] Invalid JSON format: {failedTask":[],"stage":0,"rotationRol":0,rotationitch":4,"direction":118}
+2025-02-16 13:32:56 [src.core.communicator] [ERROR] Invalid JSON format: {failedTaks":[],"stage":,"rotatonRoll":0,"rotationPich":4,"irectio":118}
+2025-02-16 13:32:56 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks":[],"stage":0,"rotationRoll":0,"otationPitch":4"direction":118}
+2025-02-16 13:32:56 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0"rotatinPitch":4,"diretion":119
+2025-02-16 13:32:57 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[],"stage":0,"rotationRoll"0,"rotationPitch":5,"direction":118}
+2025-02-16 13:32:57 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks:[],"stage":0,rotationRoll":0,"rotationPitc":5,"dirction":11}
+2025-02-16 13:32:57 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[]"stage":0,"rotationRoll":0,"rotatonPitch":4,"direction":118}
+2025-02-16 13:32:57 [src.core.communicator] [ERROR] Invalid JSON format: {failedTass":[],"stage":0,"rottionRoll":0,"rotatonPitch":4,"diretion":18}
+2025-02-16 13:32:58 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"sage":0,"rottionRoll":0,"rotationPitch":,"directon":117}
+2025-02-16 13:32:58 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[]"stage":0,"roationRoll":0,"rotationPith":4,"direction":118}
+2025-02-16 13:32:58 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"stage":0"rotationRoll":0,"rotaionPitch":4,"direction":118}
+2025-02-16 13:32:58 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,rotationPitch":4,"irection":18}
+2025-02-16 13:32:58 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"stage"0,"rotatinRoll"0,"rotationPitch":4,"direction":117}
+2025-02-16 13:32:58 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"stae":0,"rotationRoll":0,"rotatioPitch":4,"irection":117}
+2025-02-16 13:32:59 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0,"rotationRll":0,"rotationPitch":4,"irection":118}
+2025-02-16 13:32:59 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTask":[],"tage":0,"rotationRoll":0,"rotaionPitch":5,"direction"117}
+2025-02-16 13:32:59 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,"rotationRoll"0,"rotationPitch":5,directio":116}
+2025-02-16 13:33:00 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks":[],"stage":0,"rotationRoll":0"rotatinPitch"5,"direction":116}
+2025-02-16 13:33:00 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":5"directin":118}
+2025-02-16 13:33:00 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks"[],"stage":0,"rotationRoll":0,"otationPitch":5"directio":118}
+2025-02-16 13:33:00 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rottionRoll":0"rotationPitch":4,"direction":12}
+2025-02-16 13:33:00 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks":[],"stage"0,"rotationRoll":0,"rotationPitch":5,"direction":117}
+2025-02-16 13:33:01 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0"rotatinRoll":0,"rotationitch":4,"direction":116}
+2025-02-16 13:33:01 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch:5,"direction":119}
+2025-02-16 13:33:02 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"sage":0,"rotationRoll":0,"roationPitch":4,"direction":116
+2025-02-16 13:33:02 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotationoll":0,"rotationPitch":4,"diretion":118}
+2025-02-16 13:33:02 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0,"rottionRoll":0,"otationPich":4,"direction":118}
+2025-02-16 13:33:03 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":4,"direction":19}
+2025-02-16 13:33:03 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"sage":0,"rtationRol":0,"rotationPtch":4"directin":118}
+2025-02-16 13:33:03 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks":[],"stag":0,"roationRll":0"rotationPitch":,"direction":117}
+2025-02-16 13:33:04 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks"[],"stage":0,"rotationRoll":0,"otationPith":4,"drection":119}
+2025-02-16 13:33:04 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage":0,"rotationRoll":0,"rotationPith":4,"direction":117}
+2025-02-16 13:33:04 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotatonRol":0,"rotationPitch":4,"diection"118}
+2025-02-16 13:33:04 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stge":0,"rotationoll":0,rotationPitch"4,"direction":117}
+2025-02-16 13:33:05 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"tage":0,rotationRoll":0,"rotationPitc":5,"direction":118
+2025-02-16 13:33:05 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"stage":0,"rotationRoll":0,"rottionPitch:5,"direction":18}
+2025-02-16 13:33:05 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage:0,"rotationRoll":0,"rotationitch":5,"direcion":118}
+2025-02-16 13:33:05 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,rotationRoll":0,"rotationPitch":4,"direction":119}
+2025-02-16 13:33:06 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotationPith":5,"direction":118
+2025-02-16 13:33:06 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stge":0,"rotationRol":0,"rtationPich":4,"irection":117
+2025-02-16 13:33:06 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks":[],"stage":,"rotationoll":0,"otationPitch":5,"direction":118}
+2025-02-16 13:33:06 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0,"otationRoll":0,"rotationPitch":,"directio":119}
+2025-02-16 13:33:06 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":],"stage":0,"rotationRoll":0,"rotationPitch":5,"direction":119}
+2025-02-16 13:33:07 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[]"stage":0,"rotationRoll":0,"rotationPitch":4,"direction":119}
+2025-02-16 13:33:07 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks":[],"stage":0,rotationoll":,"rotationPitch":5,"direction":118}
+2025-02-16 13:33:07 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":5,"direction"117}
+2025-02-16 13:33:07 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRll":0,"rotationPitch":4,"direction"119}
+2025-02-16 13:33:08 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage"0,"rotationRoll":0,"rotationPich":4,"direction":117}
+2025-02-16 13:33:08 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRll":0,"rotationPich":4,direction":116}
+2025-02-16 13:33:08 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotatioRoll":0,"rotationPitch":4,direction":117}
+2025-02-16 13:33:08 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"stge":0,"rotationRoll":0,"rotationPitch":4,"directon":118}
+2025-02-16 13:33:08 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0"rotationRoll":0,"rotationPitch":4,"direction"118}
+2025-02-16 13:33:08 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[],"stage:0,"rotatinRoll":0,"rotatinPitch:4,"direction":16}
+2025-02-16 13:33:09 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"stage":0,"rotationRoll"0,"rotationPitch":5,"drection":117}
+2025-02-16 13:33:09 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,"rotationRol":0,"rotationPitch":4,"drection":118}
+2025-02-16 13:33:09 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTask":[],"stage":0,"rotationRoll":0"rotationPitch":4,"direction":116}
+2025-02-16 13:33:09 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stag":0,"rotaionRoll:0,"rotatioPitch":4,"direction":118}
+2025-02-16 13:33:10 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],stage":0"rotationRoll":0,"rotationPitch":4,"direction":17}
+2025-02-16 13:33:10 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0,"rotationRoll":0,"rotationitch"4,"direction":120
+2025-02-16 13:33:10 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTass":[],"stage":0,"rotationRoll:0,"rotatonPitch":4,"directon":118}
+2025-02-16 13:33:10 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks"[],"stage":,"rotationRoll":0,"rotationPitch":4,"direction":118}
+2025-02-16 13:33:10 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage:0,"rotationRoll":0,"rotationPitch":4,direction":120}
+2025-02-16 13:33:10 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],stage":0,"rtationRol":0,"rotationPitch":4,"direction":118}
+2025-02-16 13:33:11 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch:4,"direction":119}
+2025-02-16 13:33:11 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage":0,"rtationRoll":0,"otationPitch":4,"direction":119}
+2025-02-16 13:33:11 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"sage":0,"rotationRoll":0,"roationPitch:4,"direction":119}
+2025-02-16 13:33:12 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"roationPitc":4,"direction":117
+2025-02-16 13:33:12 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":4,"direction":118
+2025-02-16 13:33:12 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks"[],"stage":0,"rotationRll":0,"otationPitch":5,"direction":118}
+2025-02-16 13:33:12 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0,"roationRol":0,"rotationPitch"4,"direction":118}
+2025-02-16 13:33:12 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],stage":0"rotationRoll":0,"rotationPitch":4,direction":19}
+2025-02-16 13:33:13 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":0,"rotaionRoll":0,"rotationPitch":4,"direction":118}
+2025-02-16 13:33:13 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":,"rotationRoll":0,"rotationPith":5,"direction":16}
+2025-02-16 13:33:14 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"tage":,"rotationRol":0,"rotationPitc":4,"diection":118
+2025-02-16 13:33:14 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[,"stage":,"rotationRoll":0,"rotationPitch":4,"direction":118}
+2025-02-16 13:33:14 [src.core.communicator] [ERROR] Invalid JSON format: {failedTask":[],"stage":0,"otationRoll":0,"rotaionPitch":4,"directon":118}
+2025-02-16 13:33:14 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks":[],"stage":0,"rotationRoll":0,"roationPitch":5,"direction":118
+2025-02-16 13:33:14 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"tage":0,rotationRoll":0,"rotationPitch":5,"direction":118
+2025-02-16 13:33:15 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage:0,"rotationRll":0,"rotaionPitch":4,"direction":118}
+2025-02-16 13:33:15 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":,"direcion":117}
+2025-02-16 13:33:15 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":0,"rotationRoll":0"rotationPitch":5,"direction":117}
+2025-02-16 13:33:15 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,"otationRoll":0,"rottionPitch":4,"direction":118}
+2025-02-16 13:33:16 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"stage":0,"rotationoll":0,"rotationPitch":4,"direction"118}
+2025-02-16 13:33:16 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotatinRoll":,"rotatinPitch":4,"direction":116}
+2025-02-16 13:33:16 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,"rotatinRoll":0"rotationitch":4,"directin":117}
+2025-02-16 13:33:16 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch"4,"direction"118}
+2025-02-16 13:33:16 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[]"stage":0,"rotatonRoll":0,"otationPitch":4,"direction":118}
+2025-02-16 13:33:17 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0"rotationRll":0,"rotationPitch":5,"direcion":117
+2025-02-16 13:33:17 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage":,"rotationRoll":0,"rotationPitch":5,"directio":119}
+2025-02-16 13:33:17 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks:[],"stage":0"rotationRoll":0,"rotationPitch":4,"direction":119
+2025-02-16 13:33:18 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0"rotationRoll"0,"rotationPitch:4,"direction":117}
+2025-02-16 13:33:19 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"sage":0,"rotationRoll":0,"rottionPitch":4,"diretion":118}
+2025-02-16 13:33:19 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotatonRoll":0,rotationPitch":5,"direction"120}
+2025-02-16 13:33:19 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[],"stge":0,"otatioRoll":0"rotationPitch":5,"direction":118}
+2025-02-16 13:33:19 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTaks":[],"stage":0"rotationRoll"0,"rotationPitch":5,"direction:118}
+2025-02-16 13:33:19 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"otationRoll":0,"rotatioPitch":,"direction":117}
+2025-02-16 13:33:20 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks":[],"stage":0,"rottionRoll":0,"rotatinPitch":,"direction":118}
+2025-02-16 13:33:20 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stag":0,"rotationRoll":0,"rotationPitch":4,"direction":118}
+2025-02-16 13:33:20 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],stage":0,"roationRoll":0,"rotationPich":4,"dirction":117}
+2025-02-16 13:33:20 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[,"stag":0,"rotationRoll":0,"rotationPitch":4,"diretion":17}
+2025-02-16 13:33:21 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks":[],"stag":0,"rotatinRoll":0,"rotatioPitch":4"direction":117}
+2025-02-16 13:33:21 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0,"otationRoll":0,"rotationPitch":4,"diretion":116              {"failedTsks":[],"stage":0,"rotationRll":0,"rotatonPitch":4"direction":118}
+2025-02-16 13:33:21 [src.core.communicator] [ERROR] Invalid JSON format: {failedTasks":[],"stage":0"rotationRoll":0,"otationPith":5,"irection":18}
+2025-02-16 13:33:21 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage:0,"rotationRoll":-1,"rotationPitch":5,"direction":118}
+2025-02-16 13:33:21 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks"[],"stage":0,"rotatioRoll":0,"rotationPitc":5,"direction":117
+2025-02-16 13:33:22 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":4"directio":120}
+2025-02-16 13:33:23 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage":0,"rotaionRoll":0,"rotationPitch":5,"direction":118}
+2025-02-16 13:33:23 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll"0,"rotationPitch":4,"direction":18}
+2025-02-16 13:33:23 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks":[],"stage":0"rotationRoll":0,"rtationPith":4,"direction":12}
+2025-02-16 13:33:23 [src.core.communicator] [ERROR] Invalid JSON format: "failedTass":[],"stage":0,"rotationRoll"0,"rotatinPitch":5,"direction":118}
+2025-02-16 13:33:23 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":,"rotationPitch":4,"direction"118}
+2025-02-16 13:33:24 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0,"rtationRoll":0,"rotationPitch"4,"diretion":119}
+2025-02-16 13:33:24 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":,"rotationRll":0,"roationPith":4,"drection":20}
+2025-02-16 13:33:24 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"tage":0,rotationRoll":0,"rotationPitc":5,"dirction":118}
+2025-02-16 13:33:24 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks":[],"stage":0"rotationoll":0,"rotationPitch":,"directin":118}
+2025-02-16 13:33:25 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks":[],"stage":0,"rotatioRoll":0,rotationPitch":4,"direction:119}
+2025-02-16 13:33:25 [src.core.communicator] [ERROR] Invalid JSON format: "failedTasks:[],"stage":0,"rotationRoll":0,"otationPich":5,direction":117}
+2025-02-16 13:33:26 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],"tage:0,"rotationRoll":0,"rotationPitch":4,"direction"118}
+2025-02-16 13:33:26 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":5"direction:119}
+2025-02-16 13:33:26 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0"rotationRoll":0,"rotationPitch":4,"direction":116
+2025-02-16 13:33:26 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0,"otationoll":0,"rotationPitch:4,"dirction":118}
+2025-02-16 13:33:26 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotatinRoll":0,"rotationPitch":4,"direction:119}
+2025-02-16 13:33:26 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],stage":0,"rotationRoll":0,"rotationPitch":5,"direction":117}
+2025-02-16 13:33:27 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[]"stage":,"rotationoll":0,"rotationPich":5,"drection":18}
+2025-02-16 13:33:27 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":0,"rotationRoll":0,"rotationPitch":4,"direcion":119}
+2025-02-16 13:33:27 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],stage"0,"rotatinRoll"0,"rotationPitch":4,"direction":18}
+2025-02-16 13:33:27 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage:0,"rotationRoll":0"rotatinPitch":4,direction:119}
+2025-02-16 13:33:28 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTask":[],"stage":0,"rotationRoll":0"rotationPitc":4,"direction":17}
+2025-02-16 13:33:28 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll:0,"rotationPitch":4,"direction":11}
+2025-02-16 13:33:28 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotatioRoll":0,rotationPtch":5,"irection":117}
+2025-02-16 13:33:28 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTass":[],"stage":0,"rotationRoll":0,"rotationPitch":5,"direction:117}
+2025-02-16 13:33:28 [src.core.communicator] [ERROR] Invalid JSON format: {"faildTasks":[],"stage":,"rotatinRoll":0,"rotationPitch":4,"direction":119}
+2025-02-16 13:33:29 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"otationPitch:5,"direction":118}              {"failedTass":[],"stage":0,"rotationRoll":0,"roationPitch":4,"direction":117}
+2025-02-16 13:33:29 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":4,"direction:117}
+2025-02-16 13:33:29 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],"tage"0,"rotationRoll":0,"rotationPith":4,"direction":17}
+2025-02-16 13:33:30 [src.core.communicator] [ERROR] Invalid JSON format: {"faileTasks":[]"stage":0,"rotationRoll":0,"rottionPitch":4"direction":118}
+2025-02-16 13:33:30 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":0,"rotationRoll":0,"rotaionPitch"4,"directon":117}
+2025-02-16 13:33:30 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],stage":0,"roationRoll":0,"rotationPtch":4,"direction":118}
+2025-02-16 13:33:30 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":0,"rotationRoll":0,"rotationPitch":4,"direction":117}
+2025-02-16 13:33:31 [src.core.communicator] [ERROR] Invalid JSON format: {"faiedTasks":[],"stage":0,"rotationRoll"0,"rotationPitch":4,"direction":117}
+2025-02-16 13:33:31 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks":],"stage:0,"rotationRoll":0,"rotationPitch":4,"directio":119}
+2025-02-16 13:33:31 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"sage":0,"rotatonRoll":0,rotationPitch":4,"dirction":118}
+2025-02-16 13:33:31 [src.core.communicator] [ERROR] Invalid JSON format: {"ailedTasks":[],"stage":0,"rotationRoll":0,"rotatonPitch":,"direction":118}            {"failedTasks":[],"stae":0,"rotationRol":0,"rotationPitch":4,"irection":118}
+2025-02-16 13:33:32 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"stage":0,"rotationRoll":0,"rotationPitch":5,"direction":118
+2025-02-16 13:33:32 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[,"stage":0,"rotationRoll":0,"rotationPitch":4,direction":119}
+2025-02-16 13:33:32 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks":[]"stage":,"rotatioRoll":0,rotationPich":4,"direction":17}
+2025-02-16 13:33:32 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks"[],"stage":0,"rotaionRoll"0,"rotatioPitch":4,"direction":117}
+2025-02-16 13:33:32 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":[],"stage":0"rotationRll":0,"rtationPitch":5,"directio":118}
+2025-02-16 13:33:33 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotatinRoll":0,"otationPitc":5,"dirction":117}
+2025-02-16 13:33:33 [src.core.communicator] [ERROR] Invalid JSON format: "failedTaks":[],"stage":0,"otationRoll":0,"roationPitch":4,"directon":118}
+2025-02-16 13:33:33 [src.core.communicator] [ERROR] Invalid JSON format: {"failedasks":[],stag":0,"rotatonRoll":,"rotatioPitch":5,"directio":117}
+2025-02-16 13:33:34 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks:[],"stge":0,"rotationRoll":0,"rotationPitch":4,"drection":117}
+2025-02-16 13:33:34 [src.core.communicator] [ERROR] Invalid JSON format: "failedTaks":[],"stage":0,"otationRoll":0,"rotationPitch":4,"diretion":118}
+2025-02-16 13:33:34 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks:[],"stage":0"rotationRoll":0,"rotationPitch":4,"direction":119}
+2025-02-16 13:33:34 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage"0,"rotationoll":0,"rotationPtch":4,"drection":118}
+2025-02-16 13:33:34 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stag":0,"rotationRoll:0,"rotatonPitch":4,"direction":118}
+2025-02-16 13:33:35 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTass":[],"stage":0,"rotaionRoll":0,"rotationPitch"4,"direction":116}
+2025-02-16 13:33:35 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],stage":0,"rotationRoll:0,"rotatonPitch":4,"directio":118}
+2025-02-16 13:33:35 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTsks":[],stage":0,"rotationRoll":0,"rotationPitch":4,"dirction":18}
+2025-02-16 13:33:35 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTask":[],"stage":0,"rotationRoll":0,"rotationPitch"5,"direction":116}
+2025-02-16 13:33:35 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTaks":[],"tage":0,rotationoll":,"rotatioPitch":4,"direcion":18}
+2025-02-16 13:33:35 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stage":,"rotationRoll":0,"roationPitch":5,"direction":117}
+2025-02-16 13:33:36 [src.core.communicator] [ERROR] Invalid JSON format: {"filedTasks":],"stage":0,"rotationRoll":0,"rotationPitch"5,"direction:117}
+2025-02-16 13:33:36 [src.core.communicator] [ERROR] Invalid JSON format: {"failedTasks":[],"stag":0,"rottionRoll:0,"rotaionPitch":4,"diection":18}
+2025-02-16 13:33:36 [src.core.communicator] [ERROR] Invalid JSON format: {"faledTasks":[],stage":0,"rotatonRoll":0,"rotationPitch":4,"direction":119}             {"faledTasks":],"stage"0,"rotationRoll":0"rotatioPitch":4,"direction":117}
+2025-02-16 13:33:50 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (PermissionError(13, '裝置無法辨識命令。', None, 22))
+2025-02-16 13:33:50 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:33:50 [src.core.communicator] [INFO] Retrying... (1/10000)
+2025-02-16 13:33:55 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:33:55 [src.core.communicator] [INFO] Retrying... (2/10000)
+2025-02-16 13:34:00 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:34:00 [src.core.communicator] [INFO] Retrying... (3/10000)
+2025-02-16 13:34:05 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:38:47 [root] [INFO] Logging system initialized
+2025-02-16 13:38:47 [root] [INFO] Initializing serial communication...
+2025-02-16 13:38:47 [root] [INFO] Setting up storage observer...
+2025-02-16 13:38:47 [root] [INFO] Creating main window...
+2025-02-16 13:38:47 [root] [INFO] Starting serial communication...
+2025-02-16 13:38:47 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:38:47 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:38:47 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:38:53 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (PermissionError(13, '裝置無法辨識命令。', None, 22))
+2025-02-16 13:38:53 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 13:38:53 [src.core.communicator] [INFO] Retrying... (1/10000)
+2025-02-16 13:38:58 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:39:53 [root] [INFO] Logging system initialized
+2025-02-16 13:39:53 [root] [INFO] Initializing serial communication...
+2025-02-16 13:39:53 [root] [INFO] Setting up storage observer...
+2025-02-16 13:39:53 [root] [INFO] Creating main window...
+2025-02-16 13:39:54 [root] [INFO] Starting serial communication...
+2025-02-16 13:39:54 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:39:54 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:39:54 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:41:11 [root] [INFO] Logging system initialized
+2025-02-16 13:41:11 [root] [INFO] Initializing serial communication...
+2025-02-16 13:41:11 [root] [INFO] Setting up storage observer...
+2025-02-16 13:41:11 [root] [INFO] Creating main window...
+2025-02-16 13:41:12 [root] [INFO] Starting serial communication...
+2025-02-16 13:41:12 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:41:12 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:41:12 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:41:31 [root] [INFO] Logging system initialized
+2025-02-16 13:41:31 [root] [INFO] Initializing serial communication...
+2025-02-16 13:41:31 [root] [INFO] Setting up storage observer...
+2025-02-16 13:41:31 [root] [INFO] Creating main window...
+2025-02-16 13:41:32 [root] [INFO] Starting serial communication...
+2025-02-16 13:41:32 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:41:32 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:41:32 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:46:59 [root] [INFO] Logging system initialized
+2025-02-16 13:46:59 [root] [INFO] Initializing serial communication...
+2025-02-16 13:46:59 [root] [INFO] Setting up storage observer...
+2025-02-16 13:46:59 [root] [INFO] Creating main window...
+2025-02-16 13:46:59 [root] [INFO] Starting serial communication...
+2025-02-16 13:46:59 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:46:59 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:46:59 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:47:00 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:00 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:20 [root] [INFO] Logging system initialized
+2025-02-16 13:47:20 [root] [INFO] Initializing serial communication...
+2025-02-16 13:47:20 [root] [INFO] Setting up storage observer...
+2025-02-16 13:47:20 [root] [INFO] Creating main window...
+2025-02-16 13:47:20 [root] [INFO] Starting serial communication...
+2025-02-16 13:47:20 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:47:20 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:47:20 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:47:21 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:21 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:21 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:21 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:21 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:21 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:22 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:22 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:22 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:22 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:22 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:22 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:22 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:23 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:23 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:23 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:23 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:23 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:23 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:24 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:24 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:24 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:25 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:25 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:25 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:25 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:26 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:26 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:26 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:26 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:26 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:26 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:27 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:27 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:27 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:27 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:27 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:27 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:28 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:28 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:28 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:28 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:28 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:28 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:28 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:29 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:29 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:29 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:29 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:29 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:29 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:30 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:30 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:30 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:30 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:30 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:30 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:31 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:31 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:31 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:31 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:31 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:31 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:31 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:32 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:32 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:32 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:32 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:32 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:32 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:33 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:33 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:33 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:33 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:33 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:33 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:34 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:34 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:34 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:34 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:34 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:34 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:34 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:35 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:35 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:35 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:35 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:35 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:35 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:36 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:36 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:36 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:36 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:36 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:36 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:36 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:37 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:37 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:37 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:37 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:37 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:37 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:38 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:38 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:38 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:38 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:38 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:38 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:39 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:39 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:39 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:39 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:39 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:39 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:39 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:40 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:40 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:40 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:40 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:40 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:40 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:41 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:41 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:41 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:41 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:41 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:41 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:42 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:42 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:42 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:47:42 [src.core.communicator] [ERROR] Data processing error: SensorData.__init__() missing 2 required positional arguments: 'stage' and 'failedTasks'
+2025-02-16 13:48:19 [root] [INFO] Logging system initialized
+2025-02-16 13:48:19 [root] [INFO] Initializing serial communication...
+2025-02-16 13:48:19 [root] [INFO] Setting up storage observer...
+2025-02-16 13:48:19 [root] [INFO] Creating main window...
+2025-02-16 13:48:20 [root] [INFO] Starting serial communication...
+2025-02-16 13:48:20 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:48:20 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:48:20 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:48:21 [src.core.communicator] [ERROR] Data processing queue error: 'utf-8' codec can't decode byte 0xff in position 4: invalid start byte
+2025-02-16 13:48:21 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:21 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:21 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:21 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:21 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:21 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:22 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:22 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:22 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:22 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:22 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:22 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:23 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:23 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:23 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:23 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:23 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:23 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:24 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:24 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:24 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:24 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:24 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:24 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:24 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:25 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:25 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:25 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:25 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:25 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:25 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:26 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:26 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:26 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:26 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:26 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:26 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:27 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:27 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:27 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:27 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:27 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:27 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:27 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:28 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:28 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:28 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:28 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:28 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:28 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:29 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:29 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:29 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:29 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:29 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:29 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:29 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:30 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:48:30 [src.core.communicator] [ERROR] Data processing error: Missing required field: 'timestamp'
+2025-02-16 13:50:18 [root] [INFO] Logging system initialized
+2025-02-16 13:50:18 [root] [INFO] Initializing serial communication...
+2025-02-16 13:50:18 [root] [INFO] Setting up storage observer...
+2025-02-16 13:50:18 [root] [INFO] Creating main window...
+2025-02-16 13:50:18 [root] [INFO] Starting serial communication...
+2025-02-16 13:50:18 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:50:18 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:50:18 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:54:12 [root] [INFO] Logging system initialized
+2025-02-16 13:54:12 [root] [INFO] Initializing serial communication...
+2025-02-16 13:54:12 [root] [INFO] Setting up storage observer...
+2025-02-16 13:54:12 [root] [INFO] Creating main window...
+2025-02-16 13:54:13 [root] [INFO] Starting serial communication...
+2025-02-16 13:54:13 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:54:13 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:54:13 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:54:28 [root] [INFO] Logging system initialized
+2025-02-16 13:54:28 [root] [INFO] Initializing serial communication...
+2025-02-16 13:54:28 [root] [INFO] Setting up storage observer...
+2025-02-16 13:54:28 [root] [INFO] Creating main window...
+2025-02-16 13:54:28 [root] [INFO] Starting serial communication...
+2025-02-16 13:54:28 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:54:28 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:54:28 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:54:54 [root] [INFO] Logging system initialized
+2025-02-16 13:54:54 [root] [INFO] Initializing serial communication...
+2025-02-16 13:54:54 [root] [INFO] Setting up storage observer...
+2025-02-16 13:54:54 [root] [INFO] Creating main window...
+2025-02-16 13:54:54 [root] [INFO] Starting serial communication...
+2025-02-16 13:54:54 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:54:54 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:54:54 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:55:05 [root] [INFO] Logging system initialized
+2025-02-16 13:55:05 [root] [INFO] Initializing serial communication...
+2025-02-16 13:55:05 [root] [INFO] Setting up storage observer...
+2025-02-16 13:55:05 [root] [INFO] Creating main window...
+2025-02-16 13:55:06 [root] [INFO] Starting serial communication...
+2025-02-16 13:55:06 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:55:06 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:55:06 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 13:55:51 [root] [INFO] Logging system initialized
+2025-02-16 13:55:51 [root] [INFO] Initializing serial communication...
+2025-02-16 13:55:51 [root] [INFO] Setting up storage observer...
+2025-02-16 13:55:51 [root] [INFO] Creating main window...
+2025-02-16 13:55:52 [root] [INFO] Starting serial communication...
+2025-02-16 13:55:52 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 13:55:52 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 13:55:52 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:04:34 [root] [INFO] Logging system initialized
+2025-02-16 14:04:34 [root] [INFO] Initializing serial communication...
+2025-02-16 14:04:34 [root] [INFO] Setting up storage observer...
+2025-02-16 14:04:34 [root] [INFO] Creating main window...
+2025-02-16 14:04:35 [root] [INFO] Starting serial communication...
+2025-02-16 14:04:35 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:04:35 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:04:35 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:05:19 [root] [INFO] Logging system initialized
+2025-02-16 14:05:19 [root] [INFO] Initializing serial communication...
+2025-02-16 14:05:19 [root] [INFO] Setting up storage observer...
+2025-02-16 14:05:19 [root] [INFO] Creating main window...
+2025-02-16 14:05:20 [root] [INFO] Starting serial communication...
+2025-02-16 14:05:20 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:05:20 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:05:20 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:09:09 [root] [INFO] Logging system initialized
+2025-02-16 14:09:09 [root] [INFO] Initializing serial communication...
+2025-02-16 14:09:09 [root] [INFO] Setting up storage observer...
+2025-02-16 14:09:09 [root] [INFO] Creating main window...
+2025-02-16 14:09:09 [root] [INFO] Starting serial communication...
+2025-02-16 14:09:09 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:09:09 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:09:09 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:09:20 [root] [INFO] Logging system initialized
+2025-02-16 14:09:20 [root] [INFO] Initializing serial communication...
+2025-02-16 14:09:20 [root] [INFO] Setting up storage observer...
+2025-02-16 14:09:20 [root] [INFO] Creating main window...
+2025-02-16 14:09:20 [root] [INFO] Starting serial communication...
+2025-02-16 14:09:20 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:09:20 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:09:20 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:09:28 [root] [INFO] Logging system initialized
+2025-02-16 14:09:28 [root] [INFO] Initializing serial communication...
+2025-02-16 14:09:28 [root] [INFO] Setting up storage observer...
+2025-02-16 14:09:28 [root] [INFO] Creating main window...
+2025-02-16 14:09:29 [root] [INFO] Starting serial communication...
+2025-02-16 14:09:29 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:09:29 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:09:29 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:10:25 [root] [INFO] Logging system initialized
+2025-02-16 14:10:25 [root] [INFO] Initializing serial communication...
+2025-02-16 14:10:25 [root] [INFO] Setting up storage observer...
+2025-02-16 14:10:25 [root] [INFO] Creating main window...
+2025-02-16 14:10:25 [root] [INFO] Starting serial communication...
+2025-02-16 14:10:25 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:10:25 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:10:25 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:10:42 [root] [INFO] Logging system initialized
+2025-02-16 14:10:42 [root] [INFO] Initializing serial communication...
+2025-02-16 14:10:42 [root] [INFO] Setting up storage observer...
+2025-02-16 14:10:42 [root] [INFO] Creating main window...
+2025-02-16 14:10:43 [root] [INFO] Starting serial communication...
+2025-02-16 14:10:43 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:10:43 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:10:43 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:13:46 [root] [INFO] Logging system initialized
+2025-02-16 14:13:46 [root] [INFO] Initializing serial communication...
+2025-02-16 14:13:46 [root] [INFO] Setting up storage observer...
+2025-02-16 14:13:46 [root] [INFO] Creating main window...
+2025-02-16 14:13:46 [root] [INFO] Starting serial communication...
+2025-02-16 14:13:46 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:13:46 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:13:46 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:14:48 [root] [INFO] Logging system initialized
+2025-02-16 14:14:48 [root] [INFO] Initializing serial communication...
+2025-02-16 14:14:48 [root] [INFO] Setting up storage observer...
+2025-02-16 14:14:48 [root] [INFO] Creating main window...
+2025-02-16 14:14:49 [root] [INFO] Starting serial communication...
+2025-02-16 14:14:49 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:14:49 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:14:49 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:15:48 [root] [INFO] Logging system initialized
+2025-02-16 14:15:48 [root] [INFO] Initializing serial communication...
+2025-02-16 14:15:48 [root] [INFO] Setting up storage observer...
+2025-02-16 14:15:48 [root] [INFO] Creating main window...
+2025-02-16 14:15:48 [root] [INFO] Starting serial communication...
+2025-02-16 14:15:48 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:15:48 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:15:48 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:15:57 [root] [INFO] Logging system initialized
+2025-02-16 14:15:57 [root] [INFO] Initializing serial communication...
+2025-02-16 14:15:57 [root] [INFO] Setting up storage observer...
+2025-02-16 14:15:57 [root] [INFO] Creating main window...
+2025-02-16 14:15:57 [root] [INFO] Starting serial communication...
+2025-02-16 14:15:57 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:15:57 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:15:57 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:19:44 [root] [INFO] Logging system initialized
+2025-02-16 14:19:44 [root] [INFO] Initializing serial communication...
+2025-02-16 14:19:44 [root] [INFO] Setting up storage observer...
+2025-02-16 14:19:44 [root] [INFO] Creating main window...
+2025-02-16 14:19:45 [root] [INFO] Starting serial communication...
+2025-02-16 14:19:45 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:19:45 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:19:45 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:19:45 [src.core.communicator] [ERROR] Data processing queue error: 'utf-8' codec can't decode byte 0xee in position 0: invalid continuation byte
+2025-02-16 14:21:48 [root] [INFO] Logging system initialized
+2025-02-16 14:21:48 [root] [INFO] Initializing serial communication...
+2025-02-16 14:21:48 [root] [INFO] Setting up storage observer...
+2025-02-16 14:21:48 [root] [INFO] Creating main window...
+2025-02-16 14:21:48 [root] [INFO] Starting serial communication...
+2025-02-16 14:21:48 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:21:48 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:21:48 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:21:49 [src.core.communicator] [ERROR] Data processing queue error: 'utf-8' codec can't decode byte 0xa3 in position 2: invalid start byte
+2025-02-16 14:22:02 [root] [INFO] Logging system initialized
+2025-02-16 14:22:02 [root] [INFO] Initializing serial communication...
+2025-02-16 14:22:02 [root] [INFO] Setting up storage observer...
+2025-02-16 14:22:02 [root] [INFO] Creating main window...
+2025-02-16 14:22:02 [root] [INFO] Starting serial communication...
+2025-02-16 14:22:02 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:22:02 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:22:02 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:22:09 [root] [INFO] Logging system initialized
+2025-02-16 14:22:09 [root] [INFO] Initializing serial communication...
+2025-02-16 14:22:09 [root] [INFO] Setting up storage observer...
+2025-02-16 14:22:09 [root] [INFO] Creating main window...
+2025-02-16 14:22:09 [root] [INFO] Starting serial communication...
+2025-02-16 14:22:09 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:22:09 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:22:09 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:23:15 [root] [INFO] Logging system initialized
+2025-02-16 14:23:15 [root] [INFO] Initializing serial communication...
+2025-02-16 14:23:15 [root] [INFO] Setting up storage observer...
+2025-02-16 14:23:15 [root] [INFO] Creating main window...
+2025-02-16 14:23:16 [root] [INFO] Starting serial communication...
+2025-02-16 14:23:16 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:23:16 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:23:16 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:23:22 [root] [INFO] Logging system initialized
+2025-02-16 14:23:22 [root] [INFO] Initializing serial communication...
+2025-02-16 14:23:22 [root] [INFO] Setting up storage observer...
+2025-02-16 14:23:22 [root] [INFO] Creating main window...
+2025-02-16 14:23:23 [root] [INFO] Starting serial communication...
+2025-02-16 14:23:23 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:23:23 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:23:23 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:25:59 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (PermissionError(13, '裝置無法辨識命令。', None, 22))
+2025-02-16 14:25:59 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:25:59 [src.core.communicator] [INFO] Retrying... (1/10000)
+2025-02-16 14:26:04 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:26:04 [src.core.communicator] [INFO] Retrying... (2/10000)
+2025-02-16 14:27:44 [root] [INFO] Logging system initialized
+2025-02-16 14:27:44 [root] [INFO] Initializing serial communication...
+2025-02-16 14:27:44 [root] [INFO] Setting up storage observer...
+2025-02-16 14:27:44 [root] [INFO] Creating main window...
+2025-02-16 14:27:45 [root] [INFO] Starting serial communication...
+2025-02-16 14:27:45 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 14:27:45 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 14:27:45 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:27:45 [src.core.communicator] [INFO] Retrying... (1/10000)
+2025-02-16 14:27:50 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:27:50 [src.core.communicator] [INFO] Retrying... (2/10000)
+2025-02-16 14:27:55 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:28:57 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (OSError(22, '因為執行緒結束或應用程式要求，所以已中止 I/O 操作。', None, 995))
+2025-02-16 14:28:57 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:28:57 [src.core.communicator] [INFO] Retrying... (1/10000)
+2025-02-16 14:29:02 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:29:02 [src.core.communicator] [INFO] Retrying... (2/10000)
+2025-02-16 14:29:08 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:29:08 [src.core.communicator] [INFO] Retrying... (3/10000)
+2025-02-16 14:29:13 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:29:13 [src.core.communicator] [INFO] Retrying... (4/10000)
+2025-02-16 14:29:18 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:29:18 [src.core.communicator] [INFO] Retrying... (5/10000)
+2025-02-16 14:29:23 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:29:51 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (PermissionError(13, '裝置無法辨識命令。', None, 22))
+2025-02-16 14:29:51 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:29:51 [src.core.communicator] [INFO] Retrying... (1/10000)
+2025-02-16 14:29:56 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:29:56 [src.core.communicator] [INFO] Retrying... (2/10000)
+2025-02-16 14:30:01 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:30:01 [src.core.communicator] [INFO] Retrying... (3/10000)
+2025-02-16 14:30:06 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:30:06 [src.core.communicator] [INFO] Retrying... (4/10000)
+2025-02-16 14:30:11 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:30:11 [src.core.communicator] [INFO] Retrying... (5/10000)
+2025-02-16 14:30:16 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:30:16 [src.core.communicator] [INFO] Retrying... (6/10000)
+2025-02-16 14:30:21 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:30:21 [src.core.communicator] [INFO] Retrying... (7/10000)
+2025-02-16 14:30:26 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:30:26 [src.core.communicator] [INFO] Retrying... (8/10000)
+2025-02-16 14:30:31 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:30:31 [src.core.communicator] [INFO] Retrying... (9/10000)
+2025-02-16 14:30:36 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:30:36 [src.core.communicator] [INFO] Retrying... (10/10000)
+2025-02-16 14:30:41 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:31:20 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (PermissionError(13, '裝置無法辨識命令。', None, 22))
+2025-02-16 14:31:20 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:31:20 [src.core.communicator] [INFO] Retrying... (1/10000)
+2025-02-16 14:31:25 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:31:25 [src.core.communicator] [INFO] Retrying... (2/10000)
+2025-02-16 14:31:30 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:31:30 [src.core.communicator] [INFO] Retrying... (3/10000)
+2025-02-16 14:31:35 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 14:31:36 [src.core.communicator] [ERROR] Serial port error: ClearCommError failed (PermissionError(13, '裝置無法辨識命令。', None, 22))
+2025-02-16 14:31:36 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:31:37 [src.core.communicator] [INFO] Retrying... (1/10000)
+2025-02-16 14:31:42 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:31:42 [src.core.communicator] [INFO] Retrying... (2/10000)
+2025-02-16 14:31:47 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:31:47 [src.core.communicator] [INFO] Retrying... (3/10000)
+2025-02-16 14:31:52 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:31:52 [src.core.communicator] [INFO] Retrying... (4/10000)
+2025-02-16 14:31:57 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:31:57 [src.core.communicator] [INFO] Retrying... (5/10000)
+2025-02-16 14:32:02 [src.core.communicator] [ERROR] Serial port error: could not open port 'COM3': FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+2025-02-16 14:32:02 [src.core.communicator] [INFO] Retrying... (6/10000)
+2025-02-16 14:32:07 [src.core.communicator] [INFO] Serial port reconnected
+2025-02-16 15:02:39 [root] [INFO] Logging system initialized
+2025-02-16 15:02:39 [root] [INFO] Initializing serial communication...
+2025-02-16 15:02:39 [root] [INFO] Setting up storage observer...
+2025-02-16 15:02:39 [root] [INFO] Creating main window...
+2025-02-16 15:05:21 [root] [INFO] Logging system initialized
+2025-02-16 15:05:21 [root] [INFO] Initializing serial communication...
+2025-02-16 15:05:21 [root] [INFO] Setting up storage observer...
+2025-02-16 15:05:21 [root] [INFO] Creating main window...
+2025-02-16 15:08:00 [root] [INFO] Logging system initialized
+2025-02-16 15:08:00 [root] [INFO] Initializing serial communication...
+2025-02-16 15:08:00 [root] [INFO] Setting up storage observer...
+2025-02-16 15:08:00 [root] [INFO] Creating main window...
+2025-02-16 15:16:17 [root] [INFO] Logging system initialized
+2025-02-16 15:16:17 [root] [INFO] Initializing serial communication...
+2025-02-16 15:16:17 [root] [INFO] Setting up storage observer...
+2025-02-16 15:16:17 [root] [INFO] Creating main window...
+2025-02-16 15:17:34 [root] [INFO] Logging system initialized
+2025-02-16 15:17:34 [root] [INFO] Initializing serial communication...
+2025-02-16 15:17:34 [root] [INFO] Setting up storage observer...
+2025-02-16 15:17:34 [root] [INFO] Creating main window...
+2025-02-16 15:18:22 [root] [INFO] Logging system initialized
+2025-02-16 15:18:22 [root] [INFO] Initializing serial communication...
+2025-02-16 15:18:22 [root] [INFO] Setting up storage observer...
+2025-02-16 15:18:22 [root] [INFO] Creating main window...
+2025-02-16 15:18:23 [root] [INFO] Starting serial communication...
+2025-02-16 15:18:23 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2025-02-16 15:18:23 [src.core.communicator] [INFO] Serial communication started
+2025-02-16 15:18:23 [src.core.communicator] [INFO] Serial port reconnected

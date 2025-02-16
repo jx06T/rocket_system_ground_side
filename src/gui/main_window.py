@@ -1,7 +1,11 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow 
+import logging
+from PyQt6.QtWidgets import QApplication, QMainWindow ,QVBoxLayout
 from src.gui.ui_main import Ui_MainWindow  
 from src.gui.qt_observer import QtGuiObserver
 from src.gui.visualizers.line_chart import LineChartDrawer
+from src.gui.visualizers.stage_display import StageDisplayer
+from src.gui.visualizers.log_displayer import LogDisplayer
+from src.gui.visualizers.attitude_displayer import AttitudeDisplayer, CubeGLWidget  
 from src.core.communicator import SerialCommunicator
 from src.core.models import SensorData
 
@@ -23,6 +27,18 @@ class MainWindow(QMainWindow):
         self.chart_1 = LineChartDrawer(self.ui.chart_widget_1,2,100)
         self.chart_2 = LineChartDrawer(self.ui.chart_widget_2,1,100,(0,360))
 
+        self.stage_display = StageDisplayer(self.ui.listWidget)
+        
+        self.cube_widget = CubeGLWidget()
+        if self.ui.gl_widget.layout() is None:
+            self.ui.gl_widget.setLayout(QVBoxLayout())
+        self.ui.gl_widget.layout().addWidget(self.cube_widget)
+        self.attitude_displayer = AttitudeDisplayer(self.cube_widget)
+        
+        self.log_display = LogDisplayer(self.ui.log_textEdit) 
+        self.logger = logging.getLogger(__name__)
+      
+
     def init_gui(self):
         self.ui.version_label.setText("v1.0.0")
         self.ui.serial_label.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Connecting')
@@ -33,29 +49,19 @@ class MainWindow(QMainWindow):
         self.ui.chart_checkBox_3.setChecked(True)
            
         self.ui.listWidget.clear()
-        stages = [
-            "Pre-launch Preparation",
-            "Ignition & Liftoff",
-            "Ascent - 25% Altitude",
-            "Ascent - 50% Altitude",
-            "Ascent - 75% Altitude",
-            "Apogee ",
-            "Parachute Deployment",
-            "Descent Altitude",
-            "Landing"
-        ]
-
-        # 用 new_items 填充 listWidget
-        self.ui.listWidget.addItems(stages)
         
 
     def update_ui(self, data: SensorData):
-        self.chart_1.update_chart([data.rotationRoll,data.rotationPitch],self.ui.chart_checkBox_1.isChecked())
-        self.chart_2.update_chart([data.direction],self.ui.chart_checkBox_2.isChecked()) 
-        # print(data)
+        self.ui.serial_label.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Connecting')
+        self.chart_1.update([data.rotationRoll,data.rotationPitch],self.ui.chart_checkBox_1.isChecked())
+        self.chart_2.update([data.direction],self.ui.chart_checkBox_2.isChecked()) 
+        self.attitude_displayer.update(-data.rotationPitch, data.rotationRoll,data.direction - 180)
+        self.stage_display.update(data.stage,data.failedTasks) 
         
-    def handle_error(self, error: Exception):
-        print(error)        
+    def handle_error(self, error):
+        # self.logger.error(error)
+        if error == "disconnect":
+            self.ui.serial_label.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Disconnect')
 
 if __name__ == "__main__":
     communicator = SerialCommunicator("COM3", 115200)

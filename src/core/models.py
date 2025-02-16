@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any, Dict,List
 
 # 數據模型
 @dataclass
@@ -9,16 +9,20 @@ class SensorData:
     rotationPitch : float
     direction : float
     timestamp: datetime
+    stage:int
+    failedTasks:List[int]
 
     @classmethod
-    def from_dict(cls, data: Dict[str, float], timestamp: datetime = None) -> 'SensorData':
+    def from_dict(cls, data: Dict[str, Any], timestamp: datetime = None) -> 'SensorData':
         """從 JSON 格式的字典創建 SensorData 物件"""
         try:
             return cls(
                 rotationRoll=float(data['rotationRoll']),
                 rotationPitch=float(data['rotationPitch']),
                 direction=float(data['direction']),
-                timestamp=data['timestamp'] or timestamp or datetime.now()
+                timestamp= data.get('timestamp') or timestamp or datetime.now(),
+                stage=data.get('stage',0),
+                failedTasks=data.get('failedTasks',[])
             )
         except KeyError as e:
             raise ValueError(f"Missing required field: {e}")
@@ -31,6 +35,8 @@ class SensorData:
             "rotationPitch": self.rotationPitch,
             "direction": self.direction,
             "timestamp": self.timestamp,
+            "stage": self.stage,
+            "failedTasks": self.failedTasks,
         }
 @dataclass
 class LogData:
