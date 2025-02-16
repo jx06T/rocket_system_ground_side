@@ -68,7 +68,7 @@ class MainWindow(QMainWindow):
 
 
     def init_gui(self):
-        self.ui.version_label.setText("v1.0.0")
+        self.ui.version_label.setText("v1.0.5")
         self.ui.serial_label.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Connecting')
         self.ui.chart_label_1.setText("rotation pitch")
         self.ui.chart_label_2.setText("rotation roll")
