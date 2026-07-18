@@ -56,15 +56,67 @@ class MainWindow(QMainWindow):
         self.logger = logging.getLogger(__name__)
 
     def on_enter_pressed(self):
-        text = self.ui.lineEdit.text()
-        match text:
-            case "reset-angle":
-                self.angle_deviation = self.latest_data.direction
-                self.ui.gl_label.setText(f"angle_deviation:{self.angle_deviation}")
-                self.logger.info('Reset angle deviation successfully')
-                self.ui.lineEdit.clear() 
-            case _:
-                self.logger.error('Unknown command')
+        text = self.ui.lineEdit.text().strip()
+        if not text:
+            return
+            
+        self.ui.lineEdit.clear()
+        
+        if text.startswith("/"):
+            parts = text.split()
+            cmd = parts[0].lower()
+            args = parts[1:]
+            
+            if cmd == "/port":
+                if not args:
+                    self.logger.error("Usage: /port <PORT> (e.g. /port COM4)")
+                    return
+                new_port = args[0]
+                self.logger.info(f"Switching serial port to {new_port}...")
+                self.serial_communicator.stop()
+                self.serial_communicator.port = new_port
+                self.serial_communicator.start()
+                self.logger.info(f"Serial port set to {new_port}. Reconnecting...")
+            elif cmd == "/baud":
+                if not args:
+                    self.logger.error("Usage: /baud <BAUDRATE> (e.g. /baud 115200)")
+                    return
+                try:
+                    new_baud = int(args[0])
+                    self.logger.info(f"Switching baudrate to {new_baud}...")
+                    self.serial_communicator.stop()
+                    self.serial_communicator.baudrate = new_baud
+                    self.serial_communicator.start()
+                    self.logger.info(f"Baudrate set to {new_baud}. Reconnecting...")
+                except ValueError:
+                    self.logger.error("Invalid baudrate value. Must be an integer.")
+            elif cmd == "/connect":
+                self.logger.info("Reconnecting serial...")
+                self.serial_communicator.stop()
+                self.serial_communicator.start()
+            elif cmd == "/disconnect":
+                self.logger.info("Disconnecting serial...")
+                self.serial_communicator.stop()
+            elif cmd == "/help":
+                self.logger.info("Available terminal commands:")
+                self.logger.info("  /port <PORT>      - Switch serial port (e.g. /port COM4)")
+                self.logger.info("  /baud <BAUDRATE>  - Switch baudrate (e.g. /baud 115200)")
+                self.logger.info("  /connect          - Start/Reconnect serial communication")
+                self.logger.info("  /disconnect       - Stop serial communication")
+                self.logger.info("  reset-angle       - Reset IMU angle deviation")
+            else:
+                self.logger.error(f"Unknown terminal command: {cmd}")
+        else:
+            match text:
+                case "reset-angle":
+                    if self.latest_data:
+                        self.angle_deviation = self.latest_data.direction
+                        self.ui.gl_label.setText(f"angle_deviation:{self.angle_deviation}")
+                        self.logger.info('Reset angle deviation successfully')
+                    else:
+                        self.logger.error('No data received yet, cannot reset angle')
+                case _:
+                    self.logger.error(f"Unknown command: {text}. Type /help for commands.")
 
 
     def init_gui(self):

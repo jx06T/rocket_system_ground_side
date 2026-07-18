@@ -24,6 +24,7 @@ class SerialCommunicator:
         # 工作線程
         self.read_thread: Optional[threading.Thread] = None
         self.process_thread: Optional[threading.Thread] = None
+        self.stop_event = threading.Event()
         self.max_retries = 10000 
         self.retry_interval = 5  
 
@@ -46,46 +47,47 @@ class SerialCommunicator:
         for observer in self.observers:
             observer.on_error("disconnect")
         retry_count = 0
-        while retry_count < self.max_retries:
+        while retry_count < self.max_retries and self.running:
             try:
                 if self.serial and self.serial.is_open:
                     self.serial.close()  
                 self.serial = serial.Serial(self.port, self.baudrate, timeout=1)  
                 self.logger.info("Serial port reconnected")
                 return 
-            except serial.SerialException as e:
-                self.logger.error(f"Serial port error: {e}")
-            except FileNotFoundError as e:
-                self.logger.error(f"Reconnection failed: {e}")
-                break
+            except (serial.SerialException, FileNotFoundError) as e:
+                self.logger.error(f"Serial port error/not found: {e}")
             except Exception as e:
                 self.logger.error(f"Unexpected error during reconnection: {e}")
 
             retry_count += 1
             self.logger.info(f"Retrying... ({retry_count}/{self.max_retries})")
-            time.sleep(self.retry_interval) 
-
+            if self.stop_event.wait(self.retry_interval):
+                break
 
     def _read_serial(self):
         while self.running:
             try:
-                if self.serial and self.serial.is_open and self.serial.in_waiting:
+                if self.serial and self.serial.is_open:
                     data = self.serial.readline()
-                    self.data_queue.put(data)
-                else :
+                    if data:
+                        self.data_queue.put(data)
+                else:
+                    self.logger.warning("Serial port is not open. Attempting to reconnect...")
+                    self._reconnect()
                     if not self.serial or not self.serial.is_open:
-                        self.logger.warning("Serial port is not open. Attempting to reconnect...")
-                        self._reconnect()
-                    else:
-                        time.sleep(1)  
+                        self.stop_event.wait(self.retry_interval)
 
             except serial.SerialException as e:
                 self.logger.error(f"Serial port error: {e}")
                 self._reconnect()
+                if not self.serial or not self.serial.is_open:
+                    self.stop_event.wait(self.retry_interval)
                 
             except Exception as e:
                 self.logger.error(f"Serial read error: {e}")
                 self._reconnect()
+                if not self.serial or not self.serial.is_open:
+                    self.stop_event.wait(self.retry_interval)
                 for observer in self.observers:
                     observer.on_error(e)
 
@@ -93,21 +95,33 @@ class SerialCommunicator:
         while self.running:
             try:
                 raw_data = self.data_queue.get(timeout=1)
-                decoded_data = raw_data.decode().strip()
+                decoded_data = raw_data.decode('utf-8', errors='ignore').strip()
+                if not decoded_data:
+                    continue
 
+                sensor_data = None
                 try:
+                    # 1. 優先嘗試 JSON 格式
                     parsed_data = json.loads(decoded_data)
-
-                    sensor_data = SensorData.from_dict(parsed_data,datetime.now())
-                                                            
-                    self._notify_observers(sensor_data)
-
-                except json.JSONDecodeError:
-                    self.logger.error(f"Invalid JSON format: {decoded_data}")
+                    sensor_data = SensorData.from_dict(parsed_data, datetime.now())
+                except (json.JSONDecodeError, TypeError, KeyError):
+                    # 2. JSON 解析失敗，嘗試新版 ASCII 遙測格式
+                    try:
+                        sensor_data = SensorData.from_new_format(decoded_data, datetime.now())
+                    except ValueError:
+                        # 3. 兩者皆失敗，印出格式錯誤提示（會重定向到終端）
+                        self.logger.error(f"Format error: Invalid data received: {decoded_data}")
+                        continue
                 except Exception as e:
-                    self.logger.error(f"Data processing error: {e}")
-                    for observer in self.observers:
-                        observer.on_error(e)
+                    self.logger.error(f"Data processing error (JSON): {e}")
+
+                if sensor_data:
+                    try:
+                        self._notify_observers(sensor_data)
+                    except Exception as e:
+                        self.logger.error(f"Observer notify error: {e}")
+                        for observer in self.observers:
+                            observer.on_error(e)
 
             except queue.Empty:
                 continue
@@ -117,6 +131,7 @@ class SerialCommunicator:
     def start(self):
         """啟動通訊，並在未連線時持續嘗試重新連線"""
         self.running = True
+        self.stop_event.clear()
 
         self.read_thread = threading.Thread(target=self._read_serial)
         self.process_thread = threading.Thread(target=self._process_data)
@@ -129,6 +144,7 @@ class SerialCommunicator:
     def stop(self):
         """停止通訊"""
         self.running = False
+        self.stop_event.set()
         if self.read_thread:
             self.read_thread.join()
         if self.process_thread:
@@ -136,4 +152,5 @@ class SerialCommunicator:
         if self.serial:
             self.serial.close()
         self.logger.info("Serial communication stopped")
+
 

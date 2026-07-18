@@ -2,17 +2,27 @@ import logging
 import sys
 from PyQt6.QtWidgets import QTextEdit
 from PyQt6.QtGui import QTextCursor
+from PyQt6.QtCore import QObject, pyqtSignal
 from datetime import datetime
+
+class LogSignalEmitter(QObject):
+    log_received = pyqtSignal(str)
 
 class LogDisplayer:
     def __init__(self, log_widget: QTextEdit):
         self.log_widget = log_widget
         self.log_widget.setReadOnly(True)
+        self.emitter = LogSignalEmitter()
+        self.emitter.log_received.connect(self._append_log)
         self.setup_logging()
     
+    def _append_log(self, msg: str):
+        self.log_widget.append(msg)
+        self.log_widget.moveCursor(QTextCursor.MoveOperation.End)
+
     def setup_logging(self):
         # 創建自定義處理器
-        qt_handler = self.QtLogHandler(self.log_widget)
+        qt_handler = self.QtLogHandler(self.emitter)
         qt_handler.setFormatter(logging.Formatter(
             '%(asctime)s [%(levelname)s] %(message)s',
             datefmt='%Y-%m-%d %H:%M:%S'
@@ -22,28 +32,29 @@ class LogDisplayer:
         logging.getLogger().addHandler(qt_handler)
         
         # 重定向標準輸出
-        sys.stdout = self.QtOutputRedirector(self.log_widget)
-        sys.stderr = self.QtOutputRedirector(self.log_widget)
+        sys.stdout = self.QtOutputRedirector(self.emitter)
+        sys.stderr = self.QtOutputRedirector(self.emitter)
         
     class QtLogHandler(logging.Handler):
-        def __init__(self, text_widget: QTextEdit):
+        def __init__(self, emitter: LogSignalEmitter):
             super().__init__()
-            self.text_widget = text_widget
+            self.emitter = emitter
             
         def emit(self, record):
-            msg = self.format(record)
-            self.text_widget.append(msg)
-            self.text_widget.moveCursor(QTextCursor.MoveOperation.End)
+            try:
+                msg = self.format(record)
+                self.emitter.log_received.emit(msg)
+            except Exception:
+                self.handleError(record)
     
     class QtOutputRedirector:
-        def __init__(self, text_widget: QTextEdit):
-            self.text_widget = text_widget
+        def __init__(self, emitter: LogSignalEmitter):
+            self.emitter = emitter
             
         def write(self, text):
             if text.strip():
                 timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                self.text_widget.append(f'[{timestamp}] {text.strip()}')
-                self.text_widget.moveCursor(QTextCursor.MoveOperation.End)
+                self.emitter.log_received.emit(f'[{timestamp}] {text.strip()}')
                 
         def flush(self):
             pass

@@ -1,10 +1,8 @@
-import folium
 import logging
 from typing import Tuple
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
 from PyQt6.QtWebEngineWidgets import QWebEngineView
-from PyQt6.QtCore import QUrl ,QTimer
 
 class LocationDisplayer:
     def __init__(self, widget: QWidget, initial_location: Tuple[float, float] = (23.5, 121.5)):
@@ -25,33 +23,49 @@ class LocationDisplayer:
         
         self.logger = logging.getLogger(__name__)
 
-        # 初始化地圖
         self.current_location = initial_location
-        self.map_obj = None
-        self.temp_file = None
+        self.map_initialized = False
         self.create_map(initial_location)
 
-
     def create_map(self, location: Tuple[float, float]):
-        """創建新的地圖"""
-        # 創建地圖對象，縮放級別設為12
-        self.map_obj = folium.Map(
-            location=location,
-            zoom_start=12,
-            tiles='OpenStreetMap'
-        )
-        
-        # 添加位置標記
-        folium.Marker(
-            location,
-            popup='Current Location',
-            icon=folium.Icon(color='red', icon='info-sign')
-        ).add_to(self.map_obj)
-        
-        # 在WebView中顯示地圖
-        html_string = self.map_obj.get_root().render()
-        self.web_view.setHtml(html_string)
-        # self.web_view.setUrl(QUrl.fromLocalFile(self.temp_file))
+        """創建新的地圖並載入"""
+        lat, lng = location
+        html_content = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+            <style>
+                html, body, #map {{ width: 100%; height: 100%; margin: 0; padding: 0; }}
+            </style>
+        </head>
+        <body>
+            <div id="map"></div>
+            <script>
+                var map = L.map('map').setView([{lat}, {lng}], 12);
+                L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
+                    maxZoom: 19,
+                    attribution: '&copy; OpenStreetMap'
+                }}).addTo(map);
+                var marker = L.marker([{lat}, {lng}]).addTo(map)
+                    .bindPopup('Current Location')
+                    .openPopup();
+
+                function updateMarker(lat, lng) {{
+                    var newLatLng = new L.LatLng(lat, lng);
+                    marker.setLatLng(newLatLng);
+                    map.panTo(newLatLng);
+                }}
+            </script>
+        </body>
+        </html>
+        """
+        self.web_view.setHtml(html_content)
+        self.map_initialized = True
+        self.current_location = location
         
     def update(self, location: Tuple[float, float]):
         """
@@ -60,8 +74,13 @@ class LocationDisplayer:
         Args:
             location (Tuple[float, float]): 新的(緯度, 經度)位置
         """
-
         if location != self.current_location:
             self.current_location = location
-            self.create_map(location)
+            if self.map_initialized:
+                lat, lng = location
+                js_code = f"if (typeof updateMarker === 'function') {{ updateMarker({lat}, {lng}); }}"
+                self.web_view.page().runJavaScript(js_code)
+            else:
+                self.create_map(location)
+
     
