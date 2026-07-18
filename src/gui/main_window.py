@@ -149,7 +149,7 @@ class MainWindow(QMainWindow):
         self.chart_2.update([data.rotationRoll],self.ui.chart_checkBox_2.isChecked())
         self.chart_3.update([data.direction],self.ui.chart_checkBox_3.isChecked()) 
 
-        self.quaternion = self.handle_angle_change(-data.rotationPitch,data.rotationRoll,180-((data.direction-self.angle_deviation+360)%360))
+        self.quaternion = self.handle_angle_change(data.rotationRoll, -data.rotationPitch, 180-((data.direction-self.angle_deviation+360)%360))
         self.attitude_displayer.update(self.quaternion)
 
         self.stage_display.update(data.stage,data.failedTasks) 

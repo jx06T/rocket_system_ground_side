@@ -618,3 +618,49 @@
 2026-07-18 20:48:13 [src.core.communicator] [ERROR] Serial port error/not found: could not open port 'COM3': FileNotFoundError(2, '╰参тぃ﹚郎', None, 2)
 2026-07-18 20:48:13 [src.core.communicator] [INFO] Retrying... (295/10000)
 2026-07-18 20:48:18 [src.core.communicator] [INFO] Serial communication stopped
+2026-07-18 21:41:14 [root] [INFO] Logging system initialized
+2026-07-18 21:41:14 [root] [INFO] Initializing serial communication...
+2026-07-18 21:41:14 [root] [INFO] Setting up storage observer...
+2026-07-18 21:41:14 [root] [INFO] Creating main window...
+2026-07-18 21:41:17 [root] [INFO] Starting serial communication...
+2026-07-18 21:41:17 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2026-07-18 21:41:17 [src.core.communicator] [ERROR] Serial port error/not found: could not open port 'COM3': FileNotFoundError(2, '╰参тぃ﹚郎', None, 2)
+2026-07-18 21:41:17 [src.core.communicator] [INFO] Serial communication started
+2026-07-18 21:41:17 [src.core.communicator] [INFO] Retrying... (1/10000)
+2026-07-18 21:41:22 [src.core.communicator] [ERROR] Serial port error/not found: could not open port 'COM3': FileNotFoundError(2, '╰参тぃ﹚郎', None, 2)
+2026-07-18 21:41:22 [src.core.communicator] [INFO] Retrying... (2/10000)
+2026-07-18 21:41:27 [src.core.communicator] [ERROR] Serial port error/not found: could not open port 'COM3': FileNotFoundError(2, '╰参тぃ﹚郎', None, 2)
+2026-07-18 21:41:27 [src.core.communicator] [INFO] Retrying... (3/10000)
+2026-07-18 21:41:32 [src.core.communicator] [ERROR] Serial port error/not found: could not open port 'COM3': FileNotFoundError(2, '╰参тぃ﹚郎', None, 2)
+2026-07-18 21:41:32 [src.core.communicator] [INFO] Retrying... (4/10000)
+2026-07-18 21:41:37 [src.core.communicator] [ERROR] Serial port error/not found: could not open port 'COM3': FileNotFoundError(2, '╰参тぃ﹚郎', None, 2)
+2026-07-18 21:41:37 [src.core.communicator] [INFO] Retrying... (5/10000)
+2026-07-18 21:41:42 [src.core.communicator] [ERROR] Serial port error/not found: could not open port 'COM3': FileNotFoundError(2, '╰参тぃ﹚郎', None, 2)
+2026-07-18 21:41:42 [src.core.communicator] [INFO] Retrying... (6/10000)
+2026-07-18 21:41:48 [src.core.communicator] [ERROR] Serial port error/not found: could not open port 'COM3': FileNotFoundError(2, '╰参тぃ﹚郎', None, 2)
+2026-07-18 21:41:48 [src.core.communicator] [INFO] Retrying... (7/10000)
+2026-07-18 21:41:53 [src.core.communicator] [ERROR] Serial port error/not found: could not open port 'COM3': FileNotFoundError(2, '╰参тぃ﹚郎', None, 2)
+2026-07-18 21:41:53 [src.core.communicator] [INFO] Retrying... (8/10000)
+2026-07-18 21:41:53 [src.gui.main_window] [ERROR] Unknown command: help. Type /help for commands.
+2026-07-18 21:41:58 [src.core.communicator] [ERROR] Serial port error/not found: could not open port 'COM3': FileNotFoundError(2, '╰参тぃ﹚郎', None, 2)
+2026-07-18 21:41:58 [src.core.communicator] [INFO] Retrying... (9/10000)
+2026-07-18 21:41:58 [src.gui.main_window] [INFO] Available terminal commands:
+2026-07-18 21:41:58 [src.gui.main_window] [INFO]   /port <PORT>      - Switch serial port (e.g. /port COM4)
+2026-07-18 21:41:58 [src.gui.main_window] [INFO]   /baud <BAUDRATE>  - Switch baudrate (e.g. /baud 115200)
+2026-07-18 21:41:58 [src.gui.main_window] [INFO]   /connect          - Start/Reconnect serial communication
+2026-07-18 21:41:58 [src.gui.main_window] [INFO]   /disconnect       - Stop serial communication
+2026-07-18 21:41:58 [src.gui.main_window] [INFO]   reset-angle       - Reset IMU angle deviation
+2026-07-18 21:42:03 [src.core.communicator] [ERROR] Serial port error/not found: could not open port 'COM3': FileNotFoundError(2, '╰参тぃ﹚郎', None, 2)
+2026-07-18 21:42:03 [src.core.communicator] [INFO] Retrying... (10/10000)
+2026-07-18 21:42:08 [src.core.communicator] [ERROR] Serial port error/not found: could not open port 'COM3': FileNotFoundError(2, '╰参тぃ﹚郎', None, 2)
+2026-07-18 21:42:08 [src.core.communicator] [INFO] Retrying... (11/10000)
+2026-07-18 21:42:12 [src.gui.main_window] [INFO] Switching serial port to COM33...
+2026-07-18 21:42:13 [src.core.communicator] [INFO] Serial communication stopped
+2026-07-18 21:42:13 [src.core.communicator] [WARNING] Serial port is not open. Attempting to reconnect...
+2026-07-18 21:42:13 [src.core.communicator] [INFO] Serial communication started
+2026-07-18 21:42:13 [src.core.communicator] [ERROR] Serial port error/not found: could not open port 'COM33': PermissionError(13, '砆┶', None, 5)
+2026-07-18 21:42:13 [src.gui.main_window] [INFO] Serial port set to COM33. Reconnecting...
+2026-07-18 21:42:13 [src.core.communicator] [INFO] Retrying... (1/10000)
+2026-07-18 21:42:18 [src.core.communicator] [ERROR] Serial port error/not found: could not open port 'COM33': PermissionError(13, '砆┶', None, 5)
+2026-07-18 21:42:18 [src.core.communicator] [INFO] Retrying... (2/10000)
+2026-07-18 21:42:23 [src.core.communicator] [INFO] Serial port reconnected
