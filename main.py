@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QApplication
 from src.core.communicator import SerialCommunicator
 from src.gui.main_window import MainWindow
 from src.storage.storage_observer import StorageObserver
+from src.utils.settings import load_settings
 # from src.gui.qt_observer import QtGuiObserver
 
 def setup_logging():
@@ -29,7 +30,8 @@ def main():
     app = QApplication(sys.argv)
 
     logging.info("Initializing serial communication...")
-    communicator = SerialCommunicator("COM3", 115200)
+    port, baudrate = load_settings()
+    communicator = SerialCommunicator(port, baudrate)
     
     # 數據存儲
     logging.info("Setting up storage observer...")

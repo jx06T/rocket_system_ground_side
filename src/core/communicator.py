@@ -109,8 +109,10 @@ class SerialCommunicator:
                     try:
                         sensor_data = SensorData.from_new_format(decoded_data, datetime.now())
                     except ValueError:
-                        # 3. 兩者皆失敗，印出格式錯誤提示（會重定向到終端）
-                        self.logger.error(f"Format error: Invalid data received: {decoded_data}")
+                        # 3. 兩者皆失敗，印出格式錯誤提示（限制預覽長度並轉義，防止白框）
+                        preview = decoded_data[:30]
+                        safe_preview = ascii(preview)
+                        self.logger.error(f"Format error: Invalid data received (len={len(decoded_data)}): {safe_preview}...")
                         continue
                 except Exception as e:
                     self.logger.error(f"Data processing error (JSON): {e}")
@@ -145,12 +147,20 @@ class SerialCommunicator:
         """停止通訊"""
         self.running = False
         self.stop_event.set()
+        
+        # 1. 先關閉序列埠，中斷 read_thread 中的 readline() 阻塞狀態，防止 Windows 死鎖 (Deadlock)
+        if self.serial:
+            try:
+                self.serial.close()
+            except Exception as e:
+                self.logger.error(f"Error closing serial during stop: {e}")
+
+        # 2. 安全等待線程退出
         if self.read_thread:
             self.read_thread.join()
         if self.process_thread:
             self.process_thread.join()
-        if self.serial:
-            self.serial.close()
+            
         self.logger.info("Serial communication stopped")
 
 

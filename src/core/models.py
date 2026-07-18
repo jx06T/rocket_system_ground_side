@@ -84,12 +84,13 @@ class SensorData:
             'TC': r'\bTC([+-]?\d*\.?\d+)\b',
             'RAW': r'\bRAW(0x[0-9a-fA-F]+|\d+)\b',
             'ST': r'\bST:([A-Za-z0-9_-]+)\b',
-            'MOD': r'\bMOD([0-1]+)\b',
-            'GPS': r'\bGPS:([A-Za-z0-9_-]+)\b',
+            'MOD': r'\bMOD:?([0-9a-fA-F]+)\b',
+            'GPS': r'\bGPS:([A-Za-z0-9_-]+(?:,\d+)?)\b',
             'SV': r'\bSV:(\d+),(\d+)\b',
             'BF': r'\bBF:(\d+),(\d+)\b',
             'CA': r'\bCA:(\d+),(\d+)\b',
             'CB': r'\bCB:(\d+),(\d+)\b',
+            'C': r'\bC:([0-9a-fA-F]+)\b',
             'PK': r'\bPK([+-]?\d*\.?\d+)\b',
             'SD': r'\bSD(\d+)\b',
             'LR': r'\bLR:(\d+),(\d+),(\d+)\b',
@@ -130,29 +131,74 @@ class SensorData:
             raw_str = extracted['RAW']
             raw_adc = int(raw_str, 16) if raw_str.lower().startswith('0x') else int(raw_str)
             
-        flight_state = extracted['ST'] or ""
+        flight_state_val = extracted['ST'] or ""
+        flight_state = ""
+        if flight_state_val.isdigit():
+            stage = int(flight_state_val)
+            # Map stage back to string representation
+            reverse_stage_map = {0: "IDLE", 1: "ARMED", 2: "LAUNCHED", 3: "BOOST", 4: "APOGEE", 5: "DESCENT", 6: "LANDED"}
+            flight_state = reverse_stage_map.get(stage, "IDLE")
+        else:
+            flight_state = flight_state_val
+            stage_map = {
+                "IDLE": 0, "ARMED": 1, "LAUNCH": 2, "LAUNCHED": 2, "BOOST": 3, "APOGEE": 4, "DESCENT": 5, "LANDED": 6
+            }
+            stage = stage_map.get(flight_state.upper(), 0)
+
         mod_str = extracted['MOD'] or ""
-        gnss_state = extracted['GPS'] or ""
-        
+        failedTasks = []
+        if len(mod_str) == 4 and all(c in '01' for c in mod_str):
+            if mod_str[0] == '0': failedTasks.append(0)
+            if mod_str[1] == '0': failedTasks.append(1)
+            if mod_str[2] == '0': failedTasks.append(2)
+            if mod_str[3] == '0': failedTasks.append(3)
+        elif mod_str:
+            try:
+                val = int(mod_str, 16)
+                if not (val & (1 << 3)): failedTasks.append(0)
+                if not (val & (1 << 2)): failedTasks.append(1)
+                if not (val & (1 << 1)): failedTasks.append(2)
+                if not (val & (1 << 0)): failedTasks.append(3)
+            except ValueError:
+                pass
+
+        gps_val = extracted['GPS'] or ""
+        gnss_state = ""
         sv_visible, sv_used = 0, 0
-        if extracted['SV']:
-            sv_visible = int(extracted['SV'][0])
-            sv_used = int(extracted['SV'][1])
+        if "," in gps_val:
+            parts = gps_val.split(",")
+            status_code = parts[0]
+            sv_visible = int(parts[1])
+            sv_used = sv_visible
+            gnss_state = "FIX_3D" if status_code == "1" else "NO_FIX"
+        else:
+            gnss_state = gps_val
+            if extracted['SV']:
+                sv_visible = int(extracted['SV'][0])
+                sv_used = int(extracted['SV'][1])
             
         buffer_val, count_val = 0, 0
         if extracted['BF']:
             buffer_val = int(extracted['BF'][0])
             count_val = int(extracted['BF'][1])
             
-        ca_raw, ca_eff = 0, 0
-        if extracted['CA']:
-            ca_raw = int(extracted['CA'][0])
-            ca_eff = int(extracted['CA'][1])
-            
-        cb_raw, cb_eff = 0, 0
-        if extracted['CB']:
-            cb_raw = int(extracted['CB'][0])
-            cb_eff = int(extracted['CB'][1])
+        ca_raw, ca_eff, cb_raw, cb_eff = 0, 0, 0, 0
+        if extracted.get('C'):
+            try:
+                val = int(extracted['C'], 16)
+                ca_raw = 1 if (val & (1 << 3)) else 0
+                ca_eff = 1 if (val & (1 << 2)) else 0
+                cb_raw = 1 if (val & (1 << 1)) else 0
+                cb_eff = 1 if (val & (1 << 0)) else 0
+            except ValueError:
+                pass
+        else:
+            if extracted['CA']:
+                ca_raw = int(extracted['CA'][0])
+                ca_eff = int(extracted['CA'][1])
+            if extracted['CB']:
+                cb_raw = int(extracted['CB'][0])
+                cb_eff = int(extracted['CB'][1])
             
         pk_val = float(extracted['PK']) if extracted['PK'] else 0.0
         sd_val = int(extracted['SD']) if extracted['SD'] else 0
@@ -174,31 +220,6 @@ class SensorData:
             rotationPitch = 0.0
             
         direction = 0.0
-
-        # flight_state 字串對應到 stage 整數 (0-6)
-        stage_map = {
-            "IDLE": 0,
-            "ARMED": 1,
-            "LAUNCH": 2,
-            "BOOST": 3,
-            "APOGEE": 4,
-            "DESCENT": 5,
-            "LANDED": 6
-        }
-        stage = stage_map.get(flight_state.upper(), 0)
-
-        # 模組存活狀態轉換為 failedTasks
-        # MOD的 4 個字元分別代表 BMP, IMU, LoRa, SD
-        failedTasks = []
-        if len(mod_str) == 4:
-            if mod_str[0] == '0': # BMP
-                failedTasks.append(0)
-            if mod_str[1] == '0': # IMU
-                failedTasks.append(1)
-            if mod_str[2] == '0': # LoRa
-                failedTasks.append(2)
-            if mod_str[3] == '0': # SD
-                failedTasks.append(3)
 
         # GPS 經緯度解析
         lat = float(extracted['LAT']) if extracted['LAT'] else 25.0

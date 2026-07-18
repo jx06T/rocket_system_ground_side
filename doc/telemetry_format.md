@@ -14,13 +14,13 @@
 
 ### 完整 ASCII 遙測字串 (無 GPS 定位)
 ```text
-T28386 AX+0.007 AY+0.026 AZ+0.978 GX+6.09 GY-1.05 GZ-2.80 P997.92 RH-0.1 KH-0.1 VZ+0.00 GA0.98 TC25.1 RAW0x6173FE ST:IDLE MOD1110 GPS:NO_FIX SV:0,0 BF:7373,266 CA:0,0 CB:0,0 PK0.0 SD0 LR:50,49,49
+T28386 AX+0.007 AY+0.026 AZ+0.978 GX+6.09 GY-1.05 GZ-2.80 P997.92 RH-0.1 KH-0.1 VZ+0.00 GA0.98 ST:0 MOD:E GPS:0,0 C:0
 ```
 
 ### 完整 ASCII 遙測字串 (GPS 定位成功)
 當 GPS 成功定位時，字串中會額外附加 `LAT` (緯度) 與 `LON` (經度) 欄位：
 ```text
-T28386 AX+0.007 AY+0.026 AZ+0.978 GX+6.09 GY-1.05 GZ-2.80 P997.92 RH-0.1 KH-0.1 VZ+0.00 GA0.98 TC25.1 RAW0x6173FE ST:IDLE MOD1110 GPS:FIX_3D SV:8,5 BF:7373,266 CA:0,0 CB:0,0 PK0.0 SD0 LR:50,49,49 LAT+25.04213 LON+121.53489
+T28386 AX+0.007 AY+0.026 AZ+0.978 GX+6.09 GY-1.05 GZ-2.80 P997.92 RH-0.1 KH-0.1 VZ+0.00 GA0.98 ST:0 MOD:E GPS:1,8 C:0 LAT+25.04213 LON+121.53489
 ```
 
 ---
@@ -41,20 +41,19 @@ T28386 AX+0.007 AY+0.026 AZ+0.978 GX+6.09 GY-1.05 GZ-2.80 P997.92 RH-0.1 KH-0.1 
 | **KH** | `float` | KF2 融合高度 (單位：米 m) | `KH-0.1` | `"KH%.1f"` |
 | **VZ** | `float` | KF2 垂直速度 (單位：米/秒 m/s) | `VZ+0.00` | `"VZ%+0.2f"` |
 | **GA** | `float` | 合加速度 (單位：g) | `GA0.98` | `"GA%.2f"` |
-| **TC** | `float` | IMU 溫度 (單位：°C) | `TC25.1` | `"TC%.1f"` |
-| **RAW** | `hex/uint32` | BMP585 原始 ADC | `RAW0x6173FE` | `"RAW0x%06X"` |
-| **ST** | `string` | 飛行狀態字串 (如 `IDLE`, `LAUNCH`, `APOGEE`) | `ST:IDLE` | `"ST:%s"` |
-| **MOD** | `string` | 模組存活狀態 (BMP/IMU/LoRa/SD, 1表存活, 0表損壞) | `MOD1110` | `"MOD%s"` |
-| **GPS** | `string` | 衛星定位狀態字串 (如 `NO_FIX`, `FIX_3D`) | `GPS:NO_FIX` | `"GPS:%s"` |
-| **SV** | `int,int` | 可視衛星數 / 定位衛星數 | `SV:0,0` | `"SV:%d,%d"` |
-| **BF** | `int,int` | 內部狀態參數 (Buffer / 計數) | `BF:7373,266` | `"BF:%d,%d"` |
-| **CA** | `int,int` | cond_A 原始值 / cond_A_eff | `CA:0,0` | `"CA:%d,%d"` |
-| **CB** | `int,int` | cond_B 原始值 / cond_B_eff | `CB:0,0` | `"CB:%d,%d"` |
-| **PK** | `float` | 飛行最高點 (單位：米 m) | `PK0.0` | `"PK%.1f"` |
-| **SD** | `uint32` | SD 累計成功寫入次數 | `SD0` | `"SD%lu"` |
-| **LR** | `int,int,int` | LoRa 統計 (目前序號, 成功次數, 總發送次數) | `LR:50,49,49` | `"LR:%d,%d,%d"` |
+| **ST** | `int` | 飛行狀態代碼 (0=IDLE, 1=LAUNCHED, 2=DEPLOYING, 3=DESCENT, 4=LANDED) | `ST:0` | `"ST:%d"` |
+| **MOD** | `char/hex`| 模組健康狀態 (1個十六進制字元表示 4-bit 狀態：BMP/IMU/LoRa/SD，皆正常為 `E` / 二進制 1110) | `MOD:E` | `"MOD:%X"` |
+| **GPS** | `int,int` | 定位狀態與衛星數 (定位狀態：0=NO_FIX, 1=FIX；衛星數：0~12+) | `GPS:0,0` | `"GPS:%d,%d"` |
+| **C** | `char/hex`| 發火迴圈導通狀態 (1個十六進制字元表示 4-bit 狀態：cond_A, cond_A_eff, cond_B, cond_B_eff) | `C:A` | `"C:%X"` |
 | **LAT** | `float` | (選填) GPS 緯度 | `LAT+25.12345` | `"LAT%+0.5f"` |
 | **LON** | `float` | (選填) GPS 經度 | `LON+121.56789` | `"LON%+0.5f"` |
+
+> 💡 **移除的冗餘欄位**：
+> - `RAW` (原始計數值，地面站不需要)
+> - `BF` (狀態計數與內部緩衝調試值)
+> - `PK` (最高高度，由地面站 GUI 自行動態計算)
+> - `SD` (SD 寫入次數)
+> - `LR` (LoRa 電訊號傳輸統計，由地面接收端自行計算掉包率即可)
 
 ---
 
@@ -63,3 +62,5 @@ T28386 AX+0.007 AY+0.026 AZ+0.978 GX+6.09 GY-1.05 GZ-2.80 P997.92 RH-0.1 KH-0.1 
 地面站解析模組會同時嘗試相容舊版的 JSON 格式與本文件所定義的優化版 ASCII 格式。
 1.  **3D 姿態估算**：當接收到新版格式時，地面站會自動使用重力加速度估算公式計算 Roll 與 Pitch，因此地面站的 3D 立方體姿態指示器與線圖仍會照常運作。
 2.  **異常警報**：若傳輸的資料損壞且不符合上述任何一種格式，地面站將於終端日誌中印出紅色警告提示。
+3.  **角速度折線圖**：Z 軸角速度 (GZ) 已新增至地面站 GUI 的 Chart 3 (姿態與角速度圖表) 中。
+
