@@ -97,26 +97,24 @@ class MainWindow(QMainWindow):
             elif cmd == "/disconnect":
                 self.logger.info("Disconnecting serial...")
                 self.serial_communicator.stop()
+            elif cmd == "/reset-angle":
+                if self.latest_data:
+                    self.angle_deviation = self.latest_data.direction
+                    self.ui.gl_label.setText(f"angle_deviation:{self.angle_deviation}")
+                    self.logger.info('Reset angle deviation successfully')
+                else:
+                    self.logger.error('No data received yet, cannot reset angle')
             elif cmd == "/help":
                 self.logger.info("Available terminal commands:")
                 self.logger.info("  /port <PORT>      - Switch serial port (e.g. /port COM4)")
                 self.logger.info("  /baud <BAUDRATE>  - Switch baudrate (e.g. /baud 115200)")
                 self.logger.info("  /connect          - Start/Reconnect serial communication")
                 self.logger.info("  /disconnect       - Stop serial communication")
-                self.logger.info("  reset-angle       - Reset IMU angle deviation")
+                self.logger.info("  /reset-angle      - Reset IMU angle deviation")
             else:
                 self.logger.error(f"Unknown terminal command: {cmd}")
         else:
-            match text:
-                case "reset-angle":
-                    if self.latest_data:
-                        self.angle_deviation = self.latest_data.direction
-                        self.ui.gl_label.setText(f"angle_deviation:{self.angle_deviation}")
-                        self.logger.info('Reset angle deviation successfully')
-                    else:
-                        self.logger.error('No data received yet, cannot reset angle')
-                case _:
-                    self.logger.error(f"Unknown command: {text}. Type /help for commands.")
+            self.logger.error(f"Unknown command: {text}. Type /help for commands.")
 
 
     def init_gui(self):

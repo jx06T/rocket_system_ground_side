@@ -1,6 +1,6 @@
 test
 .venv
-
-__pycache__
-
+**/__pycache__/
+*.py[cod]
 all_data_sensor.csv
+app.log

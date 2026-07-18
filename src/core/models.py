@@ -175,15 +175,15 @@ class SensorData:
             
         direction = 0.0
 
-        # flight_state 字串對應到 stage 整數 (0-8)
+        # flight_state 字串對應到 stage 整數 (0-6)
         stage_map = {
             "IDLE": 0,
             "ARMED": 1,
             "LAUNCH": 2,
             "BOOST": 3,
-            "APOGEE": 5,
-            "DESCENT": 7,
-            "LANDED": 8
+            "APOGEE": 4,
+            "DESCENT": 5,
+            "LANDED": 6
         }
         stage = stage_map.get(flight_state.upper(), 0)
 

@@ -25,7 +25,7 @@ class LogDisplayer:
         qt_handler = self.QtLogHandler(self.emitter)
         qt_handler.setFormatter(logging.Formatter(
             '%(asctime)s [%(levelname)s] %(message)s',
-            datefmt='%Y-%m-%d %H:%M:%S'
+            datefmt='%H:%M:%S'
         ))
         
         # 添加到root logger
@@ -53,7 +53,7 @@ class LogDisplayer:
             
         def write(self, text):
             if text.strip():
-                timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                timestamp = datetime.now().strftime('%H:%M:%S')
                 self.emitter.log_received.emit(f'[{timestamp}] {text.strip()}')
                 
         def flush(self):
