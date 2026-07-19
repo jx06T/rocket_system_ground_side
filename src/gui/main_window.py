@@ -44,6 +44,13 @@ class MainWindow(QMainWindow):
         self.est_pitch = 0.0
         self.est_roll = 0.0
         self.est_yaw = 180.0
+        
+        # 陀螺儀零點偏置與滑動視窗歷史 (靜止校準用)
+        self.gyro_bias_x = 0.0
+        self.gyro_bias_y = 0.0
+        self.gyro_bias_z = 0.0
+        self.gyro_history = []
+        
         self.quaternion = np.array([1.0, 0.0, 0.0, 0.0])  # w, x, y, z
 
         
@@ -170,15 +177,15 @@ class MainWindow(QMainWindow):
                 if self.latest_data:
                     self.angle_deviation = self.latest_data.direction
                     
-                    # 依據映射後的加速度讀值推算出當前對地角度作為濾波器初始值 (自動校準)
+                    # 1. 依據映射後的加速度讀值推算出當前對地角度作為濾波器初始值 (自動校準)
                     ax = self._get_mapped_axis(self.latest_data, "ax")
                     ay = self._get_mapped_axis(self.latest_data, "ay")
                     az = self._get_mapped_axis(self.latest_data, "az")
                     try:
                         roll_rad = math.atan2(ay, az)
                         pitch_rad = math.atan2(-ax, math.sqrt(ay**2 + az**2))
-                        self.est_pitch = pitch_rad * 180.0 / math.pi
-                        self.est_roll = roll_rad * 180.0 / math.pi
+                        self.est_pitch = roll_rad * 180.0 / math.pi
+                        self.est_roll = -pitch_rad * 180.0 / math.pi
                     except Exception:
                         self.est_pitch = 0.0
                         self.est_roll = 0.0
@@ -186,8 +193,28 @@ class MainWindow(QMainWindow):
                     # 垂直於地面的旋轉角度 (Yaw) 則重置回到正前方 (180.0)
                     self.est_yaw = 180.0
                     
+                    # 2. 計算映射後的角速度均值作為靜態陀螺儀零點偏置 (Gyro Bias Calibration)
+                    if self.gyro_history:
+                        mapped_gyros = []
+                        for h_data in self.gyro_history:
+                            mgx = self._get_mapped_axis(h_data, "gx")
+                            mgy = self._get_mapped_axis(h_data, "gy")
+                            mgz = self._get_mapped_axis(h_data, "gz")
+                            mapped_gyros.append((mgx, mgy, mgz))
+                        
+                        self.gyro_bias_x = sum(g[0] for g in mapped_gyros) / len(mapped_gyros)
+                        self.gyro_bias_y = sum(g[1] for g in mapped_gyros) / len(mapped_gyros)
+                        self.gyro_bias_z = sum(g[2] for g in mapped_gyros) / len(mapped_gyros)
+                    else:
+                        self.gyro_bias_x = self._get_mapped_axis(self.latest_data, "gx")
+                        self.gyro_bias_y = self._get_mapped_axis(self.latest_data, "gy")
+                        self.gyro_bias_z = self._get_mapped_axis(self.latest_data, "gz")
+                    
                     self.ui.gl_label.setText(f"bias - Y:{round(self.angle_deviation,1)}")
-                    self.logger.info(f"Angles calibrated successfully: Yaw reset to 180.0, Pitch set to gravity={self.est_pitch:.2f}, Roll set to gravity={self.est_roll:.2f}")
+                    self.logger.info(
+                        f"Angles calibrated: Yaw reset to 180.0, Pitch gravity={self.est_pitch:.2f}, Roll gravity={self.est_roll:.2f}. "
+                        f"Gyro Bias calibrated - X:{self.gyro_bias_x:.4f}, Y:{self.gyro_bias_y:.4f}, Z:{self.gyro_bias_z:.4f}"
+                    )
                 else:
                     self.logger.error('No data received yet, cannot reset angle')
             elif cmd == "/help":
@@ -267,15 +294,15 @@ class MainWindow(QMainWindow):
         return sign * val
 
     def handle_angle_change(self, pitch: float, roll: float, yaw: float):
-        # euler_to_quaternion 參數對應：第一參數繞 Y 軸 (綠), 第二參數繞 X 軸 (紅), 第三參數繞 Z 軸 (藍)
+        # euler_to_quaternion 參數對應：第一參數繞 Y 軸 (自旋/縱向), 第二參數繞 X 軸 (俯仰), 第三參數繞 Z 軸 (側向)
         # 1. 繞 Y 軸縱向自旋 (Roll / self-spin)
         spin_q = euler_to_quaternion(roll, 0, 0)
         # 2. 繞 X 軸橫向俯仰 (Pitch)
         pitch_q = euler_to_quaternion(0, pitch, 0)
-        # 3. 繞 Y 軸垂直方位偏航 (Yaw / heading)
-        yaw_q = euler_to_quaternion(yaw, 0, 0)
+        # 3. 繞 Z 軸側向傾斜 (Yaw-tilt)
+        yaw_q = euler_to_quaternion(0, 0, yaw)
         
-        # 組合旋轉：先自旋 ➔ 再俯仰 ➔ 最後套用方位角
+        # 組合旋轉：先自旋 ➔ 再俯仰 ➔ 最後套用側向偏航傾斜
         q_temp = quaternion_multiply(pitch_q, spin_q)
         quaternion = quaternion_multiply(yaw_q, q_temp)
         quaternion = quaternion / np.linalg.norm(quaternion)
@@ -284,6 +311,11 @@ class MainWindow(QMainWindow):
 
 
     def update_ui(self, data: SensorData):
+        # 收集遙測數據歷史以供靜止校準計算陀螺儀偏置 (擷取幀數調長至 100 幀)
+        self.gyro_history.append(data)
+        if len(self.gyro_history) > 100:
+            self.gyro_history.pop(0)
+
         # Flash the LED green (ON)
         self.rx_led.setStyleSheet("background-color: #00FF00; border-radius: 6px; border: 1px solid #00AA00;")
         self.led_timer.start(80) # Flash for 80ms
@@ -315,13 +347,13 @@ class MainWindow(QMainWindow):
             else:
                 self.ui.map_label.setText('No Fix (No location data)')
 
-        # 依軸向對應讀取並映射感測器數據
+        # 依軸向對應讀取並映射感測器數據，同時扣除靜止校準得到的陀螺儀零點偏置
         ax = self._get_mapped_axis(data, "ax")
         ay = self._get_mapped_axis(data, "ay")
         az = self._get_mapped_axis(data, "az")
-        gx = self._get_mapped_axis(data, "gx")
-        gy = self._get_mapped_axis(data, "gy")
-        gz = self._get_mapped_axis(data, "gz")
+        gx = self._get_mapped_axis(data, "gx") - self.gyro_bias_x
+        gy = self._get_mapped_axis(data, "gy") - self.gyro_bias_y
+        gz = self._get_mapped_axis(data, "gz") - self.gyro_bias_z
 
         # 基於映射後的對地重力向量計算 Roll / Pitch
         try:
@@ -343,27 +375,37 @@ class MainWindow(QMainWindow):
             if dt <= 0 or dt > 1.0:
                 dt = 0.1
 
-        # 歐拉角姿態融合 (互補濾波)
-        alpha = 0.05
+        # 歐拉角姿態融合 (自適應互補濾波)
+        # 計算總加速度大小 (單位為 g)
+        total_acc = math.sqrt(ax**2 + ay**2 + az**2)
+        acc_deviation = abs(total_acc - 1.0)
+        
+        # 動態調整互補濾波權重：當運動產生額外加速度時，降低對加速度計的信任，依靠陀螺儀積分
+        if acc_deviation < 0.08:
+            alpha = 0.05
+        elif acc_deviation > 0.25:
+            alpha = 0.0
+        else:
+            alpha = 0.05 * (1.0 - (acc_deviation - 0.08) / 0.17)
         
         # 如果是首幀，直接將估算值對齊感測器讀值
         if not self.latest_data:
-            self.est_pitch = body_pitch_acc
-            self.est_roll = body_roll_acc
+            self.est_pitch = body_roll_acc
+            self.est_roll = -body_pitch_acc
             self.est_yaw = 180 - ((data.direction - self.angle_deviation + 360) % 360)
         else:
-            # 1. Pitch 估算 (對應橫向俯仰)：整合 X 軸陀螺儀 (gx) 並以加速度計 Pitch 修正
-            self.est_pitch = (1 - alpha) * (self.est_pitch + gx * dt) + alpha * body_pitch_acc
+            # 1. Pitch 估算 (對應橫向俯仰)：整合 X 軸陀螺儀 (gx) 並以加速度計 Roll 修正
+            self.est_pitch = (1 - alpha) * (self.est_pitch + gx * dt) + alpha * body_roll_acc
             
-            # 2. Roll 估算 (對應縱向自旋)：整合 Z 軸陀螺儀 (gz) 並以加速度計 Roll 修正
-            self.est_roll = (1 - alpha) * (self.est_roll + gz * dt) + alpha * body_roll_acc
+            # 2. Roll 估算 (對應側向傾斜)：整合 Y 軸陀螺儀 (gy) 並以加速度計 Pitch 修正
+            self.est_roll = (1 - alpha) * (self.est_roll - gy * dt) - alpha * body_pitch_acc
             
-            # 3. Yaw 估算 (對應垂直偏航)：整合 Y 軸陀螺儀 (gy)，若有有效航向則以 target_yaw 修正
+            # 3. Yaw 估算 (對應縱向自旋)：整合 Z 軸陀螺儀 (gz)，若有有效航向則以 target_yaw 修正
             target_yaw = 180 - ((data.direction - self.angle_deviation + 360) % 360)
             if data.direction != 0.0:
-                self.est_yaw = (1 - alpha) * (self.est_yaw - gy * dt) + alpha * target_yaw
+                self.est_yaw = (1 - alpha) * (self.est_yaw + gz * dt) + alpha * target_yaw
             else:
-                self.est_yaw = (self.est_yaw - gy * dt) % 360
+                self.est_yaw = (self.est_yaw + gz * dt) % 360
 
         # Chart 1：高度（融合高度 KH、相對高度 RH）與垂直速度（VZ）
         self.chart_1.update(
@@ -377,11 +419,11 @@ class MainWindow(QMainWindow):
         )
         # Chart 3：姿態角（Pitch, Roll, Yaw）與角速度（GX, GY, GZ）
         self.chart_3.update(
-            [self.est_pitch, self.est_roll, self.est_yaw - 180.0, data.gx, data.gy, data.gz],
+            [self.est_pitch, self.est_yaw - 180.0, self.est_roll, data.gx, data.gy, data.gz],
             auto_scroll=self.ui.chart_checkBox_3.isChecked()
         )
 
-        self.quaternion = self.handle_angle_change(self.est_pitch, self.est_roll, self.est_yaw)
+        self.quaternion = self.handle_angle_change(self.est_pitch, self.est_yaw, self.est_roll)
         self.attitude_displayer.update(self.quaternion)
 
         self.stage_display.update(data.stage,data.failedTasks) 
