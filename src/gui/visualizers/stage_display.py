@@ -1,5 +1,5 @@
 from PyQt6.QtGui import QColor, QBrush
-from PyQt6.QtWidgets import QListWidget, QStyledItemDelegate, QAbstractItemView
+from PyQt6.QtWidgets import QListWidget, QStyledItemDelegate, QAbstractItemView, QStyle
 from PyQt6.QtCore import Qt
 from datetime import datetime
 from typing import List
@@ -11,6 +11,13 @@ class CustomDelegate(QStyledItemDelegate):
         size.setHeight(30) 
         self.padding = 10
         return size
+
+    def paint(self, painter, option, index):
+        # 💡 移除滑鼠懸停 (hover)、選取與焦點狀態，防止不可互動元件顯示高亮白底干擾閱讀
+        option.state &= ~QStyle.StateFlag.State_MouseOver
+        option.state &= ~QStyle.StateFlag.State_Selected
+        option.state &= ~QStyle.StateFlag.State_HasFocus
+        super().paint(painter, option, index)
 
 class StageDisplayer:
     def __init__(self, list_widget:QListWidget):

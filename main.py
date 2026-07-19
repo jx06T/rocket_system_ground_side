@@ -1,11 +1,9 @@
 import sys
+import os
 import logging
+import subprocess
 from PyQt6.QtWidgets import QApplication
-from src.core.communicator import SerialCommunicator
 from src.gui.main_window import MainWindow
-from src.storage.storage_observer import StorageObserver
-from src.utils.settings import load_settings
-# from src.gui.qt_observer import QtGuiObserver
 
 def setup_logging():
     # 創建基礎配置
@@ -27,29 +25,46 @@ def setup_logging():
 def main():
     setup_logging()
 
-    app = QApplication(sys.argv)
-
-    logging.info("Initializing serial communication...")
-    port, baudrate = load_settings()
-    communicator = SerialCommunicator(port, baudrate)
+    # 💡 啟動無頭背景 Telemetry Daemon 行程 (預設啟動 ch1)
+    backend_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", "backend_daemon.py")
+    logging.info(f"Spawning backend daemon process: {backend_script}")
     
-    # 數據存儲
-    logging.info("Setting up storage observer...")
-    logger_observer = StorageObserver("all_data")
-    communicator.add_observer(logger_observer)
+    backend_process = None
+    try:
+        backend_process = subprocess.Popen(
+            [sys.executable, backend_script, "--channel", "ch1"],
+            stdin=subprocess.PIPE,
+            stdout=None, # 保留標準輸出供調試
+            stderr=None
+        )
+    except Exception as e:
+        logging.error(f"Failed to spawn backend daemon process: {e}")
+        sys.exit(1)
 
-    # 啟動 GUI
-    logging.info("Creating main window...")
-    window = MainWindow(communicator)
-    window.show()
-
-    logging.info("Starting serial communication...")
-    communicator.start()
 
     try:
+        app = QApplication(sys.argv)
+
+        # 啟動 GUI (傳入通道 ch1)
+        logging.info("Creating main window...")
+        window = MainWindow(["ch1"])
+        window.show()
+
         app.exec()
+    except Exception as e:
+        logging.exception("FATAL ERROR IN GUI INITIATION OR RUNTIME:")
+        sys.exit(1)
     finally:
-        communicator.stop()
+        if backend_process:
+            logging.info("GUI exited. Terminating backend daemon process...")
+            try:
+                backend_process.terminate()
+                backend_process.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                logging.warning("Backend daemon did not terminate in time. Killing it...")
+                backend_process.kill()
+            except Exception as ex:
+                logging.error(f"Error cleaning up backend process: {ex}")
 
 if __name__ == "__main__":
     main()

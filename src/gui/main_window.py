@@ -14,15 +14,16 @@ from src.gui.visualizers.log_displayer import LogDisplayer
 from src.gui.visualizers.location_displayer import LocationDisplayer
 from src.gui.visualizers.visualization_tools import euler_to_quaternion,quaternion_multiply
 from src.gui.visualizers.attitude_displayer import AttitudeDisplayer, CubeGLWidget  
-from src.core.communicator import SerialCommunicator
+import zmq
+import time
+import json
 from src.core.models import SensorData
-from src.utils.settings import save_settings
+from src.utils.settings import load_channel_settings, save_channel_settings
 
 class MainWindow(QMainWindow):
-    def __init__(self, serial_communicator: SerialCommunicator):
+    def __init__(self, channel_ids=None):
         super().__init__()
-        
-
+        self.logger = logging.getLogger(__name__)
         self.angle_deviation = 0.0
         
         # ─── 快速軸向對應設定區 (Sensor Axis Mapping Configuration) ───
@@ -36,8 +37,28 @@ class MainWindow(QMainWindow):
             "gy": "+gy",  # 橫向偏航角速度 (Yaw Rate)
             "gz": "+gz"   # 縱向滾轉/自旋角速度 (Roll/Spin Rate)
         }
+        if channel_ids is None:
+            channel_ids = ["ch1"]
+        elif not isinstance(channel_ids, list):
+            # 相容性包裝：若傳入的是 SerialCommunicator 或是其他型別，就用預設的 ch1
+            channel_ids = ["ch1"]
+        self.channel_ids = channel_ids
+
+        # 載入通訊通道的序列埠與 ZMQ 埠設定
+        self.channel_configs = {}
+        for ch in self.channel_ids:
+            port, baud, zmq_port, zmq_cmd_port = load_channel_settings(ch)
+            self.channel_configs[ch] = {
+                "port": port,
+                "baud": baud,
+                "zmq_port": zmq_port,
+                "zmq_cmd_port": zmq_cmd_port
+            }
         
-        self.serial_communicator = serial_communicator
+        self.focus_channel = "ch1"
+        self.start_time = time.time()
+        self.last_recv_time = {ch: None for ch in self.channel_ids}
+
         self.latest_data = None
         self.last_valid_location = None
         self.last_valid_location_time = None
@@ -53,12 +74,31 @@ class MainWindow(QMainWindow):
         
         self.quaternion = np.array([1.0, 0.0, 0.0, 0.0])  # w, x, y, z
 
+        # 💡 在主執行緒中直接建立 ZMQ SUB Socket 進行非阻塞輪詢，避免 Windows 下 QThread 與 Chromium Winsock 發生 Access Violation 記憶體衝突
+        self.zmq_context = zmq.Context()
+        self.zmq_socket = self.zmq_context.socket(zmq.SUB)
         
-        self.qt_observer = QtGuiObserver()
-        self.qt_observer.signal_emitter.data_received.connect(self.update_ui)
-        self.qt_observer.signal_emitter.error_occurred.connect(self.handle_error)
+        connected_any = False
+        for ch in self.channel_ids:
+            try:
+                _, _, zmq_port, _ = load_channel_settings(ch)
+                address = f"tcp://127.0.0.1:{zmq_port}"
+                self.zmq_socket.connect(address)
+                self.zmq_socket.setsockopt_string(zmq.SUBSCRIBE, "")
+                self.logger.info(f"Main thread connected to ZMQ PUB: {address}")
+                connected_any = True
+            except Exception as e:
+                self.logger.error(f"Failed to connect to ZMQ PUB for channel {ch}: {e}")
 
-        self.serial_communicator.add_observer(self.qt_observer) 
+        # 啟動 100Hz (10ms) 非阻塞資料輪詢定時器
+        self.zmq_poll_timer = QTimer(self)
+        self.zmq_poll_timer.timeout.connect(self.poll_zmq_data)
+        self.zmq_poll_timer.start(10)
+
+        # 啟動 5Hz 心跳偵測定時器
+        self.heartbeat_timer = QTimer(self)
+        self.heartbeat_timer.timeout.connect(self.check_heartbeats)
+        self.heartbeat_timer.start(200) 
         
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -115,9 +155,45 @@ class MainWindow(QMainWindow):
 
         self.logger = logging.getLogger(__name__)
 
-    def _turn_off_led(self):
-        # Set back to grey (OFF)
-        self.rx_led.setStyleSheet("background-color: #555555; border-radius: 6px;")
+    def send_backend_command(self, cmd: str, args: list) -> bool:
+        """透過 ZMQ REQ 槽向後端 Daemon 發送控制命令 (具備超時機制防死鎖)"""
+        focus_ch = self.focus_channel
+        cfg = self.channel_configs.get(focus_ch)
+        if not cfg:
+            self.logger.error("No active config for focus channel")
+            return False
+
+        zmq_cmd_port = cfg.get("zmq_cmd_port")
+        self.logger.info(f"Sending command '{cmd}' to backend daemon of {focus_ch} on port {zmq_cmd_port}...")
+
+        context = zmq.Context()
+        socket = context.socket(zmq.REQ)
+        socket.setsockopt(zmq.RCVTIMEO, 1000) # 1000 毫秒接收超時
+        socket.setsockopt(zmq.SNDTIMEO, 1000) # 1000 毫秒傳送超時
+        socket.connect(f"tcp://127.0.0.1:{zmq_cmd_port}")
+
+        try:
+            socket.send_json({"cmd": cmd, "args": args})
+            reply = socket.recv_json()
+            if reply.get("status") == "ok":
+                self.logger.info(f"Command '{cmd}' executed successfully by backend.")
+                return True
+            else:
+                error_msg = reply.get("error", "Unknown error")
+                self.logger.error(f"Backend failed command '{cmd}': {error_msg}")
+                return False
+        except zmq.error.Again:
+            self.logger.error(f"Backend command '{cmd}' timed out! Is the daemon running?")
+            return False
+        except Exception as e:
+            self.logger.error(f"ZMQ command channel error: {e}")
+            return False
+        finally:
+            try:
+                socket.close()
+                context.term()
+            except Exception:
+                pass
 
     def on_enter_pressed(self):
         text = self.ui.lineEdit.text().strip()
@@ -136,14 +212,13 @@ class MainWindow(QMainWindow):
                     self.logger.error("Usage: /port <PORT> (e.g. /port COM4)")
                     return
                 new_port = args[0]
-                self.logger.info(f"Switching serial port to {new_port}...")
+                self.logger.info(f"Requesting backend to switch port to {new_port}...")
                 
                 def run_port_switch():
-                    self.serial_communicator.stop()
-                    self.serial_communicator.port = new_port
-                    self.serial_communicator.start()
-                    self.logger.info(f"Serial port set to {new_port}. Reconnecting...")
-                    save_settings(new_port, self.serial_communicator.baudrate)
+                    success = self.send_backend_command("set_port", [new_port])
+                    if success:
+                        self.channel_configs[self.focus_channel]["port"] = new_port
+                        self.logger.info(f"GUI updated focus port to {new_port}")
                 
                 threading.Thread(target=run_port_switch, daemon=True).start()
             elif cmd == "/baud":
@@ -152,27 +227,29 @@ class MainWindow(QMainWindow):
                     return
                 try:
                     new_baud = int(args[0])
-                    self.logger.info(f"Switching baudrate to {new_baud}...")
+                    self.logger.info(f"Requesting backend to switch baudrate to {new_baud}...")
                     
                     def run_baud_switch():
-                        self.serial_communicator.stop()
-                        self.serial_communicator.baudrate = new_baud
-                        self.serial_communicator.start()
-                        self.logger.info(f"Baudrate set to {new_baud}. Reconnecting...")
-                        save_settings(self.serial_communicator.port, new_baud)
+                        success = self.send_backend_command("set_baud", [new_baud])
+                        if success:
+                            self.channel_configs[self.focus_channel]["baud"] = new_baud
+                            self.logger.info(f"GUI updated focus baudrate to {new_baud}")
                     
                     threading.Thread(target=run_baud_switch, daemon=True).start()
                 except ValueError:
                     self.logger.error("Invalid baudrate value. Must be an integer.")
             elif cmd == "/connect":
-                self.logger.info("Reconnecting serial...")
+                self.logger.info("Requesting backend to reconnect serial...")
                 threading.Thread(
-                    target=lambda: (self.serial_communicator.stop(), self.serial_communicator.start()),
+                    target=lambda: self.send_backend_command("reconnect", []),
                     daemon=True
                 ).start()
             elif cmd == "/disconnect":
-                self.logger.info("Disconnecting serial...")
-                threading.Thread(target=self.serial_communicator.stop, daemon=True).start()
+                self.logger.info("Requesting backend to disconnect serial...")
+                threading.Thread(
+                    target=lambda: self.send_backend_command("disconnect", []),
+                    daemon=True
+                ).start()
             elif cmd == "/reset-angle":
                 if self.latest_data:
                     self.angle_deviation = self.latest_data.direction
@@ -248,7 +325,10 @@ class MainWindow(QMainWindow):
 
     def init_gui(self):
         self.ui.version_label.setText("v1.0.5")
-        self.ui.serial_label.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Connecting')
+        cfg = self.channel_configs.get(self.focus_channel, {})
+        port = cfg.get("port", "N/A")
+        baud = cfg.get("baud", "N/A")
+        self.ui.serial_label.setText(f'port︰{port}｜baudrate︰{baud}｜Status︰Connecting')
         # 更新圖表標題
         self.ui.chart_label_1.setText("高度與速度")
         self.ui.chart_label_2.setText("動力加速度")
@@ -309,20 +389,7 @@ class MainWindow(QMainWindow):
 
         return quaternion
 
-
     def update_ui(self, data: SensorData):
-        # 收集遙測數據歷史以供靜止校準計算陀螺儀偏置 (擷取幀數調長至 100 幀)
-        self.gyro_history.append(data)
-        if len(self.gyro_history) > 100:
-            self.gyro_history.pop(0)
-
-        # Flash the LED green (ON)
-        self.rx_led.setStyleSheet("background-color: #00FF00; border-radius: 6px; border: 1px solid #00AA00;")
-        self.led_timer.start(80) # Flash for 80ms
-
-        self.ui.serial_label.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Connecting')
-        
-        # 檢查 GNSS 定位狀態
         has_fix = False
         if data.gnss_state:
             has_fix = "FIX" in data.gnss_state.upper() and "NO_FIX" not in data.gnss_state.upper()
@@ -407,20 +474,26 @@ class MainWindow(QMainWindow):
             else:
                 self.est_yaw = (self.est_yaw + gz * dt) % 360
 
+        # 💡 使用地面站接收的高精度相對時間軸 X
+        x_val = data.gs_timestamp - self.start_time
+
         # Chart 1：高度（融合高度 KH、相對高度 RH）與垂直速度（VZ）
         self.chart_1.update(
             [data.kfh_height, data.rel_height, data.vz],
-            auto_scroll=self.ui.chart_checkBox_1.isChecked()
+            auto_scroll=self.ui.chart_checkBox_1.isChecked(),
+            x_value=x_val
         )
         # Chart 2：合加速度（GA）與三軸加速度（AX, AY, AZ）
         self.chart_2.update(
             [data.total_accel, data.ax, data.ay, data.az],
-            auto_scroll=self.ui.chart_checkBox_2.isChecked()
+            auto_scroll=self.ui.chart_checkBox_2.isChecked(),
+            x_value=x_val
         )
         # Chart 3：姿態角（Pitch, Roll, Yaw）與角速度（GX, GY, GZ）
         self.chart_3.update(
             [self.est_pitch, self.est_yaw - 180.0, self.est_roll, data.gx, data.gy, data.gz],
-            auto_scroll=self.ui.chart_checkBox_3.isChecked()
+            auto_scroll=self.ui.chart_checkBox_3.isChecked(),
+            x_value=x_val
         )
 
         self.quaternion = self.handle_angle_change(self.est_pitch, self.est_yaw, self.est_roll)
@@ -430,17 +503,89 @@ class MainWindow(QMainWindow):
 
         self.latest_data = data
 
-    
+    def update_ui_from_zmq(self, topic: str, data: SensorData):
+        """ZMQ 資料接收槽，會更新心跳時間戳並視焦點分發"""
+        self.last_recv_time[topic] = time.time()
+        if topic == self.focus_channel:
+            # 💡 隨遙測資料接收閃爍綠燈，並重置定時器
+            self.rx_led.setStyleSheet("background-color: #00FF00; border-radius: 6px; border: 1px solid #00AA00;")
+            self.led_timer.start(100) # 100ms 後自動呼叫 _turn_off_led 變回灰色
+            self.update_ui(data)
+
+    def check_heartbeats(self):
+        """定期 (5Hz) 檢查通道接收心跳並刷新狀態 LED 與顯示字串"""
+        now = time.time()
+        focus_ch = self.focus_channel
+        last_time = self.last_recv_time.get(focus_ch)
         
-    def handle_error(self, error):
-        if error == "disconnect":
-            self.ui.serial_label.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Disconnect')
-            # Turn LED red when disconnected
+        cfg = self.channel_configs.get(focus_ch, {})
+        port = cfg.get("port", "N/A")
+        baud = cfg.get("baud", "N/A")
+        
+        if last_time is None:
+            self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰No Data")
             self.rx_led.setStyleSheet("background-color: #FF0000; border-radius: 6px; border: 1px solid #AA0000;")
+        else:
+            elapsed = now - last_time
+            if elapsed < 1.5:
+                # 正常綠燈
+                self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰Connected ({elapsed:.1f}s ago)")
+                self.rx_led.setStyleSheet("background-color: #00FF00; border-radius: 6px; border: 1px solid #00AA00;")
+            elif elapsed < 5.0:
+                # 遲滯閃爍橘色
+                self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰Stale ({elapsed:.1f}s ago)")
+                if int(now * 5) % 2 == 0:
+                    self.rx_led.setStyleSheet("background-color: #FFA500; border-radius: 6px; border: 1px solid #CC8400;")
+                else:
+                    self.rx_led.setStyleSheet("background-color: #555555; border-radius: 6px;")
+            else:
+                # 斷線紅燈
+                self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰Lost ({elapsed:.1f}s ago)")
+                self.rx_led.setStyleSheet("background-color: #FF0000; border-radius: 6px; border: 1px solid #AA0000;")
+
+    def poll_zmq_data(self):
+        """非阻塞讀取 ZMQ 消息，保證 UI 流暢不被卡死"""
+        while True:
+            try:
+                # 採用 zmq.NOBLOCK，若無新消息會立刻拋出 zmq.Again 異常並 break 結束
+                topic_bytes, payload_bytes = self.zmq_socket.recv_multipart(flags=zmq.NOBLOCK)
+                topic = topic_bytes.decode('utf-8')
+                payload_dict = json.loads(payload_bytes.decode('utf-8'))
+                
+                if topic.endswith("_log"):
+                    # 💡 本地接收背景連線/重試日誌並分發，使其自動呈現於 GUI Log 視窗中
+                    level_str = payload_dict.get("level", "INFO")
+                    message = payload_dict.get("message", "")
+                    logger_name = payload_dict.get("logger", "backend")
+                    level = getattr(logging, level_str, logging.INFO)
+                    logging.getLogger(logger_name).log(level, message)
+                    continue
+
+                sensor_data = SensorData.from_dict(payload_dict)
+                self.update_ui_from_zmq(topic, sensor_data)
+            except zmq.Again:
+                break
+            except Exception as e:
+                self.logger.error(f"Error polling ZMQ message: {e}")
+                break
+
+    def _turn_off_led(self):
+        """關閉接收指示燈 (變灰色)"""
+        self.rx_led.setStyleSheet("background-color: #555555; border-radius: 6px;")
+
+    def closeEvent(self, event):
+        """視窗關閉時釋放 ZMQ 資源"""
+        self.logger.info("MainWindow close event detected. Releasing ZMQ context and sockets...")
+        try:
+            self.zmq_poll_timer.stop()
+            self.zmq_socket.close()
+            self.zmq_context.term()
+        except Exception as e:
+            self.logger.error(f"Error terminating ZMQ connection on exit: {e}")
+        event.accept()
 
 if __name__ == "__main__":
-    communicator = SerialCommunicator("COM3", 115200)
     app = QApplication([])
-    window = MainWindow(communicator)
+    window = MainWindow(["ch1"])
     window.show()
     app.exec()

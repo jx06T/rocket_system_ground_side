@@ -1,4 +1,16 @@
 {
-    "port": "com33",
-    "baudrate": 9600
+    "channels": {
+        "ch1": {
+            "port": "com33",
+            "baudrate": 9600,
+            "zmq_port": 5555,
+            "zmq_cmd_port": 5565
+        },
+        "ch2": {
+            "port": "COM4",
+            "baudrate": 115200,
+            "zmq_port": 5556,
+            "zmq_cmd_port": 5566
+        }
+    }
 }

@@ -46,23 +46,69 @@ class SensorData:
     lora_seq: int = 0
     lora_success: int = 0
     lora_total: int = 0
+    gs_timestamp: float = 0.0
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any], timestamp: datetime = None) -> 'SensorData':
         """從 JSON 格式的字典創建 SensorData 物件"""
         try:
-            return cls(
-                rotationRoll=float(data['rotationRoll']),
-                rotationPitch=float(data['rotationPitch']),
-                direction=float(data['direction']),
-                timestamp= data.get('timestamp') or timestamp or datetime.now(),
-                stage=data.get('stage',0),
-                failedTasks=data.get('failedTasks',[]),
-                location = (data.get('location',[25,121.5])[0],data.get('location',[25,121.5])[1])
-            )
+            # 轉換時間戳 (若傳入的是字串)
+            ts = data.get('timestamp')
+            if isinstance(ts, str):
+                try:
+                    ts = datetime.fromisoformat(ts)
+                except ValueError:
+                    ts = timestamp or datetime.now()
+            else:
+                ts = ts or timestamp or datetime.now()
+
+            # 建立包含基本欄位字典
+            location_val = data.get('location', [25.0, 121.5])
+            if isinstance(location_val, (list, tuple)) and len(location_val) >= 2:
+                location = (float(location_val[0]), float(location_val[1]))
+            else:
+                location = (25.0, 121.5)
+
+            kwargs = {
+                "rotationRoll": float(data['rotationRoll']),
+                "rotationPitch": float(data['rotationPitch']),
+                "direction": float(data['direction']),
+                "timestamp": ts,
+                "stage": int(data.get('stage', 0)),
+                "failedTasks": list(data.get('failedTasks', [])),
+                "location": location
+            }
+
+            # 動態填寫其他可選欄位 (若存在於字典中)
+            optional_fields = [
+                "timestamp_ms", "ax", "ay", "az", "gx", "gy", "gz", "pressure",
+                "rel_height", "kfh_height", "vz", "total_accel", "temp", "raw_adc",
+                "flight_state", "module_state", "gnss_state", "sv_visible", "sv_used",
+                "buffer_val", "count_val", "cond_a_raw", "cond_a_eff", "cond_b_raw",
+                "cond_b_eff", "peak_height", "sd_writes", "lora_seq", "lora_success",
+                "lora_total", "gs_timestamp"
+            ]
+            for field in optional_fields:
+                if field in data:
+                    val = data[field]
+                    if val is not None:
+                        # 進行適當的型別轉換
+                        if field in ["flight_state", "module_state", "gnss_state"]:
+                            kwargs[field] = str(val)
+                        elif field in ["timestamp_ms", "raw_adc", "sv_visible", "sv_used", 
+                                      "buffer_val", "count_val", "cond_a_raw", "cond_a_eff", 
+                                      "cond_b_raw", "cond_b_eff", "sd_writes", "lora_seq", 
+                                      "lora_success", "lora_total"]:
+                            kwargs[field] = int(val)
+                        elif field == "gs_timestamp":
+                            kwargs[field] = float(val)
+                        else:
+                            kwargs[field] = float(val)
+
+            return cls(**kwargs)
         except KeyError as e:
             raise ValueError(f"Missing required field: {e}")
-        except ValueError as e:
+        except (ValueError, TypeError) as e:
             raise ValueError(f"Invalid data format: {e}")
 
     @classmethod

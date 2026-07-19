@@ -28,6 +28,7 @@ class SerialCommunicator:
         self.stop_event = threading.Event()
         self.max_retries = 10000 
         self.retry_interval = 5  
+        self.raw_log_filepath: Optional[str] = None
 
     def add_observer(self, observer: DataObserver):
         self.observers.append(observer)
@@ -88,6 +89,15 @@ class SerialCommunicator:
                 if self.serial and self.serial.is_open:
                     data = self.serial.readline()
                     if data:
+                        # 🛡️ 實作防禦性 Raw Log 寫入
+                        if hasattr(self, 'raw_log_filepath') and self.raw_log_filepath:
+                            try:
+                                with open(self.raw_log_filepath, "ab") as f:
+                                    f.write(data)
+                                    # 不需要強制每次都 os.fsync，用 standard flush 兼顧效能與安全
+                                    f.flush()
+                            except Exception as e:
+                                self.logger.error(f"Raw log write error: {e}")
                         self.data_queue.put(data)
                 else:
                     self.logger.warning("Serial port is not open. Attempting to reconnect...")

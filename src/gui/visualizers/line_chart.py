@@ -64,21 +64,26 @@ class LineChartDrawer:
         if 0 <= index < len(self.curves):
             self.curves[index].setVisible(visible)
 
-    def update(self, data_values: List[float], auto_scroll: bool = False) -> None:
+    def update(self, data_values: List[float], auto_scroll: bool = False, x_value: float = None) -> None:
         """
         推送新的資料點並更新所有曲線。
         Args:
             data_values: 每條曲線最新的數值，順序對應 curve_configs。
             auto_scroll: 是否自動捲動 X 軸以追蹤最新資料。
+            x_value: 選填。X 軸數值（例如地面站接收時間戳）。若未提供則自動累加。
         """
-        self.current_x += 1
+        if x_value is not None:
+            curr_x = x_value
+        else:
+            self.current_x += 1
+            curr_x = self.current_x
 
         # 更新時間軸：未滿 max_len 前 append，之後改用 roll 滾動覆蓋
         if len(self.time_axis) < self.max_len:
-            self.time_axis = np.append(self.time_axis, self.current_x)
+            self.time_axis = np.append(self.time_axis, curr_x)
         else:
             self.time_axis = np.roll(self.time_axis, -1)
-            self.time_axis[-1] = self.current_x
+            self.time_axis[-1] = curr_x
 
         for i in range(self.num_lines):
             value = float(data_values[i]) if i < len(data_values) else 0.0
@@ -93,4 +98,4 @@ class LineChartDrawer:
             self.curves[i].setData(self.time_axis, self.data_points[i])
 
         if auto_scroll:
-            self.plot_widget.setXRange(self.current_x - self.window_width, self.current_x)
+            self.plot_widget.setXRange(curr_x - self.window_width, curr_x)

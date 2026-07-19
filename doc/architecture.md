@@ -19,39 +19,35 @@
 
 ## 2. 系統架構圖 (Architecture Diagram)
 
-系統採用**觀察者模式 (Observer Pattern)** 來達到解耦目的。`SerialCommunicator` 作為主題 (Subject)，分發數據給不同的觀察者：
+系統採用**多行程解耦架構 (Multi-Process Architecture)**，透過 **ZeroMQ (ZMQ)** 進行行程間通訊 (IPC)，將後端資料擷取與儲存與前端 GUI 完全獨立：
 
 ```mermaid
 graph TD
-    %% 定義模組
-    subgraph Core [核心通訊與數據層]
-        MC[main.py] --> Comm[SerialCommunicator]
-        Comm -->|生產/消費隊列| Queue[queue.Queue]
-        Queue --> Parser[JSON Parser & Model]
+    subgraph BackendProcess [後端進程 - Telemetry Daemon]
+        Comm[SerialCommunicator] -->|生產/消費隊列| Queue[queue.Queue]
+        Queue --> Parser[JSON/ASCII Parser]
         Parser -->|建立| SD[SensorData Dataclass]
+        
+        SD -->|寫入| CSV[CsvDataStorage]
+        SD -->|寫入| Raw[Raw Log File]
+        SD -->|發布| ZMQPub[ZMQ PUB Socket]
     end
 
-    subgraph Storage [資料儲存層]
-        SO[StorageObserver] --> CSV[CsvDataStorage]
-        SO --> JSON[JsonDataStorage]
-    end
-
-    subgraph GUI [圖形化介面層]
-        QO[QtGuiObserver] -->|Qt Signal| MW[MainWindow]
-        MW --> LC1[LineChartDrawer: Pitch]
-        MW --> LC2[LineChartDrawer: Roll]
-        MW --> LC3[LineChartDrawer: Direction]
+    subgraph GUIProcess [前端進程 - PyQt6 GUI]
+        ZMQSub[ZmqReceiverThread] -->|QThread 信號| MW[MainWindow]
+        MW --> LC[LineChartDrawers]
         MW --> Cube[AttitudeDisplayer: OpenGL 3D]
         MW --> Map[LocationDisplayer: GPS Map]
-        MW --> Stage[StageDisplayer: Task Status]
-        MW --> Log[LogDisplayer: Console Logs]
+        MW --> Stage[StageDisplayer]
+        MW --> Log[LogDisplayer]
+        
+        MW -->|控制命令 ZMQ REQ| ZMQRep[ZMQ REP Socket]
     end
 
-    %% 關聯線
-    Comm -->|註冊觀察者| SO
-    Comm -->|註冊觀察者| QO
-    Parser -.->|通知資料更新| SO
-    Parser -.->|通知資料更新| QO
+    %% IPC 傳輸線
+    ZMQPub ====>|ZMQ Telemetry Stream / Port 5555| ZMQSub
+    MW ====>|ZMQ 控制命令 / Port 5565| ZMQRep
+    ZMQRep -.->|控制串口重置| Comm
 ```
 
 ---
@@ -131,32 +127,110 @@ sequenceDiagram
 
 ## 5. 通訊協定與資料格式 (Protocol & Format)
 
-地面站期望透過序列埠接收一行一行的 **JSON 格式字串**。
+地面站支援兩種序列埠接收格式，並在內部以 ZMQ IPC 序列化傳輸：
 
-### 5.1 遙測資料格式 (Telemetry Data Format)
-- 範例 JSON：
-  ```json
-  {
-    "rotationRoll": 12.5,
-    "rotationPitch": -5.2,
-    "direction": 180.0,
-    "stage": 2,
-    "failedTasks": [],
-    "location": [25.0339, 121.5645]
-  }
-  ```
-- 欄位說明：
-  - `rotationRoll`: 滾轉角 (Roll, float)
-  - `rotationPitch`: 俯仰角 (Pitch, float)
-  - `direction`: 偏航角 / 方位角 (Yaw / Direction, float, `0`~`360`)
-  - `stage`: 任務階段代碼 (integer)
-  - `failedTasks`: 錯誤/失敗的任務 ID 列表 (array of integers/strings)
-  - `location`: GPS 經緯度座標雙值組 `[緯度, 經度]`
+### 5.1 序列埠輸入協定 (Serial Ingestion Protocols)
+
+後端守護進程能動態識別並相容解析以下兩種格式：
+1. **新版優化 ASCII 格式**（詳細規格請參閱 [telemetry_format.md](file:///d:/Document_J/code/rocket_system_ground_side/doc/telemetry_format.md)）：
+   使用空格分隔，Key-Value 前綴。範例如下：
+   ```text
+   T28386 AX+0.007 AY+0.026 AZ+0.978 GX+6.09 GY-1.05 GZ-2.80 P997.92 RH-0.1 KH-0.1 VZ+0.00 GA0.98 ST:0 MOD:E GPS:1,8 C:0 LAT+25.04213 LON+121.53489
+   ```
+2. **舊版 JSON 格式**：
+   ```json
+   {
+     "rotationRoll": 12.5,
+     "rotationPitch": -5.2,
+     "direction": 180.0,
+     "stage": 2,
+     "failedTasks": [],
+     "location": [25.0339, 121.5645]
+   }
+   ```
+
+### 5.2 行程間通訊格式 (ZMQ IPC JSON Format)
+
+當後端 Daemon 解析完成後，會將數據結構化為包含完整遙測屬性的 [SensorData](file:///d:/Document_J/code/rocket_system_ground_side/src/core/models.py#L9) 字典，並在 `timestamp` 外額外添加 `gs_timestamp`（地面站接收時間戳，以毫秒為單位）進行 ZMQ 發布：
+
+```json
+{
+  "rotationRoll": 1.523,
+  "rotationPitch": -0.41,
+  "direction": 180.0,
+  "timestamp": "2026-07-19T19:36:04.123456",
+  "gs_timestamp": 1784547364.123,
+  "stage": 0,
+  "failedTasks": [],
+  "location": [25.04213, 121.53489],
+  "timestamp_ms": 28386,
+  "ax": 0.007,
+  "ay": 0.026,
+  "az": 0.978,
+  "gx": 6.09,
+  "gy": -1.05,
+  "gz": -2.8,
+  "pressure": 997.92,
+  "rel_height": -0.1,
+  "kfh_height": -0.1,
+  "vz": 0.0,
+  "total_accel": 0.98,
+  "temp": 25.1,
+  "raw_adc": 6386686,
+  "flight_state": "IDLE",
+  "module_state": "E",
+  "gnss_state": "FIX_3D",
+  "sv_visible": 8,
+  "sv_used": 5,
+  "buffer_val": 7373,
+  "count_val": 266,
+  "cond_a_raw": 1,
+  "cond_a_eff": 0,
+  "cond_b_raw": 1,
+  "cond_b_eff": 0,
+  "peak_height": 0.0,
+  "sd_writes": 0,
+  "lora_seq": 50,
+  "lora_success": 49,
+  "lora_total": 49
+}
+```
 
 ---
 
 ## 6. 特色機制 (Key Features)
 
-1. **執行緒安全 (Thread Safety)**：採用 `queue.Queue` 傳遞串口資料，並且使用 Qt 自帶的 `pyqtSignal` 傳遞解析好的資料回 GUI，解決非 GUI 執行緒直接更新 UI 造成的程式不穩定。
+1. **多行程隔離與資料保底 (Process Isolation & Data Safety)**：後端接收程式獨立運行，並在接收到串列資料的第一瞬間即寫入 `logs/raw_ch[X]_<timestamp>.log`。即使 GUI 崩潰，資料寫入仍 100% 正常進行。
 2. **四元數姿態計算**：在 `MainWindow.update_ui` 中，將歐拉角（Roll, Pitch, Yaw）轉換為**四元數 (Quaternion)**，接著以四元數形式傳遞給 OpenGL 矩陣做 3D 渲染，避開了萬向鎖 (Gimbal Lock) 的問題，提供平滑流暢的姿態模擬。
-3. **靈活的觀察者模式**：未來若想新增其他功能（例如網路轉發遙測數據、自動語音報警），只需新增一個繼承 `DataObserver` 的類別，並調用 `communicator.add_observer()` 即可，無需更改原有的通訊與 UI 邏輯。
+3. **無阻塞與雙通道準備 (ZMQ IPC & Non-blocking GUI)**：GUI 通過 `ZmqReceiverThread` (QThread) 非阻塞訂閱遙測數據。UI 設定變更（例如變更 Com Port 或 Baudrate）均通過設定超時的 ZMQ REQ/REP 通道異步傳輸給後端進程，絕不卡死 GUI 主線程。
+
+---
+
+## 7. 啟動與執行方式 (Execution Guide)
+
+系統採用自動協調進程設計，使用者只需透過單一入口即可完整啟動：
+
+### 7.1 一鍵啟動 (推薦)
+在專案根目錄，使用 Python 運行主入口：
+```bash
+python main.py
+```
+* **運作邏輯**：主入口會以 `subprocess.Popen` 在背景自動生成後端守護進程（`src/backend_daemon.py`，預設為 `ch1`），並同時拉起前端 GUI 視窗。當 GUI 被關閉時，主進程會自動清理並終止背景的後端進程。
+
+### 7.2 分離啟動 (用於調試與開發)
+如果您需要單獨測試或調試後端或前端，也可以手動將兩者分開在不同的終端機視窗啟動：
+
+1. **手動啟動後端進程 (Backend Daemon)**：
+   ```bash
+   python src/backend_daemon.py --channel ch1 --port COM3 --baud 115200
+   ```
+   * `--channel`: 指定通道識別碼 (`ch1` 或 `ch2`)
+   * `--port` (選填): 指定序列埠名稱（若無提供，將自動載入 `settings.json` 設定）
+   * `--baud` (選填): 指定鮑率（若無提供，將自動載入 `settings.json` 設定）
+
+2. **手動啟動前端 GUI 行程 (PyQt6 Visualizer)**：
+   單獨運行 GUI，它會自動連接至本地的 ZMQ 端點接收遙測數據流：
+   ```bash
+   python src/gui/main_window.py
+   ```
+
