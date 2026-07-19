@@ -449,14 +449,14 @@ class MainWindow(QMainWindow):
             self.last_valid_location = data.location
             self.last_valid_location_time = data.timestamp
             time_str = self.last_valid_location_time.strftime("%H:%M:%S")
-            self.ui.map_label.setText(f'Latitude:{round(data.location[0],5)}|Longitude:{round(data.location[1],5)} (Locked, {time_str})')
+            self.ui.map_label.setText(f'Latitude:{round(data.location[0],5)} | Longitude:{round(data.location[1],5)} (Locked, {time_str})')
             if self.ui.map_checkBox.isChecked():
                 self.location_displayer.update(data.location)
         else:
             if self.last_valid_location:
                 time_str = self.last_valid_location_time.strftime("%H:%M:%S")
                 self.ui.map_label.setText(
-                    f'Latitude:{round(self.last_valid_location[0],5)}|Longitude:{round(self.last_valid_location[1],5)} '
+                    f'Latitude:{round(self.last_valid_location[0],5)} | Longitude:{round(self.last_valid_location[1],5)} '
                     f'(Lost Lock - Last Update: {time_str})'
                 )
             else:
