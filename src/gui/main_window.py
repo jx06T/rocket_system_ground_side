@@ -25,6 +25,11 @@ class MainWindow(QMainWindow):
         self.angle_deviation = 0
         self.serial_communicator = serial_communicator
         self.latest_data = None
+        self.last_valid_location = None
+        self.last_valid_location_time = None
+        self.est_pitch = 0.0
+        self.est_roll = 0.0
+        self.est_yaw = 180.0
         self.quaternion = np.array([1.0, 0.0, 0.0, 0.0])  # w, x, y, z
 
         
@@ -236,7 +241,63 @@ class MainWindow(QMainWindow):
         self.led_timer.start(80) # Flash for 80ms
 
         self.ui.serial_label.setText(f'port︰{self.serial_communicator.port}｜baudrate︰{self.serial_communicator.baudrate}｜Status︰Connecting')
-        self.ui.map_label.setText(f'Latitude:{round(data.location[0],4)}|Longitude:{round(data.location[1],4)}')
+        
+        # 檢查 GNSS 定位狀態
+        has_fix = False
+        if data.gnss_state:
+            has_fix = "FIX" in data.gnss_state.upper()
+        else:
+            # 舊版 JSON 資料相容性檢查 (非預設值即視為有定位)
+            has_fix = data.location != (25.0, 121.5) and data.location != (23.5, 121.5)
+
+        if has_fix:
+            self.last_valid_location = data.location
+            self.last_valid_location_time = data.timestamp
+            time_str = self.last_valid_location_time.strftime("%H:%M:%S")
+            self.ui.map_label.setText(f'Latitude:{round(data.location[0],5)}|Longitude:{round(data.location[1],5)} (Locked, {time_str})')
+            if self.ui.map_checkBox.isChecked():
+                self.location_displayer.update(data.location)
+        else:
+            if self.last_valid_location:
+                time_str = self.last_valid_location_time.strftime("%H:%M:%S")
+                self.ui.map_label.setText(
+                    f'Latitude:{round(self.last_valid_location[0],5)}|Longitude:{round(self.last_valid_location[1],5)} '
+                    f'(Lost Lock - Last Update: {time_str})'
+                )
+            else:
+                self.ui.map_label.setText('No Fix (No location data)')
+
+        # 計算 dt
+        dt = 0.1
+        if self.latest_data:
+            dt = (data.timestamp - self.latest_data.timestamp).total_seconds()
+            if data.timestamp_ms and self.latest_data.timestamp_ms:
+                dt = (data.timestamp_ms - self.latest_data.timestamp_ms) / 1000.0
+            # 限制合理區間以防通訊中斷造成數值暴增
+            if dt <= 0 or dt > 1.0:
+                dt = 0.1
+
+        # 歐拉角姿態融合 (互補濾波)
+        alpha = 0.05
+        
+        # 如果是首幀，直接將估算值對齊感測器讀值
+        if not self.latest_data:
+            self.est_pitch = data.rotationRoll
+            self.est_roll = -data.rotationPitch
+            self.est_yaw = 180 - ((data.direction - self.angle_deviation + 360) % 360)
+        else:
+            # 1. Pitch 估算 (對應 X 軸旋轉)：整合 Z 軸陀螺儀 (自旋速率) 並以加速度計 Roll 修正
+            self.est_pitch = (1 - alpha) * (self.est_pitch + data.gz * dt) + alpha * data.rotationRoll
+            
+            # 2. Roll 估算 (對應 Z 軸旋轉)：整合 X 軸陀螺儀並以加速度計 Pitch 修正
+            self.est_roll = (1 - alpha) * (self.est_roll - data.gx * dt) + alpha * (-data.rotationPitch)
+            
+            # 3. Yaw 估算 (對應 Y 軸旋轉，即方位角)：整合 Y 軸陀螺儀，若有有效航向 telemetry 則進行修正
+            target_yaw = 180 - ((data.direction - self.angle_deviation + 360) % 360)
+            if data.direction != 0.0:
+                self.est_yaw = (1 - alpha) * (self.est_yaw - data.gy * dt) + alpha * target_yaw
+            else:
+                self.est_yaw = (self.est_yaw - data.gy * dt) % 360
 
         # Chart 1：高度（融合高度 KH、相對高度 RH）與垂直速度（VZ）
         self.chart_1.update(
@@ -254,13 +315,10 @@ class MainWindow(QMainWindow):
             auto_scroll=self.ui.chart_checkBox_3.isChecked()
         )
 
-        self.quaternion = self.handle_angle_change(data.rotationRoll, -data.rotationPitch, 180-((data.direction-self.angle_deviation+360)%360))
+        self.quaternion = self.handle_angle_change(self.est_pitch, self.est_roll, self.est_yaw)
         self.attitude_displayer.update(self.quaternion)
 
         self.stage_display.update(data.stage,data.failedTasks) 
-
-        if self.ui.map_checkBox.isChecked():
-            self.location_displayer.update(data.location)
 
         self.latest_data = data
 
