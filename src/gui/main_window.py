@@ -570,8 +570,21 @@ class MainWindow(QMainWindow):
             f"當前偏角: {current_dev:.1f}° | 最大偏角: {self.max_deviation_angle:.1f}° (校正偏置 Y: {round(self.angle_deviation, 1)}°)"
         )
 
-        self.stage_display.update(data.stage, data.failedTasks, data.timestamp) 
-
+        self.stage_display.update(data.stage, data.failedTasks, data.timestamp)
+        # Update health status labels based on failedTasks (0:BMP, 1:IMU, 2:LoRa, 3:SD)
+        health_map = [
+            (self.health_bmp, "BMP"),
+            (self.health_imu, "IMU"),
+            (self.health_lora, "LoRa"),
+            (self.health_sd, "SD"),
+        ]
+        for idx, (lbl, name) in enumerate(health_map):
+            if idx in data.failedTasks:
+                lbl.setStyleSheet("background-color: #FF4444; color: white; border-radius: 4px; padding: 2px;")
+                lbl.setText(f"{name}: FAIL")
+            else:
+                lbl.setStyleSheet("background-color: #44FF44; color: black; border-radius: 4px; padding: 2px;")
+                lbl.setText(f"{name}: OK")
         self.latest_data = data
 
     def update_ui_from_zmq(self, topic: str, data: SensorData):
