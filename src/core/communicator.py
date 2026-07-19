@@ -29,6 +29,8 @@ class SerialCommunicator:
         self.max_retries = 10000 
         self.retry_interval = 5  
         self.raw_log_filepath: Optional[str] = None
+        self.was_connected = False
+
 
     def add_observer(self, observer: DataObserver):
         self.observers.append(observer)
@@ -63,6 +65,12 @@ class SerialCommunicator:
 
     def _reconnect(self):
         """嘗試重新連接序列埠"""
+        if self.was_connected:
+            self.logger.error(f"Serial port '{self.port}' connection lost! Starting reconnection loop...")
+            self.was_connected = False
+        else:
+            self.logger.info(f"Serial port '{self.port}' is offline. Attempting to connect...")
+
         for observer in self.observers:
             observer.on_error("disconnect")
         retry_count = 0
@@ -71,12 +79,14 @@ class SerialCommunicator:
                 if self.serial and self.serial.is_open:
                     self.serial.close()  
                 self.serial = serial.Serial(self.port, self.baudrate, timeout=1)  
-                self.logger.info("Serial port reconnected")
+                self.logger.info(f"Serial port '{self.port}' connected successfully")
+                self.was_connected = True
                 return 
             except (serial.SerialException, FileNotFoundError) as e:
                 self.logger.error(self._format_error(e))
             except Exception as e:
                 self.logger.error(f"Unexpected error during reconnection: {e}")
+
 
             retry_count += 1
             self.logger.info(f"Retrying... ({retry_count}/{self.max_retries})")
@@ -100,8 +110,9 @@ class SerialCommunicator:
                                 self.logger.error(f"Raw log write error: {e}")
                         self.data_queue.put(data)
                 else:
-                    self.logger.warning("Serial port is not open. Attempting to reconnect...")
+                    self.logger.info("Serial connection is not active. Initiating connection...")
                     self._reconnect()
+
                     if not self.serial or not self.serial.is_open:
                         self.stop_event.wait(self.retry_interval)
 

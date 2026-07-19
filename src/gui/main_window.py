@@ -27,6 +27,7 @@ class MainWindow(QMainWindow):
         self.angle_deviation = 0.0
         self.max_total_accel = 0.0
         self.max_deviation_angle = 0.0
+        self.max_height = 0.0
         self.calib_q = None
         
         # ─── 快速軸向對應設定區 (Sensor Axis Mapping Configuration) ───
@@ -61,8 +62,10 @@ class MainWindow(QMainWindow):
         self.focus_channel = "ch1"
         self.start_time = time.time()
         self.last_recv_time = {ch: None for ch in self.channel_ids}
+        self.channel_status = {ch: "No Data" for ch in self.channel_ids}
 
         self.latest_data = None
+
         self.last_valid_location = None
         self.last_valid_location_time = None
         self.est_pitch = 0.0
@@ -109,13 +112,13 @@ class MainWindow(QMainWindow):
 
         # Chart 1：高度與速度
         self.chart_1 = LineChartDrawer(self.ui.chart_widget_1, window_width=200, curve_configs=[
-            {'label': 'KH 融合高度(m)', 'color': (0, 180, 80),    'width': 2.0},
-            {'label': 'RH 相對高度(m)', 'color': (230, 140, 0),   'width': 1.5},
+            {'label': 'KH 箭端計算高度(m)', 'color': (0, 180, 80),    'width': 2.0},
+            {'label': 'RH 氣壓高度(m)', 'color': (230, 140, 0),   'width': 1.5},
             {'label': 'VZ 垂直速度(m/s)', 'color': (60, 120, 220), 'width': 1.5},
         ])
-        # Chart 2：動力加速度
+        # Chart 2：加速度
         self.chart_2 = LineChartDrawer(self.ui.chart_widget_2, window_width=200, curve_configs=[
-            {'label': 'GA 合加速度(g)', 'color': (0, 180, 80),    'width': 3.0},
+            {'label': 'GA 總加速度(g)', 'color': (0, 180, 80),    'width': 3.0},
             {'label': 'AX (g)',         'color': (220, 60, 60),   'width': 1.5},
             {'label': 'AY (g)',         'color': (60, 120, 220),  'width': 1.5},
             {'label': 'AZ (g)',         'color': (230, 140, 0),   'width': 1.5},
@@ -293,6 +296,7 @@ class MainWindow(QMainWindow):
                     self.calib_q = self.handle_angle_change(self.est_pitch, self.est_yaw, self.est_roll)
                     self.max_deviation_angle = 0.0
                     self.max_total_accel = 0.0
+                    self.max_height = 0.0
                     self.ui.gl_label.setText(
                         f"當前偏角: 0.0° | 最大偏角: 0.0° (校正偏置 Y: {round(self.angle_deviation, 1)}°)"
                     )
@@ -339,8 +343,8 @@ class MainWindow(QMainWindow):
         self.ui.serial_label.setText(f'port︰{port}｜baudrate︰{baud}｜Status︰Connecting')
         # 更新圖表標題
         self.ui.chart_label_1.setText("高度與速度")
-        self.ui.chart_label_2.setText("動力加速度")
-        self.ui.chart_label_3.setText("姿態角速度")
+        self.ui.chart_label_2.setText("加速度")
+        self.ui.chart_label_3.setText("姿態與角速度")
         # Auto 捲動開關預設啟用
         self.ui.chart_checkBox_1.setChecked(True)
         self.ui.chart_checkBox_2.setChecked(True)
@@ -504,6 +508,7 @@ class MainWindow(QMainWindow):
             self.calib_q = self.handle_angle_change(self.est_pitch, self.est_yaw, self.est_roll)
             self.max_deviation_angle = 0.0
             self.max_total_accel = data.total_accel
+            self.max_height = data.kfh_height
         else:
             # 1. Pitch 估算 (對應橫向俯仰)：整合 X 軸陀螺儀 (gx) 並以加速度計 Roll 修正
             self.est_pitch = (1 - alpha) * (self.est_pitch + gx * dt) + alpha * body_roll_acc
@@ -547,18 +552,19 @@ class MainWindow(QMainWindow):
             self.calib_q = self.quaternion
 
         self.max_total_accel = max(self.max_total_accel, data.total_accel)
+        self.max_height = max(self.max_height, data.kfh_height)
         current_dev = self.get_deviation_angle(self.quaternion, self.calib_q)
         self.max_deviation_angle = max(self.max_deviation_angle, current_dev)
 
         # 動態更新圖表上方標籤顯示具體數值
         self.ui.chart_label_1.setText(
-            f"高度與速度 | 當前高度: {data.kfh_height:.1f} m (相對: {data.rel_height:.1f} m) | 垂直速度: {data.vz:.1f} m/s"
+            f"高度與速度 ] 箭端高度: {data.kfh_height:.1f} m | 最大高度: {self.max_height:.1f} m | 垂直速度: {data.vz:.1f} m/s"
         )
         self.ui.chart_label_2.setText(
-            f"動力加速度 | 當前總加速度: {data.total_accel:.2f} g | 最大總加速度: {self.max_total_accel:.2f} g"
+            f"加速度 ] 當前總加速度: {data.total_accel:.2f} g | 最大總加速度: {self.max_total_accel:.2f} g"
         )
         self.ui.chart_label_3.setText(
-            f"姿態角速度 | Pitch: {self.est_pitch:.1f}° | Roll: {self.est_roll:.1f}° | Yaw: {(self.est_yaw - 180.0):.1f}°"
+            f"姿態與角速度 ] Pitch: {self.est_pitch:.1f}° | Roll: {self.est_roll:.1f}° | Yaw: {(self.est_yaw - 180.0):.1f}°"
         )
         self.ui.gl_label.setText(
             f"當前偏角: {current_dev:.1f}° | 最大偏角: {self.max_deviation_angle:.1f}° (校正偏置 Y: {round(self.angle_deviation, 1)}°)"
@@ -570,7 +576,13 @@ class MainWindow(QMainWindow):
 
     def update_ui_from_zmq(self, topic: str, data: SensorData):
         """ZMQ 資料接收槽，會更新心跳時間戳並視焦點分發"""
+        prev_status = self.channel_status.get(topic, "No Data")
         self.last_recv_time[topic] = time.time()
+        self.channel_status[topic] = "Connected"
+
+        if prev_status in ["No Data", "Lost", "Stale"]:
+            self.logger.info(f"Telemetry channel '{topic}' connection established/resumed.")
+
         if topic == self.focus_channel:
             # 💡 隨遙測資料接收閃爍綠燈，並重置定時器
             self.rx_led.setStyleSheet("background-color: #00FF00; border-radius: 6px; border: 1px solid #00AA00;")
@@ -590,12 +602,15 @@ class MainWindow(QMainWindow):
         if last_time is None:
             self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰No Data")
             self.rx_led.setStyleSheet("background-color: #FF0000; border-radius: 6px; border: 1px solid #AA0000;")
+            self.channel_status[focus_ch] = "No Data"
         else:
             elapsed = now - last_time
+            prev_status = self.channel_status.get(focus_ch)
             if elapsed < 1.5:
                 # 正常綠燈
                 self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰Connected ({elapsed:.1f}s ago)")
                 self.rx_led.setStyleSheet("background-color: #00FF00; border-radius: 6px; border: 1px solid #00AA00;")
+                self.channel_status[focus_ch] = "Connected"
             elif elapsed < 5.0:
                 # 遲滯閃爍橘色
                 self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰Stale ({elapsed:.1f}s ago)")
@@ -603,10 +618,17 @@ class MainWindow(QMainWindow):
                     self.rx_led.setStyleSheet("background-color: #FFA500; border-radius: 6px; border: 1px solid #CC8400;")
                 else:
                     self.rx_led.setStyleSheet("background-color: #555555; border-radius: 6px;")
+                self.channel_status[focus_ch] = "Stale"
+                if prev_status == "Connected":
+                    self.logger.warning(f"Telemetry channel '{focus_ch}' connection stale. Last data received {elapsed:.1f}s ago.")
             else:
                 # 斷線紅燈
                 self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰Lost ({elapsed:.1f}s ago)")
                 self.rx_led.setStyleSheet("background-color: #FF0000; border-radius: 6px; border: 1px solid #AA0000;")
+                self.channel_status[focus_ch] = "Lost"
+                if prev_status in ["Connected", "Stale"]:
+                    self.logger.error(f"Telemetry channel '{focus_ch}' connection lost! No data received for {elapsed:.1f}s.")
+
 
     def poll_zmq_data(self):
         """非阻塞讀取 ZMQ 消息，保證 UI 流暢不被卡死"""
