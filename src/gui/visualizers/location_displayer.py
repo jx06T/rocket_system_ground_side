@@ -45,19 +45,38 @@ class LocationDisplayer:
         <body>
             <div id="map"></div>
             <script>
-                var map = L.map('map').setView([{lat}, {lng}], 12);
+                // 初始中心點設在台灣 (縮放等級為 7，顯示全島概覽，無標記與軌跡)
+                var map = L.map('map').setView([{lat}, {lng}], 7);
                 L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
                     maxZoom: 19,
                     attribution: '&copy; OpenStreetMap'
                 }}).addTo(map);
-                var marker = L.marker([{lat}, {lng}]).addTo(map)
-                    .bindPopup('Current Location')
-                    .openPopup();
+
+                var marker = null;
+                var polyline = null;
+                var pathCoords = [];
 
                 function updateMarker(lat, lng) {{
                     var newLatLng = new L.LatLng(lat, lng);
-                    marker.setLatLng(newLatLng);
-                    map.panTo(newLatLng);
+                    pathCoords.push([lat, lng]);
+
+                    if (marker === null) {{
+                        // 首次收到定位：建立標記與軌跡線，並縮放到詳細層級 15
+                        marker = L.marker(newLatLng).addTo(map)
+                            .bindPopup('Current Location')
+                            .openPopup();
+                        polyline = L.polyline(pathCoords, {{
+                            color: '#FF3B30',
+                            weight: 4,
+                            opacity: 0.85
+                        }}).addTo(map);
+                        map.setView(newLatLng, 15);
+                    }} else {{
+                        // 後續定位更新
+                        marker.setLatLng(newLatLng);
+                        polyline.setLatLngs(pathCoords);
+                        map.panTo(newLatLng);
+                    }}
                 }}
             </script>
         </body>
