@@ -4,6 +4,7 @@ import queue
 import json
 import logging
 import time
+import re
 from datetime import datetime
 from typing import List, Optional
 
@@ -42,6 +43,23 @@ class SerialCommunicator:
                 observer.on_error(e)
                 self.logger.error(f"Observer error: {e}")
 
+    def _format_error(self, e: Exception) -> str:
+        err_str = str(e)
+        prefix = f"could not open port '{self.port}': "
+        if err_str.startswith(prefix):
+            err_str = err_str[len(prefix):]
+        
+        # 匹配 Windows 的 OSError 格式，如 FileNotFoundError(2, '系統找不到指定的檔案。', None, 2)
+        match = re.search(r"([a-zA-Z0-9_]+)\(\d+,\s*['\"]([^'\"]+)['\"]", err_str)
+        if match:
+            exception_name = match.group(1)
+            error_msg = match.group(2)
+            reason = f"{exception_name}: {error_msg}"
+        else:
+            reason = err_str
+
+        return f"無法連線到 port '{self.port}' ({reason})"
+
     def _reconnect(self):
         """嘗試重新連接序列埠"""
         for observer in self.observers:
@@ -55,7 +73,7 @@ class SerialCommunicator:
                 self.logger.info("Serial port reconnected")
                 return 
             except (serial.SerialException, FileNotFoundError) as e:
-                self.logger.error(f"Serial port error/not found: {e}")
+                self.logger.error(self._format_error(e))
             except Exception as e:
                 self.logger.error(f"Unexpected error during reconnection: {e}")
 
@@ -78,7 +96,7 @@ class SerialCommunicator:
                         self.stop_event.wait(self.retry_interval)
 
             except serial.SerialException as e:
-                self.logger.error(f"Serial port error: {e}")
+                self.logger.error(self._format_error(e))
                 self._reconnect()
                 if not self.serial or not self.serial.is_open:
                     self.stop_event.wait(self.retry_interval)

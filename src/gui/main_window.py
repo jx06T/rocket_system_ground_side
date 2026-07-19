@@ -426,7 +426,7 @@ class MainWindow(QMainWindow):
         self.quaternion = self.handle_angle_change(self.est_pitch, self.est_yaw, self.est_roll)
         self.attitude_displayer.update(self.quaternion)
 
-        self.stage_display.update(data.stage,data.failedTasks) 
+        self.stage_display.update(data.stage, data.failedTasks, data.timestamp) 
 
         self.latest_data = data
 
