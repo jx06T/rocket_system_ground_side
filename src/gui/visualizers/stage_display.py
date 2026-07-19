@@ -34,14 +34,6 @@ class StageDisplayer:
             "LANDED"
         ]
         self.stage_times = {} # 紀錄各個階段初次達到的時間戳
-        self.logged_failed_tasks = set()
-        self.module_names = {
-            0: "BMP (Barometer)",
-            1: "IMU (Inertial)",
-            2: "LoRa (Telemetry Link)",
-            3: "SD (SD Card Logger)"
-        }
-
         
         # 暫時移除滑鼠點擊/選中高亮變白功能：禁用選取與焦點
         self.list_widget.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
@@ -54,12 +46,6 @@ class StageDisplayer:
 
         self.list_widget.clear()
         self.list_widget.addItems([ "  "+i for i in self.stages])
-        # 增加健康狀態分割線與模組項目
-        self.list_widget.addItem("  ------------------------")
-        self.list_widget.addItem("  [ 箭端模組健康狀態 ]")
-        for task_id in range(4):
-            module_name = self.module_names[task_id]
-            self.list_widget.addItem(f"  {module_name}: 正常")
         self.list_widget.setItemDelegate(CustomDelegate())
         
     def update(self, stage:int, failedTasks:List[int], timestamp: datetime = None):
@@ -98,20 +84,7 @@ class StageDisplayer:
         self.visited_stages.add(stage)
         self.current_stage = stage
 
-        # 檢測模組健康狀態更新
-        import logging
-        logger = logging.getLogger("src.gui.stage_display")
-        for task_id in range(4):
-            is_failed = task_id in failedTasks
-            was_failed = task_id in self.logged_failed_tasks
-            module_name = self.module_names.get(task_id, f"Module {task_id}")
-            if is_failed and not was_failed:
-                self.logged_failed_tasks.add(task_id)
-                logger.error(f"[MODULE FAULT] Sensor/Module error detected: {module_name} is abnormal (Failed/Offline)!")
-            elif not is_failed and was_failed:
-                self.logged_failed_tasks.remove(task_id)
-                logger.info(f"[MODULE RECOVERY] Sensor/Module status restored: {module_name} is back to normal.")
-
+        # Health item updates removed; handled by dedicated UI component
         
         for i in range(len(self.stages)):
             item = self.list_widget.item(i)
@@ -151,29 +124,3 @@ class StageDisplayer:
             else:
                 item.setBackground(QBrush(QColor(254, 254, 254)))
                 item.setForeground(QBrush(QColor(140, 140, 140)))
-
-        # 更新健康狀態分割線與項目的樣式
-        sep_item = self.list_widget.item(len(self.stages))
-        if sep_item:
-            sep_item.setBackground(QBrush(QColor(254, 254, 254)))
-            sep_item.setForeground(QBrush(QColor(180, 180, 180)))
-            
-        header_item = self.list_widget.item(len(self.stages) + 1)
-        if header_item:
-            header_item.setBackground(QBrush(QColor(245, 245, 245)))
-            header_item.setForeground(QBrush(QColor(50, 50, 50)))
-
-        for task_id in range(4):
-            item_idx = len(self.stages) + 2 + task_id
-            item = self.list_widget.item(item_idx)
-            if item:
-                module_name = self.module_names.get(task_id, f"Module {task_id}")
-                is_failed = task_id in failedTasks
-                if is_failed:
-                    item.setText(f"  {module_name}: 異常 (FAULT)")
-                    item.setForeground(QBrush(QColor(0, 0, 0)))
-                    item.setBackground(QBrush(QColor(230, 100, 100))) # 紅色代表故障
-                else:
-                    item.setText(f"  {module_name}: 正常 (OK)")
-                    item.setForeground(QBrush(QColor(0, 0, 0)))
-                    item.setBackground(QBrush(QColor(150, 220, 150))) # 綠色代表正常
