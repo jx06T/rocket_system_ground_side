@@ -135,15 +135,17 @@ def watch_parent_stdin():
     os._exit(0)
 
 def main():
-    # 💡 啟動父進程自毀監聽執行緒，防止 GUI 崩潰時後端殘留導致 Port 被霸佔
-    watcher_thread = threading.Thread(target=watch_parent_stdin, daemon=True)
-    watcher_thread.start()
-
     parser = argparse.ArgumentParser(description="Ground Station Telemetry Daemon")
     parser.add_argument("--channel", type=str, default="ch1", choices=["ch1", "ch2"], help="Channel ID (ch1/ch2)")
     parser.add_argument("--port", type=str, default=None, help="Override Serial Port")
     parser.add_argument("--baud", type=int, default=None, help="Override Baudrate")
+    parser.add_argument("--standalone", action="store_true", help="Run in standalone mode without parent process monitoring")
     args = parser.parse_args()
+
+    # 💡 若非獨立運行模式，則啟動父進程自毀監聽執行緒，防止 GUI 崩潰時後端殘留導致 Port 被霸佔
+    if not args.standalone:
+        watcher_thread = threading.Thread(target=watch_parent_stdin, daemon=True)
+        watcher_thread.start()
 
     channel_id = args.channel
 

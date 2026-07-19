@@ -217,20 +217,30 @@ python main.py
 ```
 * **運作邏輯**：主入口會以 `subprocess.Popen` 在背景自動生成後端守護進程（`src/backend_daemon.py`，預設為 `ch1`），並同時拉起前端 GUI 視窗。當 GUI 被關閉時，主進程會自動清理並終止背景的後端進程。
 
-### 7.2 分離啟動 (用於調試與開發)
-如果您需要單獨測試或調試後端或前端，也可以手動將兩者分開在不同的終端機視窗啟動：
+### 7.2 背景持續寫入與分離啟動 (Decoupled Background Execution)
+如果您希望在 GUI 關閉後，背景依然能夠持續寫入遙測資料，或者單獨測試調試後端或前端，本系統支援**獨立背景守護模式**與**GUI 獨立啟動模式**。
 
-1. **手動啟動後端進程 (Backend Daemon)**：
+本專案提供了以下三個便捷的批次檔 (Batch Scripts) 供您直接雙擊運行：
+1. **[run_backend_ch1.bat](file:///d:/Document_J/code/rocket_system_ground_side/run_backend_ch1.bat)**：獨立在背景啟動通道 1 的遙測數據後端（會加上 `--standalone` 參數以防止父進程自毀監聽），持續接收序列埠遙測資料並寫入 `logs/` 與 `data/`，不受 GUI 啟閉影響。
+2. **[run_gui_only.bat](file:///d:/Document_J/code/rocket_system_ground_side/run_gui_only.bat)**：以 `--gui-only` 模式啟動前端 GUI 視窗，它會直接連線至已啟動的背景後端，關閉 GUI 時不會終止背景後端。
+3. **[run_persist_backend.bat](file:///d:/Document_J/code/rocket_system_ground_side/run_persist_backend.bat)**：一鍵以新視窗拉起獨立後端並於當前視窗拉起 GUI，在關閉 GUI 時後端視窗依舊維持運行。
+
+亦可使用命令列手動操作：
+
+1. **手動啟動獨立後端進程 (Backend Daemon)**：
    ```bash
-   python src/backend_daemon.py --channel ch1 --port COM3 --baud 115200
+   python src/backend_daemon.py --channel ch1 --standalone
    ```
    * `--channel`: 指定通道識別碼 (`ch1` 或 `ch2`)
+   * `--standalone`: **關鍵參數**。指定此參數後，後端進程將不會監聽父進程 stdin，保證 GUI 關閉後依然持續執行寫入檔案。
    * `--port` (選填): 指定序列埠名稱（若無提供，將自動載入 `settings.json` 設定）
    * `--baud` (選填): 指定鮑率（若無提供，將自動載入 `settings.json` 設定）
 
 2. **手動啟動前端 GUI 行程 (PyQt6 Visualizer)**：
-   單獨運行 GUI，它會自動連接至本地的 ZMQ 端點接收遙測數據流：
+   您可以單獨運行 GUI，並使用 `--gui-only` 確保它不重複拉起後端：
    ```bash
-   python src/gui/main_window.py
+   python main.py --gui-only
    ```
+   * **智慧偵測**：即使不加上 `--gui-only`，`main.py` 也會自動檢查 ZMQ 連接埠是否已被佔用。若是已被佔用（代表後端已手動開啟），會自動轉為僅啟動 GUI 並跳過生成與清理後端的步驟。
+
 

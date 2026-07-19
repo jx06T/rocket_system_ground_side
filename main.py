@@ -2,8 +2,11 @@ import sys
 import os
 import logging
 import subprocess
+import argparse
+import socket
 from PyQt6.QtWidgets import QApplication
 from src.gui.main_window import MainWindow
+from src.utils.settings import load_channel_settings
 
 def setup_logging():
     # 創建基礎配置
@@ -25,21 +28,41 @@ def setup_logging():
 def main():
     setup_logging()
 
-    # 💡 啟動無頭背景 Telemetry Daemon 行程 (預設啟動 ch1)
-    backend_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", "backend_daemon.py")
-    logging.info(f"Spawning backend daemon process: {backend_script}")
-    
+    # 解析命令列參數 (使用 parse_known_args 避免干擾 PyQt6 的參數)
+    parser = argparse.ArgumentParser(description="Ground Station GUI Launcher")
+    parser.add_argument("--gui-only", action="store_true", help="Launch GUI only without starting backend daemon")
+    args, unknown = parser.parse_known_args()
+
+    # 檢查預設通道 ch1 的 ZMQ 連接埠是否已被佔用
+    _, _, zmq_port, zmq_cmd_port = load_channel_settings("ch1")
+    backend_already_running = False
+    for port in [zmq_port, zmq_cmd_port]:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            try:
+                s.bind(("127.0.0.1", port))
+            except socket.error:
+                backend_already_running = True
+                break
+
     backend_process = None
-    try:
-        backend_process = subprocess.Popen(
-            [sys.executable, backend_script, "--channel", "ch1"],
-            stdin=subprocess.PIPE,
-            stdout=None, # 保留標準輸出供調試
-            stderr=None
-        )
-    except Exception as e:
-        logging.error(f"Failed to spawn backend daemon process: {e}")
-        sys.exit(1)
+    if args.gui_only:
+        logging.info("GUI-only mode requested. Skipping backend daemon spawn.")
+    elif backend_already_running:
+        logging.info(f"ZMQ port {zmq_port} or {zmq_cmd_port} is already in use. Assuming backend daemon is already running. Skipping spawn.")
+    else:
+        # 💡 啟動無頭背景 Telemetry Daemon 行程 (預設啟動 ch1)
+        backend_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", "backend_daemon.py")
+        logging.info(f"Spawning backend daemon process: {backend_script}")
+        try:
+            backend_process = subprocess.Popen(
+                [sys.executable, backend_script, "--channel", "ch1"],
+                stdin=subprocess.PIPE,
+                stdout=None, # 保留標準輸出供調試
+                stderr=None
+            )
+        except Exception as e:
+            logging.error(f"Failed to spawn backend daemon process: {e}")
+            sys.exit(1)
 
 
     try:
