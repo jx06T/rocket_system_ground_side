@@ -195,22 +195,22 @@ class MainWindow(QMainWindow):
         self.ui.chart_checkBox_3.setChecked(True)
         self.ui.gl_label.setText(f"angle_deviation:{self.angle_deviation}")
 
-        # 動態插入各圖表的曲線勾選框
-        self._add_curve_checkboxes(
-            self.ui.horizontalLayout_5, self.chart_1,
-            ['KH', 'RH', 'VZ'],
-            [True, True, True]
-        )
-        self._add_curve_checkboxes(
-            self.ui.horizontalLayout_7, self.chart_2,
-            ['GA', 'AX', 'AY', 'AZ'],
-            [True, True, False, False]  # 預設只顯示 GA 和 AX
-        )
-        self._add_curve_checkboxes(
-            self.ui.horizontalLayout_8, self.chart_3,
-            ['Pitch', 'Roll', 'GX', 'GY', 'GZ'],
-            [True, True, False, False, False]  # 預設只顯示姿態角
-        )
+        # 動態插入各圖表的曲線勾選框 (暫時隱藏，因為使用者可以直接操作圖例)
+        # self._add_curve_checkboxes(
+        #     self.ui.horizontalLayout_5, self.chart_1,
+        #     ['KH', 'RH', 'VZ'],
+        #     [True, True, True]
+        # )
+        # self._add_curve_checkboxes(
+        #     self.ui.horizontalLayout_7, self.chart_2,
+        #     ['GA', 'AX', 'AY', 'AZ'],
+        #     [True, True, False, False]  # 預設只顯示 GA 和 AX
+        # )
+        # self._add_curve_checkboxes(
+        #     self.ui.horizontalLayout_8, self.chart_3,
+        #     ['Pitch', 'Roll', 'GX', 'GY', 'GZ'],
+        #     [True, True, False, False, False]  # 預設只顯示姿態角
+        # )
         # 初始化時同步非預設可見的曲線狀態
         self.chart_2.set_curve_visible(2, False)  # AY
         self.chart_2.set_curve_visible(3, False)  # AZ
