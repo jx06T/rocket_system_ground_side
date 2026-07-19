@@ -2,7 +2,6 @@ from PyQt6.QtGui import QColor, QBrush
 from PyQt6.QtWidgets import QListWidget, QStyledItemDelegate, QAbstractItemView, QStyle
 from PyQt6.QtCore import Qt
 from datetime import datetime
-from typing import List
 
 
 class CustomDelegate(QStyledItemDelegate):
@@ -48,8 +47,12 @@ class StageDisplayer:
         self.list_widget.addItems([ "  "+i for i in self.stages])
         self.list_widget.setItemDelegate(CustomDelegate())
         
-    def update(self, stage:int, failedTasks:List[int], timestamp: datetime = None):
-        """stage 目前任務階段;failedTasks 失敗任務列表;timestamp 當前遙測時間戳"""
+    def update(self, stage:int, timestamp: datetime = None):
+        """stage 目前任務階段;timestamp 當前遙測時間戳
+        
+        跳過偵測：若某階段索引 < 當前階段但從未出現在 visited_stages 中，
+        代表該階段被跳過，會以紅色背景標記。
+        """
         if stage < 0 or stage >= len(self.stages):
             return
             
@@ -108,18 +111,14 @@ class StageDisplayer:
             if i < stage:
                 item.setForeground(QBrush(QColor(0, 0, 0)))
                 # 如果歷史狀態中，有些狀態在 visited_stages 中沒有紀錄到，說明被「跳過」了
-                # 或者在 failedTasks 中，標記為紅色背景
-                if i not in self.visited_stages or i in failedTasks:
+                if i not in self.visited_stages:
                     item.setBackground(QBrush(QColor(180, 70, 70)))
                 else:
                     item.setBackground(QBrush(QColor(150, 200, 150)))
 
             elif i == stage:
                 item.setForeground(QBrush(QColor(0, 0, 0)))
-                if i in failedTasks:
-                    item.setBackground(QBrush(QColor(180, 70, 70)))
-                else:
-                    item.setBackground(QBrush(QColor(200, 200, 200)))
+                item.setBackground(QBrush(QColor(200, 200, 200)))
 
             else:
                 item.setBackground(QBrush(QColor(254, 254, 254)))

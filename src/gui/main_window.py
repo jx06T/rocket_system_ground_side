@@ -570,7 +570,7 @@ class MainWindow(QMainWindow):
             f"當前偏角: {current_dev:.1f}° | 最大偏角: {self.max_deviation_angle:.1f}° (校正偏置 Y: {round(self.angle_deviation, 1)}°)"
         )
 
-        self.stage_display.update(data.stage, data.failedTasks, data.timestamp)
+        self.stage_display.update(data.stage, data.timestamp)
         # Update health status labels based on failedTasks (0:BMP, 1:IMU, 2:LoRa, 3:SD)
         health_map = [
             (self.ui.health_bmp, "BMP"),
