@@ -193,6 +193,7 @@ class MainWindow(QMainWindow):
         self.ui.chart_checkBox_1.setChecked(True)
         self.ui.chart_checkBox_2.setChecked(True)
         self.ui.chart_checkBox_3.setChecked(True)
+        self.ui.map_checkBox.setChecked(True)
         self.ui.gl_label.setText(f"angle_deviation:{self.angle_deviation}")
 
         # 動態插入各圖表的曲線勾選框 (暫時隱藏，因為使用者可以直接操作圖例)
@@ -258,8 +259,8 @@ class MainWindow(QMainWindow):
 
         self.stage_display.update(data.stage,data.failedTasks) 
 
-        if self.latest_data and self.ui.map_checkBox.isChecked() and self.latest_data.location != data.location:
-            self.location_displayer.update(self.latest_data.location)
+        if self.ui.map_checkBox.isChecked():
+            self.location_displayer.update(data.location)
 
         self.latest_data = data
 
