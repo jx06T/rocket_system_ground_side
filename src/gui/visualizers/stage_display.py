@@ -66,6 +66,9 @@ class StageDisplayer:
         if stage >= 2 and 2 not in self.stage_times:
             self.stage_times[2] = timestamp
 
+        import logging
+        logger = logging.getLogger("src.gui.stage_display")
+        
         # 檢測階段轉換日誌
         if stage != self.current_stage:
             old_stage_name = self.stages[self.current_stage] if self.current_stage >= 0 else "NONE"
@@ -80,9 +83,13 @@ class StageDisplayer:
                     dt = (self.stage_times[stage] - self.stage_times[2]).total_seconds()
                     time_suffix = f" (T+{dt:.2f}s)"
             
-            import logging
-            logger = logging.getLogger("src.gui.stage_display")
             logger.info(f"[STAGE TRANSITION] Rocket stage changed: {old_stage_name} -> {new_stage_name}{time_suffix}")
+            
+            # 偵測被跳過的階段 (索引在 current_stage+1 ~ stage-1 之間且從未造訪)
+            start_check = max(0, self.current_stage + 1) if self.current_stage >= 0 else 0
+            for skipped_idx in range(start_check, stage):
+                if skipped_idx not in self.visited_stages:
+                    logger.warning(f"[STAGE SKIPPED] Stage '{self.stages[skipped_idx]}' was skipped (never received from telemetry)")
 
         self.visited_stages.add(stage)
         self.current_stage = stage

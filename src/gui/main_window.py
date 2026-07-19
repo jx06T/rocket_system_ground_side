@@ -10,6 +10,7 @@ from src.gui.ui_main import Ui_MainWindow
 from src.gui.qt_observer import QtGuiObserver
 from src.gui.visualizers.line_chart import LineChartDrawer
 from src.gui.visualizers.stage_display import StageDisplayer
+import logging
 from src.gui.visualizers.log_displayer import LogDisplayer
 from src.gui.visualizers.location_displayer import LocationDisplayer
 from src.gui.visualizers.visualization_tools import euler_to_quaternion,quaternion_multiply
@@ -136,6 +137,8 @@ class MainWindow(QMainWindow):
         self.init_gui()
 
         self.stage_display = StageDisplayer(self.ui.listWidget)
+        self.logger = logging.getLogger("src.gui.main_window")
+        self.prev_health = {}  # 追蹤各模組健康狀態變化，僅在狀態轉換時記錄 log
         
         self.cube_widget = CubeGLWidget()
         self.ui.gl_gridLayout.addWidget(self.cube_widget)
@@ -579,7 +582,17 @@ class MainWindow(QMainWindow):
             (self.ui.health_sd, "SD"),
         ]
         for idx, (lbl, name) in enumerate(health_map):
-            if idx in data.failedTasks:
+            is_failed = idx in data.failedTasks
+            was_failed = self.prev_health.get(idx, False)
+            
+            if is_failed != was_failed:
+                if is_failed:
+                    self.logger.warning(f"[HEALTH] Module '{name}' status changed: OK -> FAIL")
+                else:
+                    self.logger.info(f"[HEALTH] Module '{name}' status changed: FAIL -> OK")
+                self.prev_health[idx] = is_failed
+            
+            if is_failed:
                 lbl.setStyleSheet("background-color: rgb(180, 70, 70); color: white; border-radius: 4px; padding: 2px;")
                 lbl.setText(f"{name}: FAIL")
             else:
