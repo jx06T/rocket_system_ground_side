@@ -123,6 +123,8 @@ class SerialCommunicator:
         while self.running:
             try:
                 raw_data = self.data_queue.get(timeout=1)
+                if raw_data is None:  # 💡 接收到 Sentinel，立即中斷退出
+                    break
                 decoded_data = raw_data.decode('utf-8', errors='ignore').strip()
                 if not decoded_data:
                     continue
@@ -182,6 +184,9 @@ class SerialCommunicator:
                 self.serial.close()
             except Exception as e:
                 self.logger.error(f"Error closing serial during stop: {e}")
+
+        # 💡 放入 Sentinel (None) 喚醒正在 Queue.get 阻塞等待的 process_thread
+        self.data_queue.put(None)
 
         # 2. 安全等待線程退出
         if self.read_thread:
