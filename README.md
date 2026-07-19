@@ -29,11 +29,13 @@
 
 ### 範例
 ``` 
-telemetry:{"location":[-21,-145.998],"failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":0,"direction":90}
+telemetry:{"location":[-21,-145],"failedTasks":[],"stage":0,"rotationRoll":0,"rotationPitch":0,"direction":90}
 ```
 
 > [!CAUTION]
 > 資料格式與內容在初步開發時依照 **microbit** 所取得格式設計，實際應用仍待整合後修改
+>
+> 目前資料格式僅有 **telemetry** 這一項，故傳送資料時僅需傳送 json 格式的資料就好，不要附加任何額外字符
 >
 
 ## 執行
@@ -44,7 +46,9 @@ telemetry:{"location":[-21,-145.998],"failedTasks":[],"stage":0,"rotationRoll":0
 
 > [!NOTE]  
 > 目前並未檢查 `requirements.txt` 之依賴是否完整
+> 
 > 若無 **microbit** 開發設備需依照上方所列之需求實現地面端接收晶片，並使其與電腦連接
+>
 
 ## 截圖
 ![1](/doc/1.png)
@@ -117,8 +121,9 @@ sequenceDiagram
 
 > [!NOTE]  
 > 錯誤回報功能尚未實作
+>
 > 使用者停止功能向未實現
-
+>
 
 ## 更新
 ### 1.0
