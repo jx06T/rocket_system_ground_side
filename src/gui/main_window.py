@@ -25,6 +25,9 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.logger = logging.getLogger(__name__)
         self.angle_deviation = 0.0
+        self.max_total_accel = 0.0
+        self.max_deviation_angle = 0.0
+        self.calib_q = None
         
         # ─── 快速軸向對應設定區 (Sensor Axis Mapping Configuration) ───
         # 定義：[火箭本體標準軸向] ➔ [感測器原始軸向] (支援正負號，例如 "-ay"、"+ax" 等)
@@ -287,7 +290,12 @@ class MainWindow(QMainWindow):
                         self.gyro_bias_y = self._get_mapped_axis(self.latest_data, "gy")
                         self.gyro_bias_z = self._get_mapped_axis(self.latest_data, "gz")
                     
-                    self.ui.gl_label.setText(f"bias - Y:{round(self.angle_deviation,1)}")
+                    self.calib_q = self.handle_angle_change(self.est_pitch, self.est_yaw, self.est_roll)
+                    self.max_deviation_angle = 0.0
+                    self.max_total_accel = 0.0
+                    self.ui.gl_label.setText(
+                        f"當前偏角: 0.0° | 最大偏角: 0.0° (校正偏置 Y: {round(self.angle_deviation, 1)}°)"
+                    )
                     self.logger.info(
                         f"Angles calibrated: Yaw reset to 180.0, Pitch gravity={self.est_pitch:.2f}, Roll gravity={self.est_roll:.2f}. "
                         f"Gyro Bias calibrated - X:{self.gyro_bias_x:.4f}, Y:{self.gyro_bias_y:.4f}, Z:{self.gyro_bias_z:.4f}"
@@ -389,6 +397,39 @@ class MainWindow(QMainWindow):
 
         return quaternion
 
+    def get_deviation_angle(self, q1, q2):
+        """計算兩個四元數代表的縱向 Y 軸方向向量之間的 3D 偏航夾角 (度)"""
+        if q1 is None or q2 is None:
+            return 0.0
+        # 縱向指向在相對於四元數旋轉後的單位向量公式為 R * [0, 1, 0]^T
+        # 即旋轉矩陣 R 的第二列 (Y列):
+        # vx = 2 * (x*y - w*z)
+        # vy = 1 - 2*(x*x + z*z)
+        # vz = 2 * (y*z + w*x)
+        w1, x1, y1, z1 = q1
+        w2, x2, y2, z2 = q2
+        
+        # 確保單位四元數
+        n1 = math.sqrt(w1*w1 + x1*x1 + y1*y1 + z1*z1)
+        if n1 > 0:
+            w1, x1, y1, z1 = w1/n1, x1/n1, y1/n1, z1/n1
+        n2 = math.sqrt(w2*w2 + x2*x2 + y2*y2 + z2*z2)
+        if n2 > 0:
+            w2, x2, y2, z2 = w2/n2, x2/n2, y2/n2, z2/n2
+
+        v1x = 2.0 * (x1 * y1 - w1 * z1)
+        v1y = 1.0 - 2.0 * (x1 * x1 + z1 * z1)
+        v1z = 2.0 * (y1 * z1 + w1 * x1)
+
+        v2x = 2.0 * (x2 * y2 - w2 * z2)
+        v2y = 1.0 - 2.0 * (x2 * x2 + z2 * z2)
+        v2z = 2.0 * (y2 * z2 + w2 * x2)
+
+        # 點積求夾角
+        dot = v1x * v2x + v1y * v2y + v1z * v2z
+        dot = max(-1.0, min(1.0, dot))
+        return math.degrees(math.acos(dot))
+
     def update_ui(self, data: SensorData):
         has_fix = False
         if data.gnss_state:
@@ -460,6 +501,9 @@ class MainWindow(QMainWindow):
             self.est_pitch = body_roll_acc
             self.est_roll = -body_pitch_acc
             self.est_yaw = 180 - ((data.direction - self.angle_deviation + 360) % 360)
+            self.calib_q = self.handle_angle_change(self.est_pitch, self.est_yaw, self.est_roll)
+            self.max_deviation_angle = 0.0
+            self.max_total_accel = data.total_accel
         else:
             # 1. Pitch 估算 (對應橫向俯仰)：整合 X 軸陀螺儀 (gx) 並以加速度計 Roll 修正
             self.est_pitch = (1 - alpha) * (self.est_pitch + gx * dt) + alpha * body_roll_acc
@@ -498,6 +542,27 @@ class MainWindow(QMainWindow):
 
         self.quaternion = self.handle_angle_change(self.est_pitch, self.est_yaw, self.est_roll)
         self.attitude_displayer.update(self.quaternion)
+
+        if self.calib_q is None:
+            self.calib_q = self.quaternion
+
+        self.max_total_accel = max(self.max_total_accel, data.total_accel)
+        current_dev = self.get_deviation_angle(self.quaternion, self.calib_q)
+        self.max_deviation_angle = max(self.max_deviation_angle, current_dev)
+
+        # 動態更新圖表上方標籤顯示具體數值
+        self.ui.chart_label_1.setText(
+            f"高度與速度 | 當前高度: {data.kfh_height:.1f} m (相對: {data.rel_height:.1f} m) | 垂直速度: {data.vz:.1f} m/s"
+        )
+        self.ui.chart_label_2.setText(
+            f"動力加速度 | 當前總加速度: {data.total_accel:.2f} g | 最大總加速度: {self.max_total_accel:.2f} g"
+        )
+        self.ui.chart_label_3.setText(
+            f"姿態角速度 | Pitch: {self.est_pitch:.1f}° | Roll: {self.est_roll:.1f}° | Yaw: {(self.est_yaw - 180.0):.1f}°"
+        )
+        self.ui.gl_label.setText(
+            f"當前偏角: {current_dev:.1f}° | 最大偏角: {self.max_deviation_angle:.1f}° (校正偏置 Y: {round(self.angle_deviation, 1)}°)"
+        )
 
         self.stage_display.update(data.stage, data.failedTasks, data.timestamp) 
 

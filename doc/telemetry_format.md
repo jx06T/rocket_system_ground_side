@@ -41,7 +41,7 @@ T28386 AX+0.007 AY+0.026 AZ+0.978 GX+6.09 GY-1.05 GZ-2.80 P997.92 RH-0.1 KH-0.1 
 | **KH** | `float` | KF2 融合高度 (單位：米 m) | `KH-0.1` | `"KH%.1f"` |
 | **VZ** | `float` | KF2 垂直速度 (單位：米/秒 m/s) | `VZ+0.00` | `"VZ%+0.2f"` |
 | **GA** | `float` | 合加速度 (單位：g) | `GA0.98` | `"GA%.2f"` |
-| **ST** | `int` | 飛行狀態代碼 (0=IDLE, 1=LAUNCHED, 2=DEPLOYING, 3=DESCENT, 4=LANDED) | `ST:0` | `"ST:%d"` |
+| **ST** | `int` / `str` | 飛行狀態代碼 (0=IDLE, 1=ARMED, 2=LAUNCH/LAUNCHED, 3=BOOST, 4=APOGEE, 5=DESCENT, 6=LANDED；亦支援對應大寫英文名稱) | `ST:0` 或 `ST:IDLE` | `"ST:%d"` 或 `"ST:%s"` |
 | **MOD** | `char/hex`| 模組健康狀態 (1個十六進制字元表示 4-bit 狀態：BMP/IMU/LoRa/SD，皆正常為 `E` / 二進制 1110) | `MOD:E` | `"MOD:%X"` |
 | **GPS** | `int,int` | 定位狀態與衛星數 (定位狀態：0=NO_FIX, 1=FIX；衛星數：0~12+) | `GPS:0,0` | `"GPS:%d,%d"` |
 | **C** | `char/hex`| 發火迴圈導通狀態 (1個十六進制字元表示 4-bit 狀態：cond_A, cond_A_eff, cond_B, cond_B_eff) | `C:A` | `"C:%X"` |
