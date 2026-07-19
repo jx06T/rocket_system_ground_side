@@ -6,6 +6,7 @@ import argparse
 import socket
 import uuid
 from datetime import datetime
+from PyQt6.QtCore import Qt, QCoreApplication
 from PyQt6.QtWidgets import QApplication
 from src.gui.main_window import MainWindow
 from src.utils.settings import load_channel_settings
@@ -73,6 +74,8 @@ def main():
 
 
     try:
+        # 設置共享 OpenGL 上下文，避免 WebEngine 與 OpenGL 視窗產生資源衝突與虛擬化錯誤警告
+        QCoreApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts, True)
         app = QApplication(sys.argv)
 
         # 啟動 GUI (傳入通道 ch1)
