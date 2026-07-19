@@ -450,8 +450,8 @@ class MainWindow(QMainWindow):
             self.last_valid_location_time = data.timestamp
             time_str = self.last_valid_location_time.strftime("%H:%M:%S")
             self.ui.map_label.setText(f'Latitude:{round(data.location[0],5)} | Longitude:{round(data.location[1],5)} (Locked, {time_str})')
-            if self.ui.map_checkBox.isChecked():
-                self.location_displayer.update(data.location)
+            # 座標與軌跡線永遠更新；Auto 勾選框只控制鏡頭是否自動跟隨
+            self.location_displayer.update(data.location, follow=self.ui.map_checkBox.isChecked())
         else:
             if self.last_valid_location:
                 time_str = self.last_valid_location_time.strftime("%H:%M:%S")

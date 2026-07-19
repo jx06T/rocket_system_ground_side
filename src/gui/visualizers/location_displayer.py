@@ -56,12 +56,12 @@ class LocationDisplayer:
                 var polyline = null;
                 var pathCoords = [];
 
-                function updateMarker(lat, lng) {{
+                function updateMarker(lat, lng, follow) {{
                     var newLatLng = new L.LatLng(lat, lng);
                     pathCoords.push([lat, lng]);
 
                     if (marker === null) {{
-                        // 首次收到定位：建立標記與軌跡線，並縮放到詳細層級 15
+                        // 首次收到定位：建立標記與軌跡線
                         marker = L.marker(newLatLng).addTo(map)
                             .bindPopup('Current Location')
                             .openPopup();
@@ -70,12 +70,15 @@ class LocationDisplayer:
                             weight: 4,
                             opacity: 0.85
                         }}).addTo(map);
+                        // 首次定位：無論 Auto 狀態都縮放到詳細層級
                         map.setView(newLatLng, 15);
                     }} else {{
-                        // 後續定位更新
+                        // 後續更新：僅更新標記與軌跡，鏡頭跟隨由 follow 控制
                         marker.setLatLng(newLatLng);
                         polyline.setLatLngs(pathCoords);
-                        map.panTo(newLatLng);
+                        if (follow) {{
+                            map.panTo(newLatLng);
+                        }}
                     }}
                 }}
             </script>
@@ -86,18 +89,20 @@ class LocationDisplayer:
         self.map_initialized = True
         self.current_location = location
         
-    def update(self, location: Tuple[float, float]):
+    def update(self, location: Tuple[float, float], follow: bool = True):
         """
-        更新位置標記
+        更新位置標記。座標與軌跡線永遠更新；鏡頭跟隨由 follow 控制。
         
         Args:
             location (Tuple[float, float]): 新的(緯度, 經度)位置
+            follow (bool): True=鏡頭自動跟隨火箭，False=只更新標記不移動視角
         """
         if location != self.current_location:
             self.current_location = location
             if self.map_initialized:
                 lat, lng = location
-                js_code = f"if (typeof updateMarker === 'function') {{ updateMarker({lat}, {lng}); }}"
+                follow_js = "true" if follow else "false"
+                js_code = f"if (typeof updateMarker === 'function') {{ updateMarker({lat}, {lng}, {follow_js}); }}"
                 self.web_view.page().runJavaScript(js_code)
             else:
                 self.create_map(location)
