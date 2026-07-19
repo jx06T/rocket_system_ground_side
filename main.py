@@ -4,19 +4,24 @@ import logging
 import subprocess
 import argparse
 import socket
+import uuid
+from datetime import datetime
 from PyQt6.QtWidgets import QApplication
 from src.gui.main_window import MainWindow
 from src.utils.settings import load_channel_settings
 
-def setup_logging():
-    # 創建基礎配置
+def setup_logging(timestamp: str, run_id: str):
+    # 確保日誌目錄存在
+    os.makedirs("logs", exist_ok=True)
+    # 創建基礎配置，包含時間戳與 Session ID 以維持命名統一
+    log_filename = f"logs/app_{timestamp}_{run_id}.log"
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s [%(name)s] [%(levelname)s] %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S',
         handlers=[
             # 同時輸出到文件和控制台
-            logging.FileHandler('app.log'),
+            logging.FileHandler(log_filename, encoding='utf-8'),
             logging.StreamHandler()
         ]
     )
@@ -26,7 +31,9 @@ def setup_logging():
     logger.info("Logging system initialized")
     
 def main():
-    setup_logging()
+    run_id = uuid.uuid4().hex[:8]
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    setup_logging(timestamp, run_id)
 
     # 解析命令列參數 (使用 parse_known_args 避免干擾 PyQt6 的參數)
     parser = argparse.ArgumentParser(description="Ground Station GUI Launcher")

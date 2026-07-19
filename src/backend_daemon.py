@@ -176,8 +176,8 @@ def main():
     port = args.port if args.port is not None else saved_port
     baudrate = args.baud if args.baud is not None else saved_baud
 
-    # 2. 建立防禦性 Raw Log 儲存路徑 (納入 Session ID)
-    raw_log_filename = f"logs/raw_{channel_id}_{timestamp}_{run_id}.log"
+    # 2. 建立防禦性 Raw Log 儲存路徑 (納入 Session ID，存放在 data/ 之下)
+    raw_log_filename = f"data/raw_{channel_id}_{timestamp}_{run_id}.log"
     logger.info(f"Raw telemetry output will be safely logged to: {raw_log_filename}")
 
     # 3. 初始化 Serial 通訊
