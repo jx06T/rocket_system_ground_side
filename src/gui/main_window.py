@@ -580,10 +580,10 @@ class MainWindow(QMainWindow):
         ]
         for idx, (lbl, name) in enumerate(health_map):
             if idx in data.failedTasks:
-                lbl.setStyleSheet("background-color: #FF4444; color: white; border-radius: 4px; padding: 2px;")
+                lbl.setStyleSheet("background-color: rgb(180, 70, 70); color: white; border-radius: 4px; padding: 2px;")
                 lbl.setText(f"{name}: FAIL")
             else:
-                lbl.setStyleSheet("background-color: #44FF44; color: black; border-radius: 4px; padding: 2px;")
+                lbl.setStyleSheet("background-color: rgb(150, 200, 150); color: black; border-radius: 4px; padding: 2px;")
                 lbl.setText(f"{name}: OK")
         self.latest_data = data
 
