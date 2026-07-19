@@ -573,10 +573,10 @@ class MainWindow(QMainWindow):
         self.stage_display.update(data.stage, data.failedTasks, data.timestamp)
         # Update health status labels based on failedTasks (0:BMP, 1:IMU, 2:LoRa, 3:SD)
         health_map = [
-            (self.health_bmp, "BMP"),
-            (self.health_imu, "IMU"),
-            (self.health_lora, "LoRa"),
-            (self.health_sd, "SD"),
+            (self.ui.health_bmp, "BMP"),
+            (self.ui.health_imu, "IMU"),
+            (self.ui.health_lora, "LoRa"),
+            (self.ui.health_sd, "SD"),
         ]
         for idx, (lbl, name) in enumerate(health_map):
             if idx in data.failedTasks:
