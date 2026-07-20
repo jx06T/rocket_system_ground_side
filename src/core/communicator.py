@@ -223,7 +223,7 @@ class SerialCommunicator:
             if self.serial and self.serial.is_open:
                 self.serial.write(data)
                 self.serial.flush()
-                self.logger.info(f"Successfully sent {len(data)} bytes to serial: {data!r}")
+                self.logger.debug(f"Successfully sent {len(data)} bytes to serial: {data!r}")
                 return True
             else:
                 self.logger.error("Cannot send data: Serial port is not open")

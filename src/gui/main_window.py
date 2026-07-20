@@ -177,8 +177,8 @@ class MainWindow(QMainWindow):
 
         context = zmq.Context()
         socket = context.socket(zmq.REQ)
-        socket.setsockopt(zmq.RCVTIMEO, 1000) # 1000 毫秒接收超時
-        socket.setsockopt(zmq.SNDTIMEO, 1000) # 1000 毫秒傳送超時
+        socket.setsockopt(zmq.RCVTIMEO, 5000) # 5000 毫秒接收超時 (相容 4 連發 0.7s 間隔)
+        socket.setsockopt(zmq.SNDTIMEO, 5000) # 5000 毫秒傳送超時
         socket.connect(f"tcp://127.0.0.1:{zmq_cmd_port}")
 
         try:
@@ -301,7 +301,7 @@ class MainWindow(QMainWindow):
                     self.max_total_accel = 0.0
                     self.max_height = 0.0
                     self.ui.gl_label.setText(
-                        f"當前偏角: 0.0° | 最大偏角: 0.0° (校正偏置 Y: {round(self.angle_deviation, 1)}°)"
+                        "當前偏角: 0.0° | 最大偏角: 0.0°"
                     )
                     self.logger.info(
                         f"Angles calibrated: Yaw reset to 180.0, Pitch gravity={self.est_pitch:.2f}, Roll gravity={self.est_roll:.2f}. "
@@ -374,7 +374,7 @@ class MainWindow(QMainWindow):
         self.ui.chart_checkBox_2.setChecked(True)
         self.ui.chart_checkBox_3.setChecked(True)
         self.ui.map_checkBox.setChecked(True)
-        self.ui.gl_label.setText(f"angle_deviation:{self.angle_deviation}")
+        self.ui.gl_label.setText("當前偏角: 0.0° | 最大偏角: 0.0°")
 
         # 動態插入各圖表的曲線勾選框 (暫時隱藏，因為使用者可以直接操作圖例)
         # self._add_curve_checkboxes(
@@ -591,7 +591,7 @@ class MainWindow(QMainWindow):
             f"姿態與角速度 ] Pitch: {self.est_pitch:.1f}° | Roll: {self.est_roll:.1f}° | Yaw: {(self.est_yaw - 180.0):.1f}°"
         )
         self.ui.gl_label.setText(
-            f"當前偏角: {current_dev:.1f}° | 最大偏角: {self.max_deviation_angle:.1f}° (校正偏置 Y: {round(self.angle_deviation, 1)}°)"
+            f"當前偏角: {current_dev:.1f}° | 最大偏角: {self.max_deviation_angle:.1f}°"
         )
 
         self.stage_display.update(data.stage, data.timestamp)

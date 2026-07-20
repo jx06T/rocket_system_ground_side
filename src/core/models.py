@@ -182,12 +182,19 @@ class SensorData:
         if flight_state_val.isdigit():
             stage = int(flight_state_val)
             # Map stage back to string representation
-            reverse_stage_map = {0: "IDLE", 1: "ARMED", 2: "LAUNCHED", 3: "BOOST", 4: "APOGEE", 5: "DESCENT", 6: "LANDED"}
+            reverse_stage_map = {
+                0: "IDLE", 1: "ARMED", 2: "IGNITION", 3: "POWERED_FLIGHT",
+                4: "BURNOUT", 5: "COASTING", 6: "APOGEE", 7: "PARACHUTE_DEPLOY",
+                8: "DESCENT", 9: "TOUCHDOWN", 10: "AIRBAG_DEPLOY", 11: "LANDED"
+            }
             flight_state = reverse_stage_map.get(stage, "IDLE")
         else:
             flight_state = flight_state_val
             stage_map = {
-                "IDLE": 0, "ARMED": 1, "LAUNCH": 2, "LAUNCHED": 2, "BOOST": 3, "APOGEE": 4, "DESCENT": 5, "LANDED": 6
+                "IDLE": 0, "ARMED": 1, "IGNITION": 2, "LAUNCH": 2, "LAUNCHED": 2,
+                "POWERED_FLIGHT": 3, "BOOST": 3, "BURNOUT": 4, "COASTING": 5,
+                "APOGEE": 6, "PARACHUTE_DEPLOY": 7, "PARACHUTE": 7, "DESCENT": 8,
+                "TOUCHDOWN": 9, "AIRBAG_DEPLOY": 10, "AIRBAG": 10, "LANDED": 11
             }
             stage = stage_map.get(flight_state.upper(), 0)
 

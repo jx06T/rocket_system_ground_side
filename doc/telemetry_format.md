@@ -41,19 +41,16 @@ T28386 AX+0.007 AY+0.026 AZ+0.978 GX+6.09 GY-1.05 GZ-2.80 P997.92 RH-0.1 KH-0.1 
 | **KH** | `float` | KF2 融合高度 (單位：米 m) | `KH-0.1` | `"KH%.1f"` |
 | **VZ** | `float` | KF2 垂直速度 (單位：米/秒 m/s) | `VZ+0.00` | `"VZ%+0.2f"` |
 | **GA** | `float` | 合加速度 (單位：g) | `GA0.98` | `"GA%.2f"` |
-| **ST** | `int` / `str` | 飛行狀態代碼 (0=IDLE, 1=ARMED, 2=LAUNCH/LAUNCHED, 3=BOOST, 4=APOGEE, 5=DESCENT, 6=LANDED；亦支援對應大寫英文名稱) | `ST:0` 或 `ST:IDLE` | `"ST:%d"` 或 `"ST:%s"` |
+| **ST** | `int` / `str` | 飛行階段/事件代碼 (0=IDLE, 1=ARMED, 2=IGNITION, 3=POWERED_FLIGHT, 4=BURNOUT, 5=COASTING, 6=APOGEE, 7=PARACHUTE_DEPLOY, 8=DESCENT, 9=TOUCHDOWN, 10=AIRBAG_DEPLOY, 11=LANDED；亦支援對應大寫英文名稱) | `ST:2` 或 `ST:IGNITION` | `"ST:%d"` 或 `"ST:%s"` |
 | **MOD** | `char/hex`| 模組健康狀態 (1個十六進制字元表示 4-bit 狀態：BMP/IMU/LoRa/SD，皆正常為 `E` / 二進制 1110) | `MOD:E` | `"MOD:%X"` |
 | **GPS** | `int,int` | 定位狀態與衛星數 (定位狀態：0=NO_FIX, 1=FIX；衛星數：0~12+) | `GPS:0,0` | `"GPS:%d,%d"` |
 | **C** | `char/hex`| 發火迴圈導通狀態 (1個十六進制字元表示 4-bit 狀態：cond_A, cond_A_eff, cond_B, cond_B_eff) | `C:A` | `"C:%X"` |
 | **LAT** | `float` | (選填) GPS 緯度 | `LAT+25.12345` | `"LAT%+0.5f"` |
 | **LON** | `float` | (選填) GPS 經度 | `LON+121.56789` | `"LON%+0.5f"` |
 
-> 💡 **移除的冗餘欄位**：
-> - `RAW` (原始計數值，地面站不需要)
-> - `BF` (狀態計數與內部緩衝調試值)
-> - `PK` (最高高度，由地面站 GUI 自行動態計算)
-> - `SD` (SD 寫入次數)
-> - `LR` (LoRa 電訊號傳輸統計，由地面接收端自行計算掉包率即可)
+> 💡 **事件傳送與去重規則**：
+> - 瞬態事件發生時（如 `IGNITION`, `BURNOUT`, `APOGEE`, `PARACHUTE_DEPLOY`, `TOUCHDOWN`, `AIRBAG_DEPLOY`），火箭端將 `ST:` 切換為該事件代碼並**連續發送 4 幀**以克服 LoRa 掉包風險，4 幀完畢後自動切換至下一個主狀態。
+> - 地面站端接收時，以**第一次接收到該階段/事件**的時間戳為準（鎖定 T0 / T+ 秒數與 Log），後續重複接收的第 2, 3, 4 次事件幀不覆蓋時間點。
 
 ---
 
