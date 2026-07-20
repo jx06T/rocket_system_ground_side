@@ -309,20 +309,41 @@ class MainWindow(QMainWindow):
                     )
                 else:
                     self.logger.error('No data received yet, cannot reset angle')
+            elif cmd == "/arm":
+                self.logger.warning("🚨 [SAFETY] Transmitting remote SYSTEM ARM command (30s Unlock Window)...")
+                threading.Thread(
+                    target=lambda: self.send_backend_command("send_remote_cmd", ["arm"]),
+                    daemon=True
+                ).start()
+            elif cmd == "/dpl":
+                self.logger.warning("🚨 [EMERGENCY] Transmitting remote FORCE PARACHUTE DEPLOYMENT command...")
+                threading.Thread(
+                    target=lambda: self.send_backend_command("send_remote_cmd", ["dpl"]),
+                    daemon=True
+                ).start()
+            elif cmd == "/abg":
+                self.logger.warning("🚨 [EMERGENCY] Transmitting remote AIRBAG DEPLOYMENT command...")
+                threading.Thread(
+                    target=lambda: self.send_backend_command("send_remote_cmd", ["abg"]),
+                    daemon=True
+                ).start()
             elif cmd == "/help":
                 help_msg = (
-                    "Available terminal commands:\n"
+                    "Available terminal commands (must start with '/'):\n"
                     "  /port <PORT>      - Switch serial port (e.g. /port COM4)\n"
                     "  /baud <BAUDRATE>  - Switch baudrate (e.g. /baud 115200)\n"
                     "  /connect          - Start/Reconnect serial communication\n"
                     "  /disconnect       - Stop serial communication\n"
-                    "  /reset-angle      - Reset IMU angle deviation"
+                    "  /reset-angle      - Reset IMU angle deviation\n"
+                    "  /arm              - Remote Safety ARM (Unlocks Rocket Pyrotechnics for 30s)\n"
+                    "  /dpl              - Emergency Remote Force Parachute Deployment\n"
+                    "  /abg              - Emergency Remote Deploy Airbag"
                 )
                 self.logger.info(help_msg)
             else:
                 self.logger.error(f"Unknown terminal command: {cmd}")
         else:
-            self.logger.error(f"Unknown command: {text}. Type /help for commands.")
+            self.logger.error(f"Unknown command: {text}. All commands must start with '/' (e.g. /arm, /dpl, /abg). Type /help for help.")
 
 
     def _add_curve_checkboxes(self, layout, chart, curve_labels: list, default_visible: list):

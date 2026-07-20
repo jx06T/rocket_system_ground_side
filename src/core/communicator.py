@@ -140,6 +140,20 @@ class SerialCommunicator:
                 if not decoded_data:
                     continue
 
+                # 💡 優先檢查是否為火箭傳送的特殊事件訊息 (MSG <LEVEL> <CONTENT>)
+                if decoded_data.startswith("MSG ") or decoded_data.startswith("MSG:"):
+                    parts = decoded_data.replace(":", " ", 1).split(" ", 2)
+                    level = parts[1].upper() if len(parts) > 1 else "INFO"
+                    content = parts[2] if len(parts) > 2 else ""
+                    log_entry = f"🚀 [ROCKET MSG] [{level}] {content}"
+                    if level in ["ERR", "ERROR", "FAIL", "FAILED"]:
+                        self.logger.error(log_entry)
+                    elif level in ["WARN", "WARNING"]:
+                        self.logger.warning(log_entry)
+                    else:
+                        self.logger.info(log_entry)
+                    continue
+
                 sensor_data = None
                 try:
                     # 1. 優先嘗試 JSON 格式
@@ -207,4 +221,17 @@ class SerialCommunicator:
             
         self.logger.info("Serial communication stopped")
 
-
+    def send_bytes(self, data: bytes) -> bool:
+        """透過串列埠傳送 Raw Bytes 資料」"""
+        try:
+            if self.serial and self.serial.is_open:
+                self.serial.write(data)
+                self.serial.flush()
+                self.logger.info(f"Successfully sent {len(data)} bytes to serial: {data!r}")
+                return True
+            else:
+                self.logger.error("Cannot send data: Serial port is not open")
+                return False
+        except Exception as e:
+            self.logger.error(f"Error sending data to serial: {e}")
+            return False

@@ -13,6 +13,7 @@ import uuid
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.core.communicator import SerialCommunicator
+from src.core.lora_protocol import LoraProtocolHandler
 from src.core.models import SensorData
 from src.core.observer import DataObserver
 from src.storage.storage_observer import StorageObserver
@@ -79,8 +80,10 @@ def run_command_responder(zmq_cmd_port: int, communicator: SerialCommunicator, c
     context = zmq.Context()
     socket = context.socket(zmq.REP)
     socket.bind(f"tcp://127.0.0.1:{zmq_cmd_port}")
-    logger = logging.getLogger("CommandResponder")
-    logger.info(f"ZMQ REP socket bound to port {zmq_cmd_port}")
+    logger = logging.getLogger(f"CommandResponder_{channel_id.upper()}")
+    logger.info(f"ZMQ REP socket bound to port {zmq_cmd_port} for channel '{channel_id}'")
+
+    lora_handler = LoraProtocolHandler(channel_id)
 
     while True:
         try:
@@ -115,6 +118,13 @@ def run_command_responder(zmq_cmd_port: int, communicator: SerialCommunicator, c
                 logger.info("Manually disconnecting serial...")
                 communicator.stop()
                 socket.send_json({"status": "ok"})
+            elif cmd == "send_remote_cmd":
+                action = str(args[0]).lower() if args else ""
+                success, count, detail = lora_handler.send_command(communicator, action)
+                if success:
+                    socket.send_json({"status": "ok", "sent_times": count, "message": detail})
+                else:
+                    socket.send_json({"status": "error", "error": detail})
             else:
                 logger.warning(f"Unknown command received: {cmd}")
                 socket.send_json({"status": "error", "error": f"Unknown command: {cmd}"})

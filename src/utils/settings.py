@@ -11,14 +11,14 @@ DEFAULT_CHANNELS = {
     "ch1": {
         "port": "COM3",
         "baudrate": 115200,
-        "zmq_port": 5555,
-        "zmq_cmd_port": 5565
+        "zmq_port": 15555,
+        "zmq_cmd_port": 15565
     },
     "ch2": {
         "port": "COM4",
         "baudrate": 115200,
-        "zmq_port": 5556,
-        "zmq_cmd_port": 5566
+        "zmq_port": 15556,
+        "zmq_cmd_port": 15566
     }
 }
 
