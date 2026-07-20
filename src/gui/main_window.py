@@ -303,6 +303,7 @@ class MainWindow(QMainWindow):
                     self.ui.gl_label.setText(
                         "當前偏角: 0.0° | 最大偏角: 0.0°"
                     )
+                    self.broadcast_event("[CMD] Reset Angle", "#00E5FF")
                     self.logger.info(
                         f"Angles calibrated: Yaw reset to 180.0, Pitch gravity={self.est_pitch:.2f}, Roll gravity={self.est_roll:.2f}. "
                         f"Gyro Bias calibrated - X:{self.gyro_bias_x:.4f}, Y:{self.gyro_bias_y:.4f}, Z:{self.gyro_bias_z:.4f}"
@@ -311,18 +312,21 @@ class MainWindow(QMainWindow):
                     self.logger.error('No data received yet, cannot reset angle')
             elif cmd == "/arm":
                 self.logger.warning("🚨 [SAFETY] Transmitting remote SYSTEM ARM command (30s Unlock Window)...")
+                self.broadcast_event("[CMD] ARM", "#FF9100")
                 threading.Thread(
                     target=lambda: self.send_backend_command("send_remote_cmd", ["arm"]),
                     daemon=True
                 ).start()
             elif cmd == "/dpl":
                 self.logger.warning("🚨 [EMERGENCY] Transmitting remote FORCE PARACHUTE DEPLOYMENT command...")
+                self.broadcast_event("[CMD] DPL", "#D500F9")
                 threading.Thread(
                     target=lambda: self.send_backend_command("send_remote_cmd", ["dpl"]),
                     daemon=True
                 ).start()
             elif cmd == "/abg":
                 self.logger.warning("🚨 [EMERGENCY] Transmitting remote AIRBAG DEPLOYMENT command...")
+                self.broadcast_event("[CMD] ABG", "#1DE9B6")
                 threading.Thread(
                     target=lambda: self.send_backend_command("send_remote_cmd", ["abg"]),
                     daemon=True
@@ -375,6 +379,17 @@ class MainWindow(QMainWindow):
         self.ui.chart_checkBox_3.setChecked(True)
         self.ui.map_checkBox.setChecked(True)
         self.ui.gl_label.setText("當前偏角: 0.0° | 最大偏角: 0.0°")
+
+        # 動態插入 [🔗 同步圖表 X 軸] 勾選框
+        self.sync_chart_cb = QCheckBox("🔗 同步圖表 X 軸")
+        self.sync_chart_cb.setChecked(True)
+        def toggle_sync(state):
+            sync = (state == 2)
+            self.chart_2.set_x_link(self.chart_1 if sync else None)
+            self.chart_3.set_x_link(self.chart_1 if sync else None)
+        self.sync_chart_cb.stateChanged.connect(toggle_sync)
+        self.ui.horizontalLayout_5.addWidget(self.sync_chart_cb)
+        toggle_sync(2)
 
         # 動態插入各圖表的曲線勾選框 (暫時隱藏，因為使用者可以直接操作圖例)
         # self._add_curve_checkboxes(
@@ -458,6 +473,25 @@ class MainWindow(QMainWindow):
         dot = max(-1.0, min(1.0, dot))
         return math.degrees(math.acos(dot))
 
+    def broadcast_event(self, label_text: str, color: str = "#D500F9"):
+        """在三張折線圖與 GPS 地圖上同步繪製事件標記線/卡片"""
+        if self.latest_data:
+            x_val = self.latest_data.gs_timestamp - self.start_time
+        else:
+            x_val = time.time() - self.start_time
+
+        time_str = datetime.now().strftime("%H:%M:%S")
+        full_label = f"[{time_str}] {label_text}"
+
+        self.chart_1.add_event_marker(x_val, full_label, color)
+        self.chart_2.add_event_marker(x_val, full_label, color)
+        self.chart_3.add_event_marker(x_val, full_label, color)
+
+        if self.latest_data and self.latest_data.location:
+            self.location_displayer.add_event_marker(self.latest_data.location, full_label, color)
+
+        self.logger.info(f"[EVENT BROADCAST] Marked event: {full_label}")
+
     def update_ui(self, data: SensorData):
         has_fix = False
         if data.gnss_state:
@@ -472,7 +506,7 @@ class MainWindow(QMainWindow):
             time_str = self.last_valid_location_time.strftime("%H:%M:%S")
             self.ui.map_label.setText(f'Latitude:{round(data.location[0],5)} | Longitude:{round(data.location[1],5)} (Locked, {time_str})')
             # 座標與軌跡線永遠更新；Auto 勾選框只控制鏡頭是否自動跟隨
-            self.location_displayer.update(data.location, follow=self.ui.map_checkBox.isChecked())
+            self.location_displayer.update(data.location, follow=self.ui.map_checkBox.isChecked(), time_str=time_str)
         else:
             if self.last_valid_location:
                 time_str = self.last_valid_location_time.strftime("%H:%M:%S")
@@ -594,7 +628,9 @@ class MainWindow(QMainWindow):
             f"當前偏角: {current_dev:.1f}° | 最大偏角: {self.max_deviation_angle:.1f}°"
         )
 
-        self.stage_display.update(data.stage, data.timestamp)
+        is_new_event, ev_name, ev_color = self.stage_display.update(data.stage, data.timestamp)
+        if is_new_event:
+            self.broadcast_event(f"[{ev_name}]", ev_color)
         # Update health status labels based on failedTasks (0:BMP, 1:IMU, 2:LoRa, 3:SD)
         health_map = [
             (self.ui.health_bmp, "BMP"),
@@ -693,6 +729,10 @@ class MainWindow(QMainWindow):
                     logger_name = payload_dict.get("logger", "backend")
                     level = getattr(logging, level_str, logging.INFO)
                     logging.getLogger(logger_name).log(level, message)
+
+                    # 若收到火箭端特有的 MSG 事件，於圖表與地圖上標示
+                    if message.startswith("MSG "):
+                        self.broadcast_event(f"[MSG] {message[4:]}", "#FF3B30")
                     continue
 
                 sensor_data = SensorData.from_dict(payload_dict)

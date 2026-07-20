@@ -18,11 +18,21 @@ class CustomDelegate(QStyledItemDelegate):
         option.state &= ~QStyle.StateFlag.State_HasFocus
         super().paint(painter, option, index)
 
+EVENT_STAGES = {
+    2: ("IGNITION", "#00E676"),
+    4: ("BURNOUT", "#FF9100"),
+    6: ("APOGEE", "#FFD600"),
+    7: ("PARACHUTE_DEPLOY", "#D500F9"),
+    9: ("TOUCHDOWN", "#00E5FF"),
+    10: ("AIRBAG_DEPLOY", "#1DE9B6"),
+}
+
 class StageDisplayer:
     def __init__(self, list_widget:QListWidget):
         self.list_widget:QListWidget = list_widget 
         self.current_stage = -1
         self.visited_stages = set()
+        self.marked_events = set()
         self.stages = [
             "IDLE",
             "ARMED",
@@ -55,12 +65,21 @@ class StageDisplayer:
     def update(self, stage:int, timestamp: datetime = None):
         """stage 目前任務階段;timestamp 當前遙測時間戳
         
-        跳過偵測：若某階段索引 < 當前階段但從未出現在 visited_stages 中，
-        代表該階段被跳過，會以紅色背景標記。
-        以第一次接收到各階段/事件的時間戳為準 (去重處理)。
+        若傳入的是首次發生的瞬態事件 (Event)，將傳回 (True, event_name, color)。
+        其餘狀態或重複幀則傳回 (False, None, None)。
         """
+        is_new_event = False
+        event_name = None
+        event_color = None
+
+        if stage in EVENT_STAGES and stage not in self.marked_events:
+            self.marked_events.add(stage)
+            is_new_event = True
+            event_name, event_color = EVENT_STAGES[stage]
+
         if stage < 0 or stage >= len(self.stages):
-            return
+            return is_new_event, event_name, event_color
+
             
         # 當第一次達到某個階段，記錄時間戳 (去重處理：後續連發的重複幀不覆蓋時間)
         if timestamp is None:
@@ -136,3 +155,5 @@ class StageDisplayer:
             else:
                 item.setBackground(QBrush(QColor(254, 254, 254)))
                 item.setForeground(QBrush(QColor(140, 140, 140)))
+
+        return is_new_event, event_name, event_color

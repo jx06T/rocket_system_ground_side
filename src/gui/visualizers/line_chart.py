@@ -99,3 +99,27 @@ class LineChartDrawer:
 
         if auto_scroll:
             self.plot_widget.setXRange(curr_x - self.window_width, curr_x)
+
+    def set_x_link(self, master_drawer: 'LineChartDrawer' = None) -> None:
+        """綁定或解綁 X 軸縮放與平移檢視。傳入 master_drawer 進行同步，傳入 None 則獨立。"""
+        target_widget = master_drawer.plot_widget if master_drawer else None
+        self.plot_widget.setXLink(target_widget)
+
+    def add_event_marker(self, x_value: float, label_text: str, color: str = '#D500F9') -> None:
+        """
+        在圖表指定 X 軸時間點劃出一條垂直事件虛線，並附帶文字標籤。
+        """
+        pen = pg.mkPen(color=color, width=1.5, style=pg.QtCore.Qt.PenStyle.DashLine)
+        vline = pg.InfiniteLine(pos=x_value, angle=90, pen=pen, movable=False)
+        self.plot_widget.addItem(vline)
+
+        # 文字標記懸浮在虛線頂端附近
+        text_item = pg.TextItem(text=label_text, color=color, anchor=(0, 0))
+        text_item.setPos(x_value, 0)
+        # 動態將文字放在 Y 軸目前的頂部區域
+        vb = self.plot_widget.getViewBox()
+        if vb:
+            y_range = vb.viewRange()[1]
+            text_item.setPos(x_value, y_range[1] * 0.9)
+        self.plot_widget.addItem(text_item)
+
