@@ -156,21 +156,17 @@ class SerialCommunicator:
 
                 sensor_data = None
                 try:
-                    # 1. 優先嘗試 JSON 格式
-                    parsed_data = json.loads(decoded_data)
-                    sensor_data = SensorData.from_dict(parsed_data, datetime.now())
-                except (json.JSONDecodeError, TypeError, KeyError):
-                    # 2. JSON 解析失敗，嘗試新版 ASCII 遙測格式
-                    try:
-                        sensor_data = SensorData.from_new_format(decoded_data, datetime.now())
-                    except ValueError:
-                        # 3. 兩者皆失敗，印出格式錯誤提示（限制預覽長度並轉義，防止白框）
-                        preview = decoded_data[:30]
-                        safe_preview = ascii(preview)
-                        self.logger.error(f"Format error: Invalid data received (len={len(decoded_data)}): {safe_preview}...")
-                        continue
+                    # 直接解析 ASCII 遙測格式 (已完全廢棄舊版 JSON 解析)
+                    sensor_data = SensorData.from_new_format(decoded_data, datetime.now())
+                except ValueError:
+                    # 遙測格式不符合（印出前 30 字元預覽）
+                    preview = decoded_data[:30]
+                    safe_preview = ascii(preview)
+                    self.logger.error(f"Format error: Invalid data received (len={len(decoded_data)}): {safe_preview}...")
+                    continue
                 except Exception as e:
-                    self.logger.error(f"Data processing error (JSON): {e}")
+                    self.logger.error(f"Data processing error: {e}")
+                    continue
 
                 if sensor_data:
                     try:
