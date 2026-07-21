@@ -156,4 +156,19 @@ class StageDisplayer:
                 item.setBackground(QBrush(QColor(254, 254, 254)))
                 item.setForeground(QBrush(QColor(140, 140, 140)))
 
-        return is_new_event, event_name, event_color
+        return is_new_event, event_name, event_color
+
+    def reset(self):
+        """重置火箭任務階段顯示 UI 狀態與內部歷史紀錄"""
+        self.current_stage = -1
+        self.visited_stages.clear()
+        self.marked_events.clear()
+        self.stage_times.clear()
+        self.list_widget.clear()
+        self.list_widget.addItems(["  " + i for i in self.stages])
+        for i in range(len(self.stages)):
+            item = self.list_widget.item(i)
+            if item:
+                item.setBackground(QBrush(QColor(254, 254, 254)))
+                item.setForeground(QBrush(QColor(140, 140, 140)))
+

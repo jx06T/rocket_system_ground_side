@@ -2,6 +2,9 @@ import numpy as np
 import logging
 import threading
 import math
+import socket
+import re
+from datetime import datetime
 from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QCheckBox, QLabel
 from PyQt6.QtQuick import QQuickWindow, QSGRendererInterface
 from PyQt6.QtCore import QTimer
@@ -310,6 +313,19 @@ class MainWindow(QMainWindow):
                     )
                 else:
                     self.logger.error('No data received yet, cannot reset angle')
+            elif cmd in ["/reset-data", "/reset"]:
+                self.logger.info("Requesting backend to archive session data and create new log files...")
+
+                def run_reset():
+                    success = self.send_backend_command("reset_session", [])
+                    if success:
+                        self.logger.info("Backend data session reset successfully. Resetting UI state...")
+                    else:
+                        self.logger.warning("Backend reset session request failed or backend offline; resetting local UI state...")
+                    
+                    QTimer.singleShot(0, self.reset_gui_state)
+
+                threading.Thread(target=run_reset, daemon=True).start()
             elif cmd == "/arm":
                 self.logger.warning("🚨 [SAFETY] Transmitting remote SYSTEM ARM command (30s Unlock Window)...")
                 self.broadcast_event("[CMD] ARM", "#FF9100")
@@ -339,6 +355,7 @@ class MainWindow(QMainWindow):
                     "  /connect          - Start/Reconnect serial communication\n"
                     "  /disconnect       - Stop serial communication\n"
                     "  /reset-angle      - Reset IMU angle deviation\n"
+                    "  /reset-data       - Reset session data (archive old CSV/raw log, start new file & reset UI)\n"
                     "  /arm              - Remote Safety ARM (Unlocks Rocket Pyrotechnics for 30s)\n"
                     "  /dpl              - Emergency Remote Force Parachute Deployment\n"
                     "  /abg              - Emergency Remote Deploy Airbag"
@@ -348,6 +365,63 @@ class MainWindow(QMainWindow):
                 self.logger.error(f"Unknown terminal command: {cmd}")
         else:
             self.logger.error(f"Unknown command: {text}. All commands must start with '/' (e.g. /arm, /dpl, /abg). Type /help for help.")
+
+    def reset_gui_state(self):
+        """重置 GUI 相關狀態與 UI 視覺化元件 (清空圖表、地圖、階段列表與遙測統計)"""
+        self.start_time = time.time()
+        self.latest_data = None
+        self.last_valid_location = None
+        self.last_valid_location_time = None
+        
+        self.est_pitch = 0.0
+        self.est_roll = 0.0
+        self.est_yaw = 180.0
+        self.angle_deviation = 0.0
+        self.max_total_accel = 0.0
+        self.max_deviation_angle = 0.0
+        self.max_height = 0.0
+        self.calib_q = None
+        self.quaternion = np.array([1.0, 0.0, 0.0, 0.0])
+        
+        self.gyro_bias_x = 0.0
+        self.gyro_bias_y = 0.0
+        self.gyro_bias_z = 0.0
+        self.gyro_history = []
+        
+        self.prev_health = {}
+
+        # 重置 3D 姿態繪製器
+        self.attitude_displayer.update(self.quaternion)
+        self.ui.gl_label.setText("當前偏角: 0.0° | 最大偏角: 0.0°")
+
+        # 重置折線圖標題與數據
+        self.ui.chart_label_1.setText("高度與速度")
+        self.ui.chart_label_2.setText("加速度")
+        self.ui.chart_label_3.setText("姿態與角速度")
+        self.chart_1.clear()
+        self.chart_2.clear()
+        self.chart_3.clear()
+
+        # 重置任務階段列表 displayer
+        self.stage_display.reset()
+
+        # 重置 Leaflet 地圖 displayer
+        self.location_displayer.reset()
+        self.ui.map_label.setText('No Fix (No location data)')
+
+        # 重置模組健康狀態標籤
+        health_map = [
+            (self.ui.health_bmp, "BMP"),
+            (self.ui.health_imu, "IMU"),
+            (self.ui.health_lora, "LoRa"),
+            (self.ui.health_sd, "SD"),
+        ]
+        for lbl, name in health_map:
+            lbl.setStyleSheet("background-color: rgb(150, 200, 150); color: black; border-radius: 4px; padding: 2px;")
+            lbl.setText(f"{name}: OK")
+
+        self.logger.info("UI state and visualization components have been completely reset.")
+
 
 
     def _add_curve_checkboxes(self, layout, chart, curve_labels: list, default_visible: list):
@@ -380,8 +454,8 @@ class MainWindow(QMainWindow):
         self.ui.map_checkBox.setChecked(True)
         self.ui.gl_label.setText("當前偏角: 0.0° | 最大偏角: 0.0°")
 
-        # 動態插入 [🔗 同步圖表 X 軸] 勾選框
-        self.sync_chart_cb = QCheckBox("🔗 同步圖表 X 軸")
+        # 動態插入 [同步 X 軸] 勾選框
+        self.sync_chart_cb = QCheckBox("同步 X 軸")
         self.sync_chart_cb.setChecked(True)
         def toggle_sync(state):
             sync = (state == 2)
@@ -483,14 +557,38 @@ class MainWindow(QMainWindow):
         time_str = datetime.now().strftime("%H:%M:%S")
         full_label = f"[{time_str}] {label_text}"
 
-        self.chart_1.add_event_marker(x_val, full_label, color)
-        self.chart_2.add_event_marker(x_val, full_label, color)
-        self.chart_3.add_event_marker(x_val, full_label, color)
+        # 縮寫映射表：圖表只顯示簡短縮寫，不顯示時間戳
+        _ABBR_MAP = {
+            "[CMD] ARM":          "ARM",
+            "[CMD] DPL":          "DPL",
+            "[CMD] ABG":          "ABG",
+            "[CMD] Reset Angle":  "RST",
+            "[IGNITION]":         "IGN",
+            "[BURNOUT]":          "BRN",
+            "[APOGEE]":           "APG",
+            "[PARACHUTE_DEPLOY]": "DPL",
+            "[TOUCHDOWN]":        "TDN",
+            "[AIRBAG_DEPLOY]":    "ABG",
+        }
+        # 找縮寫；MSG 類型取 MSG 前綴；否則截取 [] 內容最多 4 字
+        chart_label = _ABBR_MAP.get(label_text)
+        if chart_label is None:
+            if label_text.startswith("[MSG]"):
+                chart_label = "MSG"
+            else:
+                # 通用後備：取第一個 [] 內的縮寫（最多 4 個字元）
+                m = re.search(r'\[([^\]]+)\]', label_text)
+                chart_label = m.group(1)[:4] if m else label_text[:4]
+
+        self.chart_1.add_event_marker(x_val, chart_label, color)
+        self.chart_2.add_event_marker(x_val, chart_label, color)
+        self.chart_3.add_event_marker(x_val, chart_label, color)
 
         if self.latest_data and self.latest_data.location:
             self.location_displayer.add_event_marker(self.latest_data.location, full_label, color)
 
         self.logger.info(f"[EVENT BROADCAST] Marked event: {full_label}")
+
 
     def update_ui(self, data: SensorData):
         has_fix = False
@@ -663,7 +761,7 @@ class MainWindow(QMainWindow):
         self.last_recv_time[topic] = time.time()
         self.channel_status[topic] = "Connected"
 
-        if prev_status in ["No Data", "Lost", "Stale"]:
+        if prev_status in ["No Data", "Lost", "Stale", "Backend Offline"]:
             self.logger.info(f"Telemetry channel '{topic}' connection established/resumed.")
 
         if topic == self.focus_channel:
@@ -671,6 +769,25 @@ class MainWindow(QMainWindow):
             self.rx_led.setStyleSheet("background-color: #00FF00; border-radius: 6px; border: 1px solid #00AA00;")
             self.led_timer.start(100) # 100ms 後自動呼叫 _turn_off_led 變回灰色
             self.update_ui(data)
+
+    def _is_backend_running(self, focus_ch: str) -> bool:
+        """透過本機 TCP 探針檢測後端 Daemon (ZMQ CMD/PUB Port) 是否運作中"""
+        cfg = self.channel_configs.get(focus_ch, {})
+        zmq_cmd_port = cfg.get("zmq_cmd_port")
+        zmq_port = cfg.get("zmq_port")
+        ports_to_check = [p for p in (zmq_cmd_port, zmq_port) if p]
+        if not ports_to_check:
+            return False
+
+        for port in ports_to_check:
+            try:
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.settimeout(0.05)
+                    if s.connect_ex(("127.0.0.1", port)) == 0:
+                        return True
+            except Exception:
+                pass
+        return False
 
     def check_heartbeats(self):
         """定期 (5Hz) 檢查通道接收心跳並刷新狀態 LED 與顯示字串"""
@@ -682,13 +799,28 @@ class MainWindow(QMainWindow):
         port = cfg.get("port", "N/A")
         baud = cfg.get("baud", "N/A")
         
+        prev_status = self.channel_status.get(focus_ch)
+        backend_online = self._is_backend_running(focus_ch)
+
+        if not backend_online:
+            # 💡 後端服務未啟動（閃爍紫燈/深紫燈）
+            self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰Backend Offline (後端服務未啟動)")
+            if int(now * 2) % 2 == 0:
+                self.rx_led.setStyleSheet("background-color: #9933FF; border-radius: 6px; border: 1px solid #6600CC;")
+            else:
+                self.rx_led.setStyleSheet("background-color: #442266; border-radius: 6px; border: 1px solid #220044;")
+            self.channel_status[focus_ch] = "Backend Offline"
+            if prev_status != "Backend Offline":
+                self.logger.warning(f"Telemetry backend daemon for channel '{focus_ch}' is offline! Please start main.py or run_persist_backend.bat.")
+            return
+
         if last_time is None:
-            self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰No Data")
-            self.rx_led.setStyleSheet("background-color: #FF0000; border-radius: 6px; border: 1px solid #AA0000;")
+            # 💡 後端有開，但從未收到數據（亮橘黃燈）
+            self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰No Data (後端已連線/待資料)")
+            self.rx_led.setStyleSheet("background-color: #FF6600; border-radius: 6px; border: 1px solid #CC3300;")
             self.channel_status[focus_ch] = "No Data"
         else:
             elapsed = now - last_time
-            prev_status = self.channel_status.get(focus_ch)
             if elapsed < 1.5:
                 # 正常綠燈
                 self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰Connected ({elapsed:.1f}s ago)")
@@ -705,12 +837,12 @@ class MainWindow(QMainWindow):
                 if prev_status == "Connected":
                     self.logger.warning(f"Telemetry channel '{focus_ch}' connection stale. Last data received {elapsed:.1f}s ago.")
             else:
-                # 斷線紅燈
-                self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰Lost ({elapsed:.1f}s ago)")
+                # 💡 後端有開，但遙測無線訊號中斷 (斷線紅燈)
+                self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰Telemetry Lost ({elapsed:.1f}s ago)")
                 self.rx_led.setStyleSheet("background-color: #FF0000; border-radius: 6px; border: 1px solid #AA0000;")
                 self.channel_status[focus_ch] = "Lost"
                 if prev_status in ["Connected", "Stale"]:
-                    self.logger.error(f"Telemetry channel '{focus_ch}' connection lost! No data received for {elapsed:.1f}s.")
+                    self.logger.error(f"Telemetry channel '{focus_ch}' RF lost! No data received for {elapsed:.1f}s.")
 
 
     def poll_zmq_data(self):
@@ -732,7 +864,9 @@ class MainWindow(QMainWindow):
 
                     # 若收到火箭端特有的 MSG 事件，於圖表與地圖上標示
                     if message.startswith("MSG "):
-                        self.broadcast_event(f"[MSG] {message[4:]}", "#FF3B30")
+                        # 轉義單引號，防止 JS addEventMarker 呼叫被截斷
+                        safe_msg = message[4:].replace("'", "\\'").replace('"', '\\"')
+                        self.broadcast_event(f"[MSG] {safe_msg}", "#FF3B30")
                     continue
 
                 sensor_data = SensorData.from_dict(payload_dict)

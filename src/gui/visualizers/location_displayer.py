@@ -3,6 +3,14 @@ from typing import Tuple
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
 from PyQt6.QtWebEngineWidgets import QWebEngineView
+from PyQt6.QtWebEngineCore import QWebEnginePage
+
+class NonNavigablePage(QWebEnginePage):
+    """自訂 QWebEnginePage，防止使用者因誤點地圖超連結（如版權資訊）跳轉至外部網頁"""
+    def acceptNavigationRequest(self, url, navigation_type, is_main_frame):
+        if navigation_type == QWebEnginePage.NavigationType.NavigationTypeLinkClicked:
+            return False
+        return super().acceptNavigationRequest(url, navigation_type, is_main_frame)
 
 class LocationDisplayer:
     def __init__(self, widget: QWidget, initial_location: Tuple[float, float] = (23.5, 121.5)):
@@ -19,6 +27,7 @@ class LocationDisplayer:
         self.layout.setContentsMargins(0, 0, 0, 0) 
 
         self.web_view = QWebEngineView()
+        self.web_view.setPage(NonNavigablePage(self.web_view))
         self.layout.addWidget(self.web_view)
         
         self.logger = logging.getLogger(__name__)
@@ -40,13 +49,22 @@ class LocationDisplayer:
             <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
             <style>
                 html, body, #map {{ width: 100%; height: 100%; margin: 0; padding: 0; }}
+                /* 停用版權與標示區域的點擊事件，防止誤觸跳轉 */
+                .leaflet-control-attribution, .leaflet-control-attribution a {{
+                    pointer-events: none !important;
+                    cursor: default !important;
+                    text-decoration: none !important;
+                }}
             </style>
         </head>
         <body>
             <div id="map"></div>
             <script>
                 // 初始中心點設在台灣 (縮放等級為 7，顯示全島概覽，無標記與軌跡)
-                var map = L.map('map').setView([{lat}, {lng}], 7);
+                var map = L.map('map', {{ attributionControl: true }}).setView([{lat}, {lng}], 7);
+                if (map.attributionControl) {{
+                    map.attributionControl.setPrefix(false); // 移除預設的 Leaflet 外部超連結
+                }}
                 L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
                     maxZoom: 19,
                     attribution: '&copy; OpenStreetMap'
@@ -141,5 +159,11 @@ class LocationDisplayer:
         """在地圖指定經緯度加上事件卡片標記"""
         if self.map_initialized and location:
             lat, lng = location
-            js_code = f"if (typeof addEventMarker === 'function') {{ addEventMarker({lat}, {lng}, '{label_text}', '{color}'); }}"
+            # 轉義引號，防止 JS 字串截斷
+            safe_label = label_text.replace("\\", "\\\\").replace("'", "\\'").replace('"', '\\"')
+            js_code = f"if (typeof addEventMarker === 'function') {{ addEventMarker({lat}, {lng}, '{safe_label}', '{color}'); }}"
             self.web_view.page().runJavaScript(js_code)
+
+    def reset(self, initial_location: Tuple[float, float] = (23.5, 121.5)):
+        """重置地圖與歷史軌跡線標記"""
+        self.create_map(initial_location)
