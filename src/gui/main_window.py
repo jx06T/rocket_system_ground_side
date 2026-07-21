@@ -185,6 +185,9 @@ class MainWindow(QMainWindow):
         #   原 1s 會讓 GUI 誤判逾時(命令其實已送出)。_all 並行發送靠這個才拿得到正確回報。
         socket.setsockopt(zmq.RCVTIMEO, 4000)
         socket.setsockopt(zmq.SNDTIMEO, 1000)
+        # LINGER=0:逾時(REQ 尚有未送達訊息)時 close()/term() 不會無限阻塞,
+        #   否則 _all 的廣播 thread 會卡死洩漏(對抗性審查 R9)。
+        socket.setsockopt(zmq.LINGER, 0)
         socket.connect(f"tcp://127.0.0.1:{zmq_cmd_port}")
 
         try:
@@ -212,25 +215,45 @@ class MainWindow(QMainWindow):
 
     def send_backend_command_all(self, cmd: str, args: list) -> bool:
         """對「所有航電板」(所有頻道)並行廣播命令——雙板熱備援同時觸發。
-        並行(非序列)發送,兩板 pyro 幾乎同一時刻點燃;逐板獨立,一板逾時
-        /後端沒跑不影響另一板。回傳:是否至少一板成功。"""
+        並行(非序列)發送,兩板 pyro 幾乎同一時刻;逐板獨立,一板逾時/後端沒跑
+        不影響另一板。
+
+        ★安全語意(對抗性審查 R2/R10):成功 = 「所有」板都 TX-attempted 成功,
+          不是「至少一板」。少一板 = 熱備援冗餘無聲消失,必須 LOUD 告警並點名
+          失敗頻道。results 預先填 False:thread 拋例外/卡住時該板算失敗,不會
+          被誤算成功。
+        ★「TX-attempted」≠「已開傘」:回 ok 只代表 bytes 已寫入 COM,不代表火箭
+          收到或 pyro 點燃——真正確認要看該板下行遙測 stage 是否轉開傘。"""
         chs = list(self.channel_ids)
         self.logger.warning(f"📡 [ALL] Broadcasting '{cmd}{args}' to {len(chs)} board(s): {chs}")
-        results = {}
+        results = {c: False for c in chs}   # 預填 False:未回報=失敗(安全方向)
         threads = []
+
+        def _worker(c):
+            try:
+                results[c] = self.send_backend_command_to(c, cmd, args)
+            except Exception as e:
+                results[c] = False
+                self.logger.error(f"[{c}] broadcast worker crashed: {e}")
+
         for ch in chs:
-            t = threading.Thread(
-                target=lambda c=ch: results.__setitem__(
-                    c, self.send_backend_command_to(c, cmd, args)),
-                daemon=True
-            )
+            t = threading.Thread(target=_worker, args=(ch,), daemon=True)
             t.start()
             threads.append(t)
         for t in threads:
             t.join(timeout=6)
+
         ok = sum(1 for v in results.values() if v)
-        self.logger.warning(f"📡 [ALL] Broadcast done: {ok}/{len(chs)} board(s) acknowledged.")
-        return ok > 0
+        failed = [c for c, v in results.items() if not v]
+        if ok == len(chs) and len(chs) > 0:
+            self.logger.warning(f"📡 [ALL] TX-attempted to ALL {ok}/{len(chs)} boards. "
+                                f"(‘sent’ ≠ ‘deployed’ — confirm by each board's downlink stage change.)")
+            return True
+        # ── 部分/全失敗:LOUD。冗餘可能已喪失。 ──
+        self.logger.error(f"🔴🔴 [ALL] PARTIAL/FAILED broadcast: only {ok}/{len(chs)} boards accepted "
+                          f"'{cmd}{args}'. FAILED: {failed}. HOT-STANDBY REDUNDANCY MAY BE LOST — "
+                          f"check each failed board's COM/daemon and re-fire that board individually.")
+        return False
 
     def on_enter_pressed(self):
         text = self.ui.lineEdit.text().strip()
