@@ -249,10 +249,12 @@ class MainWindow(QMainWindow):
             self.logger.warning(f"📡 [ALL] TX-attempted to ALL {ok}/{len(chs)} boards. "
                                 f"(‘sent’ ≠ ‘deployed’ — confirm by each board's downlink stage change.)")
             return True
-        # ── 部分/全失敗:LOUD。冗餘可能已喪失。 ──
+        # ── 部分/全失敗:LOUD。冗餘可能已喪失,但單板仍安全(使用者確認:
+        #    冗餘設計,單傘/單氣囊仍可安全著陸)→ 提示補點,不是中止。 ──
         self.logger.error(f"🔴🔴 [ALL] PARTIAL/FAILED broadcast: only {ok}/{len(chs)} boards accepted "
-                          f"'{cmd}{args}'. FAILED: {failed}. HOT-STANDBY REDUNDANCY MAY BE LOST — "
-                          f"check each failed board's COM/daemon and re-fire that board individually.")
+                          f"'{cmd}{args}'. FAILED: {failed}. HOT-STANDBY REDUNDANCY REDUCED (a single "
+                          f"board still lands safely) — re-fire the failed board(s) individually to "
+                          f"restore redundancy; do NOT abort.")
         return False
 
     def on_enter_pressed(self):
