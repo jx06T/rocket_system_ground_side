@@ -168,15 +168,19 @@ class MainWindow(QMainWindow):
         self.logger = logging.getLogger(__name__)
 
     def send_backend_command(self, cmd: str, args: list) -> bool:
-        """透過 ZMQ REQ 槽向後端 Daemon 發送控制命令 (具備超時機制防死鎖)"""
-        focus_ch = self.focus_channel
-        cfg = self.channel_configs.get(focus_ch)
+        """對「當前焦點頻道」的後端發命令(單板)。"""
+        return self.send_backend_command_to(self.focus_channel, cmd, args)
+
+    def send_backend_command_to(self, target_ch: str, cmd: str, args: list) -> bool:
+        """對「指定頻道」的後端 Daemon 發送控制命令 (ZMQ REQ + 超時防死鎖)。
+        _all 廣播與單板命令共用此核心,只差 target_ch。"""
+        cfg = self.channel_configs.get(target_ch)
         if not cfg:
-            self.logger.error("No active config for focus channel")
+            self.logger.error(f"No active config for channel {target_ch}")
             return False
 
         zmq_cmd_port = cfg.get("zmq_cmd_port")
-        self.logger.info(f"Sending command '{cmd}' to backend daemon of {focus_ch} on port {zmq_cmd_port}...")
+        self.logger.info(f"Sending command '{cmd}' to backend daemon of {target_ch} on port {zmq_cmd_port}...")
 
         context = zmq.Context()
         socket = context.socket(zmq.REQ)
@@ -188,17 +192,17 @@ class MainWindow(QMainWindow):
             socket.send_json({"cmd": cmd, "args": args})
             reply = socket.recv_json()
             if reply.get("status") == "ok":
-                self.logger.info(f"Command '{cmd}' executed successfully by backend.")
+                self.logger.info(f"[{target_ch}] Command '{cmd}' executed successfully by backend.")
                 return True
             else:
                 error_msg = reply.get("error", "Unknown error")
-                self.logger.error(f"Backend failed command '{cmd}': {error_msg}")
+                self.logger.error(f"[{target_ch}] Backend failed command '{cmd}': {error_msg}")
                 return False
         except zmq.error.Again:
-            self.logger.error(f"Backend command '{cmd}' timed out! Is the daemon running?")
+            self.logger.error(f"[{target_ch}] Backend command '{cmd}' timed out! Is the {target_ch} daemon running?")
             return False
         except Exception as e:
-            self.logger.error(f"ZMQ command channel error: {e}")
+            self.logger.error(f"[{target_ch}] ZMQ command channel error: {e}")
             return False
         finally:
             try:
@@ -206,6 +210,28 @@ class MainWindow(QMainWindow):
                 context.term()
             except Exception:
                 pass
+
+    def send_backend_command_all(self, cmd: str, args: list) -> bool:
+        """對「所有航電板」(所有頻道)並行廣播命令——雙板熱備援同時觸發。
+        並行(非序列)發送,兩板 pyro 幾乎同一時刻點燃;逐板獨立,一板逾時
+        /後端沒跑不影響另一板。回傳:是否至少一板成功。"""
+        chs = list(self.channel_ids)
+        self.logger.warning(f"📡 [ALL] Broadcasting '{cmd}{args}' to {len(chs)} board(s): {chs}")
+        results = {}
+        threads = []
+        for ch in chs:
+            t = threading.Thread(
+                target=lambda c=ch: results.__setitem__(
+                    c, self.send_backend_command_to(c, cmd, args)),
+                daemon=True
+            )
+            t.start()
+            threads.append(t)
+        for t in threads:
+            t.join(timeout=6)
+        ok = sum(1 for v in results.values() if v)
+        self.logger.warning(f"📡 [ALL] Broadcast done: {ok}/{len(chs)} board(s) acknowledged.")
+        return ok > 0
 
     def on_enter_pressed(self):
         text = self.ui.lineEdit.text().strip()
@@ -345,6 +371,25 @@ class MainWindow(QMainWindow):
                 self.broadcast_event("[CMD] ABG", "#1DE9B6")
                 threading.Thread(
                     target=lambda: self.send_backend_command("send_remote_cmd", ["abg"]),
+                    daemon=True
+                ).start()
+            # ── 雙板廣播:同時對所有航電板(ch1+ch2 熱備援)發命令 ──
+            elif cmd == "/arm_all":
+                self.logger.warning("🚨 [SAFETY] Broadcasting SYSTEM ARM to ALL boards (30s Unlock Window)...")
+                threading.Thread(
+                    target=lambda: self.send_backend_command_all("send_remote_cmd", ["arm"]),
+                    daemon=True
+                ).start()
+            elif cmd == "/dpl_all":
+                self.logger.warning("🚨 [EMERGENCY] Broadcasting FORCE PARACHUTE DEPLOY to ALL boards...")
+                threading.Thread(
+                    target=lambda: self.send_backend_command_all("send_remote_cmd", ["dpl"]),
+                    daemon=True
+                ).start()
+            elif cmd == "/abg_all":
+                self.logger.warning("🚨 [EMERGENCY] Broadcasting AIRBAG DEPLOY to ALL boards...")
+                threading.Thread(
+                    target=lambda: self.send_backend_command_all("send_remote_cmd", ["abg"]),
                     daemon=True
                 ).start()
             elif cmd == "/help":
