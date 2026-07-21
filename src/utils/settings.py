@@ -1,22 +1,25 @@
 import os
+import copy
 import json
 import logging
 
 SETTINGS_FILE = "settings.json"
-DEFAULT_PORT = "COM3"
-DEFAULT_BAUDRATE = 115200
+DEFAULT_PORT = "com11"
+DEFAULT_BAUDRATE = 9600
 
 # 預設雙通道與 ZMQ 通訊埠設定
+# ch1 = 915MHz/E22 (com11)、ch2 = 2.4GHz/E28 (com7);兩者 LoRa UART 皆 9600。
+# COM 號會隨 USB 插孔改變 -> 用 GUI /port 指令即時改並自動存回本檔。
 DEFAULT_CHANNELS = {
     "ch1": {
-        "port": "COM3",
-        "baudrate": 115200,
+        "port": "com11",
+        "baudrate": 9600,
         "zmq_port": 15555,
         "zmq_cmd_port": 15565
     },
     "ch2": {
-        "port": "COM4",
-        "baudrate": 115200,
+        "port": "com7",
+        "baudrate": 9600,
         "zmq_port": 15556,
         "zmq_cmd_port": 15566
     }
@@ -25,7 +28,21 @@ DEFAULT_CHANNELS = {
 logger = logging.getLogger(__name__)
 
 def _get_default_settings():
-    return {"channels": DEFAULT_CHANNELS}
+    # deepcopy: 絕不把 module 級 DEFAULT_CHANNELS 本體交出去,
+    # 否則呼叫端就地改寫會污染全程序的 fallback(舊版 bug)。
+    return {"channels": copy.deepcopy(DEFAULT_CHANNELS)}
+
+def list_channel_ids():
+    """回傳 settings.json 內定義的所有通道 id (預設 ch1, ch2)。雙板熱備援用。"""
+    if os.path.exists(SETTINGS_FILE):
+        try:
+            with open(SETTINGS_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if isinstance(data.get("channels"), dict) and data["channels"]:
+                return list(data["channels"].keys())
+        except Exception as e:
+            logger.error(f"Error reading channel list from {SETTINGS_FILE}: {e}")
+    return list(DEFAULT_CHANNELS.keys())
 
 def load_channel_settings(channel_id: str = "ch1"):
     """
@@ -43,7 +60,7 @@ def load_channel_settings(channel_id: str = "ch1"):
                 logger.info("Migrating legacy settings to channel-based settings...")
                 legacy_port = data.get("port", DEFAULT_PORT)
                 legacy_baud = data.get("baudrate", DEFAULT_BAUDRATE)
-                data = {"channels": DEFAULT_CHANNELS}
+                data = {"channels": copy.deepcopy(DEFAULT_CHANNELS)}  # deepcopy: 勿污染 module 級預設
                 data["channels"]["ch1"]["port"] = legacy_port
                 data["channels"]["ch1"]["baudrate"] = legacy_baud
                 with open(SETTINGS_FILE, "w", encoding="utf-8") as f_out:

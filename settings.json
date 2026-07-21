@@ -7,8 +7,8 @@
             "zmq_cmd_port": 15565
         },
         "ch2": {
-            "port": "COM4",
-            "baudrate": 115200,
+            "port": "com7",
+            "baudrate": 9600,
             "zmq_port": 15556,
             "zmq_cmd_port": 15566
         }
