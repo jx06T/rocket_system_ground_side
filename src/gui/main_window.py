@@ -5,7 +5,7 @@ import math
 import socket
 import re
 from datetime import datetime
-from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QCheckBox, QLabel
+from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QCheckBox, QLabel, QPushButton
 from PyQt6.QtQuick import QQuickWindow, QSGRendererInterface
 from PyQt6.QtCore import QTimer
 
@@ -63,7 +63,7 @@ class MainWindow(QMainWindow):
                 "zmq_cmd_port": zmq_cmd_port
             }
         
-        self.focus_channel = "ch1"
+        self.focus_channel = self.channel_ids[0]   # 勿寫死 "ch1":頻道名以設定為準
         self.start_time = time.time()
         self.last_recv_time = {ch: None for ch in self.channel_ids}
         self.channel_status = {ch: "No Data" for ch in self.channel_ids}
@@ -154,16 +154,33 @@ class MainWindow(QMainWindow):
 
         self.log_display = LogDisplayer(self.ui.log_textEdit) 
 
-        # Create a receiver status LED (circle)
-        self.rx_led = QLabel()
-        self.rx_led.setFixedSize(12, 12)
-        self.rx_led.setStyleSheet("background-color: #555555; border-radius: 6px;") # Grey (OFF)
-        self.ui.horizontalLayout_4.insertWidget(0, self.rx_led)
-        
-        # Single-shot timer to turn off LED
-        self.led_timer = QTimer()
-        self.led_timer.setSingleShot(True)
-        self.led_timer.timeout.connect(self._turn_off_led)
+        # ── Per-channel 狀態 LED（左下,status_leds_layout 容器/.ui 定義)──
+        # 每通道一組 [●LED][chN 文字]。顏色狀態機沿用 jx06 五態規則
+        # (check_heartbeats),但改為逐通道渲染;收包瞬間亮綠脈衝由下一輪
+        # heartbeats (200ms) 自然覆蓋回狀態色,不再需要 led_timer。
+        self.ch_leds = {}
+        for ch in self.channel_ids:
+            led = QLabel()
+            led.setFixedSize(12, 12)
+            led.setStyleSheet("background-color: #555555; border-radius: 6px;")
+            led.setToolTip(f"{ch}: no status yet")
+            tag = QLabel(ch)
+            tag.setStyleSheet("color: #999999; font-size: 10px;")
+            self.ui.status_leds_layout.addWidget(led)
+            self.ui.status_leds_layout.addWidget(tag)
+            self.ch_leds[ch] = led
+
+        # ── Per-channel port 狀態標籤(右下,multi_port_layout 容器)──
+        # serial_label 保留顯示「焦點」頻道詳細字串;這排顯示所有頻道簡版。
+        self.ch_port_labels = {}
+        for ch in self.channel_ids:
+            lbl = QLabel(f"{ch} --")
+            lbl.setStyleSheet("color: #AAAAAA;")
+            self.ui.multi_port_layout.addWidget(lbl)
+            self.ch_port_labels[ch] = lbl
+
+        # 非焦點頻道的最新高度快取(chart_label_1 併排顯示用,F3-B)
+        self.ch_latest_alt = {}
 
         self.logger = logging.getLogger(__name__)
 
@@ -254,6 +271,133 @@ class MainWindow(QMainWindow):
                           f"board still lands safely) — re-fire the failed board(s) individually to "
                           f"restore redundancy; do NOT abort.")
         return False
+
+    # ══════════════════ 焦點切換與火工品按鈕列(F2) ══════════════════
+
+    def set_focus_channel(self, ch: str):
+        """切換 GUI 渲染焦點頻道。切換=清空單通道視圖重畫(latest_data/
+        姿態濾波/圖表/stage 全是單套狀態,凍結混用會出鬼影)。"""
+        if ch not in self.channel_ids:
+            return
+        # 按鈕視覺同步「先於」same-channel early return:checkable 按鈕被
+        # 重複點擊時 Qt 已先 toggle 掉勾選,這裡撥回,否則畫面上沒有任何
+        # 焦點鈕亮著、操作員看不出單板命令要打到哪塊板。
+        for c, btn in getattr(self, "focus_buttons", {}).items():
+            btn.setChecked(c == ch)
+        if ch == self.focus_channel:
+            return
+        old = self.focus_channel
+        self.focus_channel = ch
+        self.logger.info(f"🔀 Focus channel switched: {old} -> {ch} (charts/map/stage reset)")
+        self.reset_gui_state()
+
+    def _build_pyro_button_row(self):
+        """建構 log 與命令列之間的操作列(容器 pyro_button_row 由 .ui 提供):
+        [焦點: ch1 ch2] ┃ [傘/囊 x 各板] ┃ [傘ALL 囊ALL] ┃ [Auto跟隨]
+        點火鈕=兩段式防誤觸:第一按變紅倒數 3 秒,再按才發射,逾時還原。"""
+        row = self.ui.pyro_button_row
+
+        lbl = QLabel("焦點:")
+        lbl.setStyleSheet("color: #888888;")
+        row.addWidget(lbl)
+        self.focus_buttons = {}
+        for ch in self.channel_ids:
+            b = QPushButton(ch)
+            b.setCheckable(True)
+            b.setChecked(ch == self.focus_channel)
+            b.setFixedHeight(26)
+            b.setStyleSheet(
+                "QPushButton{background:#333;color:#BBB;border:1px solid #555;border-radius:4px;padding:2px 10px;}"
+                "QPushButton:checked{background:#1E5AA8;color:white;border-color:#3D7BD9;}")
+            b.clicked.connect(lambda _, c=ch: self.set_focus_channel(c))
+            row.addWidget(b)
+            self.focus_buttons[ch] = b
+
+        row.addWidget(self._vsep())
+        # 單板點火鈕(每板:傘=dpl、囊=abg;走該板 backend 單發)
+        for ch in self.channel_ids:
+            row.addWidget(self._make_pyro_button(f"傘 {ch}", ch, "dpl"))
+            row.addWidget(self._make_pyro_button(f"囊 {ch}", ch, "abg"))
+
+        row.addWidget(self._vsep())
+        # 廣播鈕(兩板同時;沿用 _all 的並行+LOUD 部分失敗告警)
+        row.addWidget(self._make_pyro_button("傘 ALL", None, "dpl"))
+        row.addWidget(self._make_pyro_button("囊 ALL", None, "abg"))
+
+        row.addStretch(1)
+
+        # ── F5:全域「Auto 跟隨」——代理 4 顆原生 Auto(3 chart + map)──
+        # 原 checkbox 隱藏但保留(update_ui 照舊讀它們,零改繪圖邏輯);
+        # sync-X 仍在 chart1 標題列。
+        self.global_auto_cb = QCheckBox("Auto 跟隨")
+        self.global_auto_cb.setChecked(True)
+        def _apply_auto(state):
+            checked = (state == 2)
+            for cb in (self.ui.chart_checkBox_1, self.ui.chart_checkBox_2,
+                       self.ui.chart_checkBox_3, self.ui.map_checkBox):
+                cb.setChecked(checked)
+        self.global_auto_cb.stateChanged.connect(_apply_auto)
+        row.addWidget(self.global_auto_cb)
+
+    @staticmethod
+    def _vsep():
+        sep = QLabel("┃")
+        sep.setStyleSheet("color: #444444;")
+        return sep
+
+    def _make_pyro_button(self, label: str, ch, action: str):
+        """兩段式防誤觸點火鈕。ch=None 表示 ALL 廣播。
+        第一按:紅色進入確認態+3 秒倒數(逾時自動還原);
+        第二按(3 秒內):執行發射並還原。緊急時兩按 <1 秒即可送出,
+        比彈窗快且不搶鍵盤焦點。"""
+        btn = QPushButton(label)
+        btn.setFixedHeight(26)
+        idle_style = ("QPushButton{background:#402020;color:#D08080;border:1px solid #663333;"
+                      "border-radius:4px;padding:2px 10px;}")
+        armed_style = ("QPushButton{background:#CC2222;color:white;border:2px solid #FF5555;"
+                       "border-radius:4px;padding:2px 10px;font-weight:bold;}")
+        btn.setStyleSheet(idle_style)
+        state = {"armed": False, "armed_at": 0.0}
+        timer = QTimer(self)
+        timer.setSingleShot(True)
+
+        def _disarm():
+            state["armed"] = False
+            btn.setText(label)
+            btn.setStyleSheet(idle_style)
+
+        def _fire():
+            target = "ALL" if ch is None else ch
+            self.logger.warning(f"🚨 [PYRO BUTTON] {action.upper()} -> {target}")
+            if ch is None:
+                threading.Thread(
+                    target=lambda: self.send_backend_command_all("send_remote_cmd", [action]),
+                    daemon=True).start()
+            else:
+                threading.Thread(
+                    target=lambda: self.send_backend_command_to(ch, "send_remote_cmd", [action]),
+                    daemon=True).start()
+
+        def _on_click():
+            if state["armed"]:
+                # ★300ms 最小武裝時間:Qt 雙擊=兩次完整 click,沒有下限的話
+                #   手抖/觸控板雙擊會在 ~100ms 內武裝+發射,兩段式防護形同虛設。
+                #   300ms 內的第二擊忽略(維持武裝態),刻意的兩連擊仍 <1s 完成。
+                if time.monotonic() - state["armed_at"] < 0.3:
+                    return
+                timer.stop()
+                _fire()
+                _disarm()
+            else:
+                state["armed"] = True
+                state["armed_at"] = time.monotonic()
+                btn.setText(f"確認 {label}?")
+                btn.setStyleSheet(armed_style)
+                timer.start(3000)   # 3 秒未確認自動還原
+
+        timer.timeout.connect(_disarm)
+        btn.clicked.connect(_on_click)
+        return btn
 
     def on_enter_pressed(self):
         text = self.ui.lineEdit.text().strip()
@@ -414,6 +558,11 @@ class MainWindow(QMainWindow):
                     target=lambda: self.send_backend_command_all("send_remote_cmd", ["abg"]),
                     daemon=True
                 ).start()
+            elif cmd == "/focus":
+                if len(parts) >= 2 and parts[1] in self.channel_ids:
+                    self.set_focus_channel(parts[1])
+                else:
+                    self.logger.error(f"Usage: /focus <{' | '.join(self.channel_ids)}>")
             elif cmd == "/help":
                 help_msg = (
                     "Available terminal commands (must start with '/'):\n"
@@ -423,9 +572,13 @@ class MainWindow(QMainWindow):
                     "  /disconnect       - Stop serial communication\n"
                     "  /reset-angle      - Reset IMU angle deviation\n"
                     "  /reset-data       - Reset session data (archive old CSV/raw log, start new file & reset UI)\n"
-                    "  /arm              - Remote Safety ARM (Unlocks Rocket Pyrotechnics for 30s)\n"
-                    "  /dpl              - Emergency Remote Force Parachute Deployment\n"
-                    "  /abg              - Emergency Remote Deploy Airbag"
+                    "  /arm              - Remote Safety ARM (focus board, 30s window)\n"
+                    "  /dpl              - Emergency Force Parachute Deploy (focus board)\n"
+                    "  /abg              - Emergency Deploy Airbag (focus board)\n"
+                    "  /arm_all          - ARM ALL boards at once (ch1+ch2 hot-standby)\n"
+                    "  /dpl_all          - Force Parachute Deploy on ALL boards at once\n"
+                    "  /abg_all          - Deploy Airbag on ALL boards at once\n"
+                    "  /focus <ch>       - Switch GUI focus channel (charts/map/stage re-render)"
                 )
                 self.logger.info(help_msg)
             else:
@@ -456,6 +609,7 @@ class MainWindow(QMainWindow):
         self.gyro_history = []
         
         self.prev_health = {}
+        self.ch_latest_alt = {}   # 非焦點高度快取一併清(活頻道 0.5s 內自動回填)
 
         # 重置 3D 姿態繪製器
         self.attitude_displayer.update(self.quaternion)
@@ -531,6 +685,14 @@ class MainWindow(QMainWindow):
         self.sync_chart_cb.stateChanged.connect(toggle_sync)
         self.ui.horizontalLayout_5.addWidget(self.sync_chart_cb)
         toggle_sync(2)
+
+        # ── F2/F5:焦點切換+火工品操作列;原生 4 顆 Auto 收進全域「Auto 跟隨」──
+        # 原 checkbox 隱藏不移除:update_ui 仍讀它們(繪圖邏輯零改動),
+        # 由 global_auto_cb 代理設定。
+        self._build_pyro_button_row()
+        for cb in (self.ui.chart_checkBox_1, self.ui.chart_checkBox_2,
+                   self.ui.chart_checkBox_3, self.ui.map_checkBox):
+            cb.hide()
 
         # 動態插入各圖表的曲線勾選框 (暫時隱藏，因為使用者可以直接操作圖例)
         # self._add_curve_checkboxes(
@@ -779,9 +941,16 @@ class MainWindow(QMainWindow):
         current_dev = self.get_deviation_angle(self.quaternion, self.calib_q)
         self.max_deviation_angle = max(self.max_deviation_angle, current_dev)
 
-        # 動態更新圖表上方標籤顯示具體數值
+        # 動態更新圖表上方標籤顯示具體數值(F3-B:尾端併排非焦點頻道最新高度;
+        # 5 秒沒新資料顯示 "--" 防止死板舊值偽裝成活資料)
+        _now = time.time()
+        others = " ".join(
+            (f"┃{c}: {alt:.0f}m {vz:+.1f}m/s" if _now - ts < 5.0 else f"┃{c}: --")
+            for c, (alt, vz, ts) in sorted(self.ch_latest_alt.items())
+            if c != self.focus_channel
+        )
         self.ui.chart_label_1.setText(
-            f"高度與速度 ] 箭端高度: {data.kfh_height:.1f} m | 最大高度: {self.max_height:.1f} m | 垂直速度: {data.vz:.1f} m/s"
+            f"高度與速度 ] 箭端高度: {data.kfh_height:.1f} m | 最大高度: {self.max_height:.1f} m | 垂直速度: {data.vz:.1f} m/s {others}"
         )
         self.ui.chart_label_2.setText(
             f"加速度 ] 當前總加速度: {data.total_accel:.2f} g | 最大總加速度: {self.max_total_accel:.2f} g"
@@ -831,11 +1000,18 @@ class MainWindow(QMainWindow):
         if prev_status in ["No Data", "Lost", "Stale", "Backend Offline"]:
             self.logger.info(f"Telemetry channel '{topic}' connection established/resumed.")
 
+        # 收包瞬間該通道 LED 亮綠脈衝(下一輪 check_heartbeats 200ms 內覆蓋回狀態色)。
+        # Backend Offline 狀態不閃:命令路徑疑似死亡時不給「健康綠」的假象。
+        led = self.ch_leds.get(topic)
+        if led and self.channel_status.get(topic) != "Backend Offline":
+            led.setStyleSheet("background-color: #00FF00; border-radius: 6px; border: 1px solid #00AA00;")
+
         if topic == self.focus_channel:
-            # 💡 隨遙測資料接收閃爍綠燈，並重置定時器
-            self.rx_led.setStyleSheet("background-color: #00FF00; border-radius: 6px; border: 1px solid #00AA00;")
-            self.led_timer.start(100) # 100ms 後自動呼叫 _turn_off_led 變回灰色
             self.update_ui(data)
+        else:
+            # 非焦點頻道:記錄最新高度供 chart1 標題併排顯示(F3-B 數字欄)。
+            # 帶時間戳:渲染端 5s 過期改顯 "--",死板的舊高度不得偽裝成活資料。
+            self.ch_latest_alt[topic] = (data.kfh_height, data.vz, time.time())
 
     def _is_backend_running(self, focus_ch: str) -> bool:
         """透過本機 TCP 探針檢測後端 Daemon (ZMQ CMD/PUB Port) 是否運作中"""
@@ -856,60 +1032,96 @@ class MainWindow(QMainWindow):
                 pass
         return False
 
+    # LED 色票(沿用 jx06 五態規則;集中定義供逐通道渲染)
+    _LED_CSS = "background-color: {c}; border-radius: 6px;{b}"
+
+    def _set_led(self, ch: str, color: str, border: str = "", tooltip: str = ""):
+        led = self.ch_leds.get(ch)
+        if led:
+            b = f" border: 1px solid {border};" if border else ""
+            led.setStyleSheet(self._LED_CSS.format(c=color, b=b))
+            if tooltip:
+                led.setToolTip(f"{ch}: {tooltip}")
+
+    def _backend_online_cached(self, ch: str, now: float) -> bool:
+        """backend TCP 探針加 1s 快取:兩通道 x 5Hz 全探會放大 GUI 卡頓風險"""
+        if not hasattr(self, "_probe_cache"):
+            self._probe_cache = {}
+        ts, val = self._probe_cache.get(ch, (0.0, False))
+        if now - ts >= 1.0:
+            val = self._is_backend_running(ch)
+            self._probe_cache[ch] = (now, val)
+        return val
+
     def check_heartbeats(self):
-        """定期 (5Hz) 檢查通道接收心跳並刷新狀態 LED 與顯示字串"""
+        """定期 (5Hz) 檢查「所有」通道心跳:逐通道刷新 LED+右下簡版狀態;
+        焦點通道另外寫 serial_label 詳細字串(維持 jx06 原版格式)。"""
         now = time.time()
-        focus_ch = self.focus_channel
-        last_time = self.last_recv_time.get(focus_ch)
-        
-        cfg = self.channel_configs.get(focus_ch, {})
-        port = cfg.get("port", "N/A")
-        baud = cfg.get("baud", "N/A")
-        
-        prev_status = self.channel_status.get(focus_ch)
-        backend_online = self._is_backend_running(focus_ch)
 
-        if not backend_online:
-            # 💡 後端服務未啟動（閃爍紫燈/深紫燈）
-            self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰Backend Offline (後端服務未啟動)")
-            if int(now * 2) % 2 == 0:
-                self.rx_led.setStyleSheet("background-color: #9933FF; border-radius: 6px; border: 1px solid #6600CC;")
+        for ch in self.channel_ids:
+            last_time = self.last_recv_time.get(ch)
+            cfg = self.channel_configs.get(ch, {})
+            port = cfg.get("port", "N/A")
+            baud = cfg.get("baud", "N/A")
+            prev_status = self.channel_status.get(ch)
+            is_focus = (ch == self.focus_channel)
+
+            # ★資料證據優先:1.5s 內有遙測=後端 PUB 側必然活著,TCP 探針的
+            #   偶發 false-negative(GUI 卡頓漏 50ms timeout/探針快取窗)不得
+            #   壓過它——否則 log 每 200ms 洗「offline↔resumed」+LED 綠紫頻閃。
+            has_fresh_data = (last_time is not None and now - last_time < 1.5)
+            if not self._backend_online_cached(ch, now) and not has_fresh_data:
+                short = f"{ch} {port} ✖後端未啟動"
+                color = "#9933FF" if int(now * 2) % 2 == 0 else "#442266"
+                self._set_led(ch, color, "#6600CC", "Backend Offline(紫=後端服務未啟動)")
+                self.channel_status[ch] = "Backend Offline"
+                if prev_status != "Backend Offline":
+                    self.logger.warning(f"Telemetry backend daemon for channel '{ch}' is offline! "
+                                        f"Please start main.py or run_persist_backend.bat. (紫燈=此狀態)")
+                if is_focus:
+                    self.ui.serial_label.setText(
+                        f"port︰{port}｜baudrate︰{baud}｜Status︰Backend Offline (後端服務未啟動)")
+                self._set_port_label(ch, short, "#B366FF")
+                continue
+
+            if last_time is None:
+                status_txt = "No Data (後端已連線/待資料)"
+                self._set_led(ch, "#FF6600", "#CC3300", "No Data(後端在跑、還沒收到遙測)")
+                self.channel_status[ch] = "No Data"
+                self._set_port_label(ch, f"{ch} {port} ◌無資料", "#FF9955")
             else:
-                self.rx_led.setStyleSheet("background-color: #442266; border-radius: 6px; border: 1px solid #220044;")
-            self.channel_status[focus_ch] = "Backend Offline"
-            if prev_status != "Backend Offline":
-                self.logger.warning(f"Telemetry backend daemon for channel '{focus_ch}' is offline! Please start main.py or run_persist_backend.bat.")
-            return
-
-        if last_time is None:
-            # 💡 後端有開，但從未收到數據（亮橘黃燈）
-            self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰No Data (後端已連線/待資料)")
-            self.rx_led.setStyleSheet("background-color: #FF6600; border-radius: 6px; border: 1px solid #CC3300;")
-            self.channel_status[focus_ch] = "No Data"
-        else:
-            elapsed = now - last_time
-            if elapsed < 1.5:
-                # 正常綠燈
-                self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰Connected ({elapsed:.1f}s ago)")
-                self.rx_led.setStyleSheet("background-color: #00FF00; border-radius: 6px; border: 1px solid #00AA00;")
-                self.channel_status[focus_ch] = "Connected"
-            elif elapsed < 5.0:
-                # 遲滯閃爍橘色
-                self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰Stale ({elapsed:.1f}s ago)")
-                if int(now * 5) % 2 == 0:
-                    self.rx_led.setStyleSheet("background-color: #FFA500; border-radius: 6px; border: 1px solid #CC8400;")
+                elapsed = now - last_time
+                if elapsed < 1.5:
+                    status_txt = f"Connected ({elapsed:.1f}s ago)"
+                    self._set_led(ch, "#00CC00", "#00AA00", f"Connected({elapsed:.1f}s)")
+                    self.channel_status[ch] = "Connected"
+                    self._set_port_label(ch, f"{ch} {port} ✔{elapsed:.1f}s", "#66DD66")
+                elif elapsed < 5.0:
+                    status_txt = f"Stale ({elapsed:.1f}s ago)"
+                    color = "#FFA500" if int(now * 5) % 2 == 0 else "#555555"
+                    self._set_led(ch, color, "#CC8400", f"Stale({elapsed:.1f}s)")
+                    self.channel_status[ch] = "Stale"
+                    if prev_status == "Connected":
+                        self.logger.warning(f"Telemetry channel '{ch}' connection stale. "
+                                            f"Last data received {elapsed:.1f}s ago.")
+                    self._set_port_label(ch, f"{ch} {port} ⚠{elapsed:.1f}s", "#FFB84D")
                 else:
-                    self.rx_led.setStyleSheet("background-color: #555555; border-radius: 6px;")
-                self.channel_status[focus_ch] = "Stale"
-                if prev_status == "Connected":
-                    self.logger.warning(f"Telemetry channel '{focus_ch}' connection stale. Last data received {elapsed:.1f}s ago.")
-            else:
-                # 💡 後端有開，但遙測無線訊號中斷 (斷線紅燈)
-                self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰Telemetry Lost ({elapsed:.1f}s ago)")
-                self.rx_led.setStyleSheet("background-color: #FF0000; border-radius: 6px; border: 1px solid #AA0000;")
-                self.channel_status[focus_ch] = "Lost"
-                if prev_status in ["Connected", "Stale"]:
-                    self.logger.error(f"Telemetry channel '{focus_ch}' RF lost! No data received for {elapsed:.1f}s.")
+                    status_txt = f"Telemetry Lost ({elapsed:.1f}s ago)"
+                    self._set_led(ch, "#FF0000", "#AA0000", f"Lost({elapsed:.0f}s)")
+                    self.channel_status[ch] = "Lost"
+                    if prev_status in ["Connected", "Stale"]:
+                        self.logger.error(f"Telemetry channel '{ch}' RF lost! "
+                                          f"No data received for {elapsed:.1f}s.")
+                    self._set_port_label(ch, f"{ch} {port} ✖{elapsed:.0f}s", "#FF6666")
+
+            if is_focus:
+                self.ui.serial_label.setText(f"port︰{port}｜baudrate︰{baud}｜Status︰{status_txt}")
+
+    def _set_port_label(self, ch: str, text: str, color: str):
+        lbl = self.ch_port_labels.get(ch)
+        if lbl:
+            lbl.setText(text)
+            lbl.setStyleSheet(f"color: {color};")
 
 
     def poll_zmq_data(self):
@@ -943,10 +1155,6 @@ class MainWindow(QMainWindow):
             except Exception as e:
                 self.logger.error(f"Error polling ZMQ message: {e}")
                 break
-
-    def _turn_off_led(self):
-        """關閉接收指示燈 (變灰色)"""
-        self.rx_led.setStyleSheet("background-color: #555555; border-radius: 6px;")
 
     def closeEvent(self, event):
         """視窗關閉時釋放 ZMQ 資源"""
