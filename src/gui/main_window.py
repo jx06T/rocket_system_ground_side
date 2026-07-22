@@ -114,12 +114,12 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
         QQuickWindow.setGraphicsApi(QSGRendererInterface.GraphicsApi.OpenGL)
 
-        # Chart 1：高度與速度
-        self.chart_1 = LineChartDrawer(self.ui.chart_widget_1, window_width=200, curve_configs=[
-            {'label': 'KH 箭端計算高度(m)', 'color': (0, 180, 80),    'width': 2.0},
-            {'label': 'RH 氣壓高度(m)', 'color': (230, 140, 0),   'width': 1.5},
-            {'label': 'VZ 垂直速度(m/s)', 'color': (60, 120, 220), 'width': 1.5},
-        ])
+        # Chart 1：高度與速度 —— 純雙頻道對照圖(2026-07-22 使用者定案:
+        # 焦點實線刪除,只畫 per-channel 覆疊曲線;所有頻道平權、全時段畫)。
+        # curve_configs=[] → 無主曲線;update([]) 仍推 time_axis + auto_scroll
+        # (X 軸捲動與 sync-X 依賴它)。
+        self.chart_1 = LineChartDrawer(self.ui.chart_widget_1, window_width=200,
+                                       curve_configs=[])
         # Chart 2：加速度
         self.chart_2 = LineChartDrawer(self.ui.chart_widget_2, window_width=200, curve_configs=[
             {'label': 'GA 總加速度(g)', 'color': (0, 180, 80),    'width': 3.0},
@@ -928,9 +928,10 @@ class MainWindow(QMainWindow):
         # 💡 使用地面站接收的高精度相對時間軸 X
         x_val = data.gs_timestamp - self.start_time
 
-        # Chart 1：高度（融合高度 KH、相對高度 RH）與垂直速度（VZ）
+        # Chart 1:主曲線已移除(雙頻道對照圖,曲線由 overlay 畫);
+        # 仍呼叫 update([]) 推進時間軸與 auto_scroll(X 捲動+sync-X 的錨點)
         self.chart_1.update(
-            [data.kfh_height, data.rel_height, data.vz],
+            [],
             auto_scroll=self.ui.chart_checkBox_1.isChecked(),
             x_value=x_val
         )
@@ -1023,18 +1024,20 @@ class MainWindow(QMainWindow):
         if led and self.channel_status.get(topic) != "Backend Offline":
             led.setStyleSheet("background-color: #00FF00; border-radius: 6px; border: 1px solid #00AA00;")
 
+        # F3-A:chart1=雙頻道對照圖 —— 「所有」頻道的 KH/VZ 都推進各自的
+        # 覆疊曲線(焦點實線已刪,頻道平權全時段畫;時間基準同 chart 群)
+        ov = self.alt_overlays.get(topic)
+        if ov:
+            x = data.gs_timestamp - self.start_time
+            ov["kh"].push(x, data.kfh_height)
+            ov["vz"].push(x, data.vz)
+
         if topic == self.focus_channel:
             self.update_ui(data)
         else:
             # 非焦點頻道:記錄最新高度供 chart1 標題併排顯示(F3-B 數字欄)。
             # 帶時間戳:渲染端 5s 過期改顯 "--",死板的舊高度不得偽裝成活資料。
             self.ch_latest_alt[topic] = (data.kfh_height, data.vz, time.time())
-            # F3-A:同框覆疊曲線 —— 與主曲線同一時間基準(gs_timestamp-start_time)
-            ov = self.alt_overlays.get(topic)
-            if ov:
-                x = data.gs_timestamp - self.start_time
-                ov["kh"].push(x, data.kfh_height)
-                ov["vz"].push(x, data.vz)
 
     def _is_backend_running(self, focus_ch: str) -> bool:
         """透過本機 TCP 探針檢測後端 Daemon (ZMQ CMD/PUB Port) 是否運作中"""
