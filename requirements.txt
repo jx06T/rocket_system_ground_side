@@ -4,4 +4,4 @@ numpy
 pyqtgraph
 folium
 PyQt6-WebEngine
-pyzmq
+pyzmqPyOpenGL
