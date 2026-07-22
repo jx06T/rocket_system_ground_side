@@ -47,8 +47,7 @@ class LoraProtocolHandler:
         """
         raw_token, cmd_label = LoraCommand.get_token(action)
         self.logger.info(
-            f"[{self.channel_id.upper()}] Transmitting '{cmd_label}' over LoRa "
-            f"({repeat_count} bursts, interval={int(burst_interval * 1000)}ms)..."
+            f"🟦 [CMD] Transmitting /{action} ({cmd_label}) over LoRa ({repeat_count}x bursts, {int(burst_interval * 1000)}ms interval)..."
         )
 
         sent_success = 0
@@ -59,10 +58,10 @@ class LoraProtocolHandler:
             time.sleep(burst_interval)
 
         if sent_success > 0:
-            msg = f"[{self.channel_id.upper()}] Successfully transmitted '{cmd_label}' ({sent_success}/{repeat_count} bursts)."
+            msg = f"🟦 [CMD] Successfully transmitted /{action} ({cmd_label}) over {self.channel_id.upper()} ({sent_success}/{repeat_count} bursts)."
             self.logger.info(msg)
             return True, sent_success, msg
         else:
-            msg = f"[{self.channel_id.upper()}] Transmit failed for '{cmd_label}': Serial link not active."
+            msg = f"🟥 [CMD] Transmit failed for /{action} ({cmd_label}): Serial port offline."
             self.logger.error(msg)
             return False, 0, msg

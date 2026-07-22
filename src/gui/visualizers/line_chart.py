@@ -43,6 +43,8 @@ class LineChartDrawer:
         self.data_points: List[np.ndarray] = [np.array([]) for _ in range(self.num_lines)]
         self.time_axis: np.ndarray = np.array([])
         self.current_x: int = 0
+        self._event_marker_count: int = 0  # 用於 Y 軸錯排的循環計數器
+        self.event_items: List[Any] = []   # 用於追蹤已新增的事件標記物件 (InfiniteLine, TextItem)
 
         # 根據 curve_configs 創建各條曲線
         self.curves: List[pg.PlotDataItem] = []
@@ -99,3 +101,53 @@ class LineChartDrawer:
 
         if auto_scroll:
             self.plot_widget.setXRange(curr_x - self.window_width, curr_x)
+
+    def set_x_link(self, master_drawer: 'LineChartDrawer' = None) -> None:
+        """綁定或解綁 X 軸縮放與平移檢視。傳入 master_drawer 進行同步，傳入 None 則獨立。"""
+        target_widget = master_drawer.plot_widget if master_drawer else None
+        self.plot_widget.setXLink(target_widget)
+
+    def add_event_marker(self, x_value: float, label_text: str, color: str = '#D500F9') -> None:
+        """
+        在圖表指定 X 軸時間點劃出一條垂直事件虛線，並附帶縮寫文字標籤。
+        標籤 Y 位置依環狀計數器錯排，避免多個標記重疊。
+        """
+        pen = pg.mkPen(color=color, width=1.5, style=pg.QtCore.Qt.PenStyle.DashLine)
+        vline = pg.InfiniteLine(pos=x_value, angle=90, pen=pen, movable=False)
+        self.plot_widget.addItem(vline)
+        self.event_items.append(vline)
+
+        # 5 個 Y 比例高度，依序循環錯排標籤，避免重疊
+        _Y_FRACS = [0.92, 0.76, 0.60, 0.44, 0.28]
+        frac = _Y_FRACS[self._event_marker_count % len(_Y_FRACS)]
+        self._event_marker_count += 1
+
+        text_item = pg.TextItem(text=label_text, color=color, anchor=(0, 1))
+        vb = self.plot_widget.getViewBox()
+        if vb:
+            y_range = vb.viewRange()[1]
+            y_span = y_range[1] - y_range[0]
+            text_item.setPos(x_value, y_range[0] + y_span * frac)
+        else:
+            text_item.setPos(x_value, 0)
+        self.plot_widget.addItem(text_item)
+        self.event_items.append(text_item)
+
+    def clear(self) -> None:
+        """重置圖表，清空所有資料點、時間軸與事件標記。"""
+        self.data_points = [np.array([]) for _ in range(self.num_lines)]
+        self.time_axis = np.array([])
+        self.current_x = 0
+        self._event_marker_count = 0
+
+        for item in self.event_items:
+            try:
+                self.plot_widget.removeItem(item)
+            except Exception:
+                pass
+        self.event_items.clear()
+
+        for curve in self.curves:
+            curve.setData([], [])
+
+

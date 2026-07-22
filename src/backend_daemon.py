@@ -75,7 +75,7 @@ class ZmqLogHandler(logging.Handler):
             self.handleError(record)
 
 
-def run_command_responder(zmq_cmd_port: int, communicator: SerialCommunicator, channel_id: str):
+def run_command_responder(zmq_cmd_port: int, communicator: SerialCommunicator, channel_id: str, storage_obs: StorageObserver = None):
     """ZMQ REP 控制通道端點，負責接收來自 GUI 的指令"""
     context = zmq.Context()
     socket = context.socket(zmq.REP)
@@ -125,9 +125,22 @@ def run_command_responder(zmq_cmd_port: int, communicator: SerialCommunicator, c
                     socket.send_json({"status": "ok", "sent_times": count, "message": detail})
                 else:
                     socket.send_json({"status": "error", "error": detail})
+            elif cmd == "reset_session":
+                new_run_id = uuid.uuid4().hex[:8]
+                new_timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                new_raw_log = f"data/raw_{channel_id}_{new_timestamp}_{new_run_id}.log"
+                new_storage_prefix = f"data/{channel_id}_all_data_{new_timestamp}_{new_run_id}"
+
+                communicator.raw_log_filepath = new_raw_log
+                if storage_obs:
+                    storage_obs.filename = new_storage_prefix
+
+                logger.info(f"Session data reset! Saved previous session files. Created new CSV storage: {new_storage_prefix}_sensor.csv, raw log: {new_raw_log}")
+                socket.send_json({"status": "ok", "new_prefix": new_storage_prefix, "new_raw_log": new_raw_log})
             else:
                 logger.warning(f"Unknown command received: {cmd}")
                 socket.send_json({"status": "error", "error": f"Unknown command: {cmd}"})
+
         except Exception as e:
             logger.error(f"Error handling controller message: {e}")
             try:
@@ -212,10 +225,11 @@ def main():
     # 6. 啟動 ZMQ REQ/REP 指令控制端點線程
     cmd_thread = threading.Thread(
         target=run_command_responder,
-        args=(zmq_cmd_port, communicator, channel_id),
+        args=(zmq_cmd_port, communicator, channel_id, storage_obs),
         daemon=True
     )
     cmd_thread.start()
+
 
     # 7. 啟動 Serial 通訊讀取背景執行緒
     communicator.start()
