@@ -137,6 +137,19 @@ class MainWindow(QMainWindow):
             {'label': 'GZ 角速度(°/s)', 'color': (180, 180, 0),   'width': 1.0},
         ])
 
+        # ── F3-A:非焦點頻道的高度/速度「同框」覆疊曲線(虛線)──
+        # 每個頻道各建一組 KH+VZ 把手;只有「非焦點」頻道的資料會被推入
+        # (update_ui_from_zmq),焦點頻道走主曲線。切焦點時全部清空重畫。
+        _overlay_palette = [(150, 0, 200), (200, 120, 0), (0, 160, 160)]
+        self.alt_overlays = {}
+        for i, ch in enumerate(self.channel_ids):
+            c = _overlay_palette[i % len(_overlay_palette)]
+            self.alt_overlays[ch] = {
+                "kh": self.chart_1.add_overlay_series(f"{ch} KH(m)", c, width=1.8),
+                "vz": self.chart_1.add_overlay_series(f"{ch} VZ(m/s)",
+                                                      (c[0]//2, c[1]//2, min(c[2]+80, 255)), width=1.2),
+            }
+
         self.init_gui()
 
         self.stage_display = StageDisplayer(self.ui.listWidget)
@@ -610,6 +623,10 @@ class MainWindow(QMainWindow):
         
         self.prev_health = {}
         self.ch_latest_alt = {}   # 非焦點高度快取一併清(活頻道 0.5s 內自動回填)
+        # F3-A 覆疊曲線一併清:start_time 已重置,舊 x 基準的點續留會錯位
+        for ov in getattr(self, "alt_overlays", {}).values():
+            ov["kh"].reset()
+            ov["vz"].reset()
 
         # 重置 3D 姿態繪製器
         self.attitude_displayer.update(self.quaternion)
@@ -1012,6 +1029,12 @@ class MainWindow(QMainWindow):
             # 非焦點頻道:記錄最新高度供 chart1 標題併排顯示(F3-B 數字欄)。
             # 帶時間戳:渲染端 5s 過期改顯 "--",死板的舊高度不得偽裝成活資料。
             self.ch_latest_alt[topic] = (data.kfh_height, data.vz, time.time())
+            # F3-A:同框覆疊曲線 —— 與主曲線同一時間基準(gs_timestamp-start_time)
+            ov = self.alt_overlays.get(topic)
+            if ov:
+                x = data.gs_timestamp - self.start_time
+                ov["kh"].push(x, data.kfh_height)
+                ov["vz"].push(x, data.vz)
 
     def _is_backend_running(self, focus_ch: str) -> bool:
         """透過本機 TCP 探針檢測後端 Daemon (ZMQ CMD/PUB Port) 是否運作中"""
