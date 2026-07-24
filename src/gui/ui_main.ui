@@ -269,7 +269,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,2,1,0">
+       <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,2,0,1,0">
         <property name="spacing">
          <number>5</number>
         </property>
@@ -319,6 +319,19 @@
            <string notr="true">background-color: #ccc;</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="pyro_button_row">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>5</number>
+          </property>
+         </layout>
         </item>
         <item>
          <widget class="QTextEdit" name="log_textEdit">
@@ -724,6 +737,13 @@ p, li { white-space: pre-wrap; }
         <number>0</number>
        </property>
        <item>
+        <layout class="QHBoxLayout" name="status_leds_layout">
+         <property name="spacing">
+          <number>6</number>
+         </property>
+        </layout>
+       </item>
+       <item>
         <widget class="QLabel" name="version_label">
          <property name="text">
           <string>TextLabel</string>
@@ -742,6 +762,13 @@ p, li { white-space: pre-wrap; }
           </size>
          </property>
         </spacer>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="multi_port_layout">
+         <property name="spacing">
+          <number>12</number>
+         </property>
+        </layout>
        </item>
        <item>
         <widget class="QLabel" name="serial_label">

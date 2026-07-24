@@ -2,6 +2,29 @@ import numpy as np
 import pyqtgraph as pg
 from PyQt6.QtWidgets import QVBoxLayout
 from typing import List, Dict, Any
+from collections import deque
+
+
+class OverlaySeries:
+    """覆疊曲線把手:自帶獨立 (x, y) 環形緩衝(deque),供第二頻道等
+    「節奏與主曲線無關」的資料源逐點推入。"""
+    def __init__(self, plot_item: pg.PlotDataItem, max_points: int = 4000):
+        self._item = plot_item
+        self._x = deque(maxlen=max_points)
+        self._y = deque(maxlen=max_points)
+
+    def push(self, x: float, y: float) -> None:
+        self._x.append(float(x))
+        self._y.append(float(y))
+        self._item.setData(list(self._x), list(self._y))
+
+    def reset(self) -> None:
+        self._x.clear()
+        self._y.clear()
+        self._item.setData([], [])
+
+    def set_visible(self, visible: bool) -> None:
+        self._item.setVisible(visible)
 
 
 class LineChartDrawer:
@@ -106,6 +129,19 @@ class LineChartDrawer:
         """綁定或解綁 X 軸縮放與平移檢視。傳入 master_drawer 進行同步，傳入 None 則獨立。"""
         target_widget = master_drawer.plot_widget if master_drawer else None
         self.plot_widget.setXLink(target_widget)
+
+    def add_overlay_series(self, label: str, color, width: float = 1.5,
+                           dashed: bool = True, max_points: int = 4000) -> 'OverlaySeries':
+        """新增一條「外部自管數據」的覆疊曲線並回傳其把手。
+
+        與主曲線組不同：覆疊曲線有自己獨立的 (x, y) 序列,不參與 update()
+        的批次推點——專為「第二遙測頻道」設計:兩個頻道封包節奏獨立,硬塞
+        同一條 time_axis 會錯位,各自持有時間軸才能在同一張圖上正確對齊。"""
+        pen = pg.mkPen(color=color, width=width,
+                       style=pg.QtCore.Qt.PenStyle.DashLine if dashed
+                       else pg.QtCore.Qt.PenStyle.SolidLine)
+        item = self.plot_widget.plot(pen=pen, name=label)
+        return OverlaySeries(item, max_points)
 
     def add_event_marker(self, x_value: float, label_text: str, color: str = '#D500F9') -> None:
         """
