@@ -1,7 +1,7 @@
 {
     "channels": {
         "ch1": {
-            "port": "com7",
+            "port": "com11",
             "baudrate": 9600,
             "zmq_port": 15555,
             "zmq_cmd_port": 15565

@@ -5,3 +5,4 @@ pyqtgraph
 folium
 PyQt6-WebEngine
 pyzmq
+PyOpenGL
